@@ -5,7 +5,7 @@ import industrialCoast from "@/assets/industrial-coast.jpg";
 const ItsAlreadyHappening = () => (
   <section className="py-16 bg-card">
     <div className="container">
-      <div className="caution-stripe h-2 mb-8 rounded-sm" />
+      
       <h2 className="font-heading text-3xl md:text-4xl uppercase text-center mb-10">
         It's Already <span className="text-primary">Happening</span>
       </h2>
