@@ -15,8 +15,8 @@ const HeroSection = () => (
 
 
     <div className="relative z-10 container py-16 md:py-28">
-      <div className="max-w-3xl">
-        <p className="font-heading text-xs uppercase tracking-[0.3em] text-primary mb-4 flex items-center gap-2">
+      <div className="max-w-3xl mx-auto text-center">
+        <p className="font-heading text-xs uppercase tracking-[0.3em] text-primary mb-4 flex items-center justify-center gap-2">
           <AlertTriangle size={14} />
           Orange and San Diego County
         </p>
@@ -24,11 +24,11 @@ const HeroSection = () => (
           Protect Your{" "}
           <span className="text-gold-gradient">Communities</span>
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl leading-relaxed">
+        <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed mx-auto max-w-xl">
           Protect your right to know about dangerous facilities going into your neighborhood.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 mb-8">
+        <div className="flex flex-col sm:flex-row gap-3 mb-8 justify-center">
           <Link
             to="/take-action"
             className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-6 py-3 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow"
@@ -43,7 +43,7 @@ const HeroSection = () => (
           </a>
         </div>
 
-        <div className="flex items-center gap-2 text-muted-foreground">
+        <div className="flex items-center justify-center gap-2 text-muted-foreground">
           <Users size={16} className="text-primary" />
           <span className="text-sm font-heading tracking-wider">
             <span className="text-primary font-bold">1,350</span> messages already sent
@@ -51,9 +51,6 @@ const HeroSection = () => (
         </div>
       </div>
     </div>
-
-    {/* Caution tape bottom */}
-    
   </section>
 );
 
