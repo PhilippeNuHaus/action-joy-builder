@@ -98,23 +98,6 @@ const ItsAlreadyHappening = () => (
             </article>
           </div>
 
-          <div className="absolute left-1/2 top-[58%] -translate-x-1/2 hidden lg:block bg-background/95 border border-border rounded-sm p-4 w-52 shadow-lg">
-            <h4 className="font-heading text-2xl uppercase tracking-wide text-foreground mb-3">Senate District 38</h4>
-            <ul className="space-y-2 text-sm font-heading uppercase tracking-wider text-foreground">
-              <li className="flex items-center gap-2">
-                <span className="h-4 w-4 rounded-sm bg-destructive" />
-                High (~90%)
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="h-4 w-4 rounded-sm bg-primary" />
-                Medium
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="h-4 w-4 rounded-sm bg-muted" />
-                Low
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>
