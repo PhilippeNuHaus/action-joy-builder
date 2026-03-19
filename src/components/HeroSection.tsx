@@ -51,10 +51,6 @@ const HeroSection = () => (
         </div>
       </div>
     </div>
-    </div>
-
-    {/* Caution tape bottom */}
-    
   </section>
 );
 
