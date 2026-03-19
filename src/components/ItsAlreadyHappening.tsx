@@ -1,68 +1,119 @@
 import { Link } from "react-router-dom";
+import districtMap from "@/assets/district-map.png";
 import songsNuclear from "@/assets/songs-nuclear.jpg";
 import encinaPower from "@/assets/encina-power.jpg";
 
 const ItsAlreadyHappening = () => (
-  <section className="py-16 bg-card">
+  <section className="bg-card py-10 md:py-14">
     <div className="container">
-      <h2 className="font-heading text-3xl md:text-4xl uppercase text-center mb-10">
+      <h2 className="font-heading text-3xl md:text-5xl uppercase text-center mb-6">
         It's Already <span className="text-primary">Happening</span>
       </h2>
 
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Left - Long Term Costs: SONGS text only */}
-        <div className="rounded-sm border border-border p-6 flex flex-col">
-          <h3 className="font-heading text-sm uppercase tracking-wider text-primary mb-4">
-            Long Term <span className="text-foreground font-bold">Costs</span>
-          </h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            The San Onofre Nuclear Generating Station (SONGS) was permanently shut down in 2013 following equipment failures and a radiation leak, yet more than 3.6 million pounds of nuclear waste remain stored on-site, just feet from the Pacific Ocean. Despite ongoing mitigation efforts, the site continues to raise serious concerns.
-          </p>
-        </div>
+      <div className="caution-stripe h-4 mb-6" />
 
-        {/* Center - Know What's Near You */}
-        <div className="flex flex-col">
-          <h3 className="font-heading text-sm uppercase tracking-wider text-primary mb-4">
+      <div className="relative overflow-hidden rounded-sm border border-border min-h-[620px]">
+        <img
+          src={districtMap}
+          alt="Map of Senate District 38"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-background/35" />
+
+        <svg
+          viewBox="0 0 1200 700"
+          className="pointer-events-none absolute inset-0 hidden lg:block w-full h-full"
+          aria-hidden="true"
+        >
+          <polyline
+            points="300,170 470,170 585,265"
+            fill="none"
+            stroke="hsl(var(--navy))"
+            strokeWidth="4"
+          />
+          <polyline
+            points="920,380 760,380 640,500"
+            fill="none"
+            stroke="hsl(var(--navy))"
+            strokeWidth="4"
+          />
+          <circle cx="585" cy="265" r="11" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
+          <circle cx="640" cy="500" r="11" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
+        </svg>
+
+        <div className="relative z-10 p-4 md:p-6 lg:p-8">
+          <Link
+            to="/whats-near-you"
+            className="mx-auto mb-6 block w-fit rounded-sm border border-primary bg-card px-6 py-3 font-heading text-xl uppercase tracking-wide text-primary hover:bg-secondary transition-colors"
+          >
             Know What's Near You
-          </h3>
-          <div className="flex-1 flex flex-col justify-between">
-            <img
-              src={songsNuclear}
-              alt="San Onofre Nuclear Generating Station"
-              className="w-full rounded-sm grayscale"
-            />
-            <Link
-              to="/whats-near-you"
-              className="block text-center bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-4 py-3 rounded-sm hover:bg-gold-dark transition-colors mt-6"
-            >
-              What's Near You
-            </Link>
-          </div>
-        </div>
+          </Link>
 
-        {/* Right - Long Term Costs: Encina with image */}
-        <div className="rounded-sm border border-border overflow-hidden flex flex-col">
-          <div className="relative">
-            <img
-              src={encinaPower}
-              alt="Encina Power Station in Carlsbad"
-              className="w-full h-52 object-cover"
-            />
-            {/* Diagonal caution stripes on corners */}
-            <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-              <div className="caution-stripe-thin absolute -right-4 -top-4 w-24 h-24 rotate-45 origin-center" />
-            </div>
-            <div className="absolute bottom-0 left-0 w-16 h-16 overflow-hidden">
-              <div className="caution-stripe-thin absolute -left-4 -bottom-4 w-24 h-24 rotate-45 origin-center" />
-            </div>
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,320px)_1fr_minmax(0,320px)] lg:items-start">
+            <article className="bg-card/95 border-2 border-primary rounded-xl p-4">
+              <h3 className="font-heading text-3xl uppercase tracking-wide text-center mb-4">
+                Long Term <span className="text-primary">Costs</span>
+              </h3>
+              <img
+                src={songsNuclear}
+                alt="San Onofre Nuclear Generating Station"
+                className="w-full h-28 object-cover rounded-sm border border-primary grayscale mb-3"
+              />
+              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium">
+                Industrial infrastructure along the Southern California coast has already left lasting risks for surrounding
+                communities. The San Onofre Nuclear Generating Station (SONGS), located within the district, was permanently
+                shut down in 2013 following equipment failures and a radiation leak, yet more than 3.6 million pounds of
+                nuclear waste remain stored on-site, just feet from the Pacific Ocean. Despite ongoing mitigation efforts,
+                the site continues to raise serious concerns around coastal erosion, groundwater contamination, and long-term
+                storage safety in a seismically active region. With no permanent federal disposal solution in place, highly
+                radioactive waste remains stranded in the community indefinitely. Large-scale industrial projects can leave
+                behind consequences that persist for decades, and without strong environmental oversight, communities risk
+                being exposed to long-term hazards while taxpayers are left carrying the cost of monitoring, mitigation,
+                and cleanup.
+              </p>
+            </article>
+
+            <div className="hidden lg:block" />
+
+            <article className="bg-card/95 border-2 border-primary rounded-xl p-4">
+              <h3 className="font-heading text-3xl uppercase tracking-wide text-center mb-4">
+                Long Term <span className="text-primary">Costs</span>
+              </h3>
+              <img
+                src={encinaPower}
+                alt="Encina Power Station in Carlsbad"
+                className="w-full h-28 object-cover rounded-sm border border-primary mb-3"
+              />
+              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium">
+                Industrial activity along the North County coastline has already left a lasting environmental footprint. The
+                Encina Power Station in Carlsbad, which operated for decades along the Pacific, relied on once-through ocean
+                cooling that drew in and killed marine life while discharging heated water back into the ocean. The facility
+                also contributed to air pollution and greenhouse gas emissions in surrounding communities before its closure
+                in 2018. While the plant has since been decommissioned, redevelopment of the site has required years of
+                planning, mitigation, and costly environmental remediation to address its long-term impacts. Large-scale
+                industrial facilities can leave behind consequences that persist well beyond their operation, and without
+                strong environmental oversight, communities risk facing prolonged environmental damage and significant
+                cleanup costs long after projects are approved.
+              </p>
+            </article>
           </div>
-          <div className="p-6">
-            <h3 className="font-heading text-sm uppercase tracking-wider text-primary mb-4">
-              Long Term <span className="text-foreground font-bold">Costs</span>
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              The Encina Power Station in Carlsbad operated for decades along the Pacific, relying on once-through ocean cooling that drew in and killed marine life while discharging heated water back into the ocean. Large-scale industrial facilities can leave behind consequences that persist well beyond their operation.
-            </p>
+
+          <div className="absolute left-1/2 top-[58%] -translate-x-1/2 hidden lg:block bg-background/95 border border-border rounded-sm p-4 w-52 shadow-lg">
+            <h4 className="font-heading text-2xl uppercase tracking-wide text-foreground mb-3">Senate District 38</h4>
+            <ul className="space-y-2 text-sm font-heading uppercase tracking-wider text-foreground">
+              <li className="flex items-center gap-2">
+                <span className="h-4 w-4 rounded-sm bg-destructive" />
+                High (~90%)
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-4 w-4 rounded-sm bg-primary" />
+                Medium
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-4 w-4 rounded-sm bg-muted" />
+                Low
+              </li>
+            </ul>
           </div>
         </div>
       </div>
