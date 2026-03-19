@@ -10,8 +10,8 @@ const ItsAlreadyHappening = () => (
       </h2>
 
       <div className="grid lg:grid-cols-3 gap-6">
-        {/* Long Term Costs - SONGS (text only) */}
-        <div className="bg-secondary/30 rounded-sm border border-border p-6 flex flex-col">
+        {/* Left - Long Term Costs: SONGS text only */}
+        <div className="rounded-sm border border-border p-6 flex flex-col">
           <h3 className="font-heading text-sm uppercase tracking-wider text-primary mb-4">
             Long Term <span className="text-foreground font-bold">Costs</span>
           </h3>
@@ -20,37 +20,42 @@ const ItsAlreadyHappening = () => (
           </p>
         </div>
 
-        {/* Know What's Near You */}
-        <div className="bg-secondary/30 rounded-sm border border-border overflow-hidden flex flex-col">
-          <div className="p-6 pb-4">
-            <h3 className="font-heading text-sm uppercase tracking-wider text-primary mb-4">
-              Know What's Near You
-            </h3>
-          </div>
-          <div className="px-6">
+        {/* Center - Know What's Near You */}
+        <div className="flex flex-col">
+          <h3 className="font-heading text-sm uppercase tracking-wider text-primary mb-4">
+            Know What's Near You
+          </h3>
+          <div className="flex-1 flex flex-col justify-between">
             <img
               src={songsNuclear}
               alt="San Onofre Nuclear Generating Station"
-              className="w-full rounded-sm"
+              className="w-full rounded-sm grayscale"
             />
-          </div>
-          <div className="p-6 pt-4 mt-auto">
             <Link
               to="/whats-near-you"
-              className="block text-center bg-primary text-primary-foreground font-heading text-xs uppercase tracking-wider px-4 py-3 rounded-sm hover:bg-gold-dark transition-colors"
+              className="block text-center bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-4 py-3 rounded-sm hover:bg-gold-dark transition-colors mt-6"
             >
               What's Near You
             </Link>
           </div>
         </div>
 
-        {/* Long Term Costs - Encina */}
-        <div className="bg-secondary/30 rounded-sm border border-border overflow-hidden flex flex-col">
-          <img
-            src={encinaPower}
-            alt="Encina Power Station in Carlsbad"
-            className="w-full h-48 object-cover"
-          />
+        {/* Right - Long Term Costs: Encina with image */}
+        <div className="rounded-sm border border-border overflow-hidden flex flex-col">
+          <div className="relative">
+            <img
+              src={encinaPower}
+              alt="Encina Power Station in Carlsbad"
+              className="w-full h-52 object-cover"
+            />
+            {/* Diagonal caution stripes on corners */}
+            <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+              <div className="caution-stripe-thin absolute -right-4 -top-4 w-24 h-24 rotate-45 origin-center" />
+            </div>
+            <div className="absolute bottom-0 left-0 w-16 h-16 overflow-hidden">
+              <div className="caution-stripe-thin absolute -left-4 -bottom-4 w-24 h-24 rotate-45 origin-center" />
+            </div>
+          </div>
           <div className="p-6">
             <h3 className="font-heading text-sm uppercase tracking-wider text-primary mb-4">
               Long Term <span className="text-foreground font-bold">Costs</span>
