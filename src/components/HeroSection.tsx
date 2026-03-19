@@ -11,7 +11,8 @@ const HeroSection = () => (
     </div>
 
     {/* Caution tape top */}
-    <div className="caution-stripe h-3 relative z-10" />
+
+
 
     <div className="relative z-10 container py-16 md:py-28">
       <div className="max-w-3xl">
