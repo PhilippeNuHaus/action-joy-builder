@@ -23,7 +23,7 @@ const testimonials = [
 const WhyItMatters = () => (
   <section className="py-16">
     <div className="container">
-      <div className="caution-stripe h-2 mb-8 rounded-sm" />
+      
       <h2 className="font-heading text-3xl md:text-4xl uppercase text-center mb-10">
         Why This <span className="text-primary">Matters</span>
       </h2>

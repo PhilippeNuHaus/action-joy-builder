@@ -53,7 +53,7 @@ const HeroSection = () => (
     </div>
 
     {/* Caution tape bottom */}
-    <div className="caution-stripe h-3 relative z-10" />
+    
   </section>
 );
 

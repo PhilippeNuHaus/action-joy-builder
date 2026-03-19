@@ -36,7 +36,7 @@ const categories = [
 const AdvancedManufacturing = () => (
   <section id="advanced-manufacturing" className="py-16 scroll-mt-20">
     <div className="container">
-      <div className="caution-stripe h-2 mb-8 rounded-sm" />
+      
       <h2 className="font-heading text-3xl md:text-4xl uppercase text-center mb-3">
         What Qualifies as{" "}
         <span className="text-gold-gradient">"Advanced Manufacturing"</span>?
