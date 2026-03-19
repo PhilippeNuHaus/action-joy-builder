@@ -39,7 +39,7 @@ const ItsAlreadyHappening = () => (
               to="/whats-near-you"
               className="block text-center bg-primary text-primary-foreground font-heading text-xs uppercase tracking-wider px-4 py-3 rounded-sm hover:bg-gold-dark transition-colors"
             >
-              Explore the Map
+              What's Near You
             </Link>
           </div>
         </div>
