@@ -26,7 +26,7 @@ const ItsAlreadyHappening = () => (
           aria-hidden="true"
         >
           <polyline
-            points="300,150 550,150 600,330"
+            points="300,150 545,150 595,325"
             fill="none"
             stroke="hsl(var(--navy))"
             strokeWidth="4"
@@ -37,7 +37,7 @@ const ItsAlreadyHappening = () => (
             stroke="hsl(var(--navy))"
             strokeWidth="4"
           />
-          <circle cx="600" cy="330" r="12" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
+          <circle cx="595" cy="325" r="12" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
           <circle cx="630" cy="530" r="12" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
         </svg>
 
