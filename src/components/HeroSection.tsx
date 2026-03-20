@@ -15,7 +15,7 @@ const HeroSection = () => (
 
 
     <div className="relative z-10 container py-16 md:py-28">
-      <div className="max-w-3xl mx-auto text-center">
+      <div className="max-w-3xl mx-auto text-center bg-background/40 backdrop-blur-sm rounded-lg p-8 md:p-12">
         <p className="font-heading text-xs uppercase tracking-[0.3em] text-primary mb-4 flex items-center justify-center gap-2">
           <AlertTriangle size={14} />
           Orange and San Diego County
