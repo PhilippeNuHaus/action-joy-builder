@@ -11,7 +11,7 @@ const CtaBanner = () => (
           <span className="text-primary">Protect Your Community</span>
         </h2>
 
-        <p className="font-heading text-lg uppercase tracking-wider text-foreground mb-6">
+        <p className="font-heading text-xl md:text-2xl uppercase tracking-wider text-foreground mb-6">
           Tell Senator <span className="text-primary">Catherine Blakespear</span>:
         </p>
 
