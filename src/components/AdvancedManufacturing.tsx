@@ -37,7 +37,7 @@ const AdvancedManufacturing = () => (
   <section id="advanced-manufacturing" className="py-16 scroll-mt-20">
     <div className="container">
       
-      <h2 className="font-heading text-3xl md:text-4xl uppercase text-center mb-3">
+      <h2 className="font-heading text-3xl md:text-5xl uppercase text-center mb-3">
         What Qualifies as{" "}
         <span className="text-gold-gradient">"Advanced Manufacturing"</span>?
       </h2>
