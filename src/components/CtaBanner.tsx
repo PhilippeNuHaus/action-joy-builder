@@ -7,7 +7,8 @@ const CtaBanner = () => (
       
       <div className="text-center max-w-2xl mx-auto">
         <h2 className="font-heading text-3xl md:text-5xl uppercase mb-6">
-          Take Action to <span className="text-primary">Protect Your Community</span>
+          Take Action to<br />
+          <span className="text-primary">Protect Your Community</span>
         </h2>
 
         <p className="font-heading text-lg uppercase tracking-wider text-foreground mb-6">
