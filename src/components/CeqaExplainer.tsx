@@ -19,7 +19,7 @@ const CeqaExplainer = () => (
           <span className="text-primary italic">Our water, air, and public health are all at risk without appropriate environmental review.</span>
         </p>
         <p>
-          These facilities shouldn't be able to hide the dangers to our communities. Doctors and nurses, scientists, environmental organizations, and frontline neighbors most at risk all agree:
+          These facilities shouldn't be allowed to hide the dangers to our communities. Doctors and nurses, scientists, environmental organizations, and frontline neighbors most at risk all agree:
         </p>
       </div>
 
