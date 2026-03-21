@@ -23,7 +23,7 @@ const categories = [
   },
   {
     icon: Factory,
-    title: "Industrial Processing & Refining",
+    title: "Metal Processing & Refining",
     items: ["Metal forging", "Thin steel plate manufacturing", "Metal products manufacturing", "Tooling and metal stamping"],
   },
   {
