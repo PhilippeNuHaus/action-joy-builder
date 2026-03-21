@@ -37,7 +37,7 @@ const ItsAlreadyHappening = () => (
             stroke="hsl(var(--navy))"
             strokeWidth="4"
           />
-          <circle cx="590" cy="320" r="12" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
+          <circle cx="575" cy="315" r="12" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
           <circle cx="670" cy="455" r="12" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
         </svg>
 
