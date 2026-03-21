@@ -23,7 +23,7 @@ const CtaBanner = () => (
           </div>
           <div className="flex items-start gap-3">
             <CheckCircle size={18} className="text-primary mt-0.5 shrink-0" />
-            <span className="text-muted-foreground text-sm">Protect water, air, and public health in our communities.</span>
+            <span className="text-muted-foreground text-lg">Protect water, air, and public health in our communities.</span>
           </div>
         </div>
 
