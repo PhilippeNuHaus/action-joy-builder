@@ -26,7 +26,7 @@ const ItsAlreadyHappening = () => (
           aria-hidden="true"
         >
           <polyline
-            points="300,150 540,150 575,315"
+            points="300,150 540,150 560,310"
             fill="none"
             stroke="hsl(var(--navy))"
             strokeWidth="4"
