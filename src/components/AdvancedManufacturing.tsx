@@ -3,7 +3,7 @@ import { FlaskConical, Recycle, Mountain, Zap, Factory, BatteryCharging } from "
 const categories = [
   {
     icon: FlaskConical,
-    title: "Chemical & Toxic Production",
+    title: "Toxic Chemical Production",
     items: ["Pesticide Manufacturing", "Fertilizer Manufacturing", "Silicon anode powder manufacturing", "Composites manufacturing", "Aircarbon manufacturing", "Soil amendments production"],
   },
   {
