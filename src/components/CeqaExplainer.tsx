@@ -10,7 +10,7 @@ const CeqaExplainer = () => (
           <strong className="text-foreground uppercase">Right to Know</strong>, allowing potentially harmful facilities to move forward without transparency, oversight, or public input. This isn't about innovation, it's about removing accountability and keeping communities in the dark.
         </p>
         <p>
-          That's because last year; the California legislature passed a sweeping change to the{" "}
+          That's because last year; the California Legislature passed a sweeping change to the{" "}
           <strong className="text-primary underline">California Environmental Quality Act (CEQA)</strong>. The public debate at the time was largely around housing, but hidden in the bill was a{" "}
           <span className="text-primary">dangerous loophole that exempts many "advanced manufacturing facilities"</span> from environmental review.
         </p>
