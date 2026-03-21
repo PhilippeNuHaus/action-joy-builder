@@ -17,7 +17,6 @@ const ItsAlreadyHappening = () => (
           src={districtMap}
           alt="Map of Senate District 38"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "center calc(50% - 50px)" }}
         />
         <div className="absolute inset-0 bg-background/35" />
 
