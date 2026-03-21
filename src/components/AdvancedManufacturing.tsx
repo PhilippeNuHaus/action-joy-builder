@@ -4,17 +4,17 @@ const categories = [
   {
     icon: FlaskConical,
     title: "Chemical & Toxic Production",
-    items: ["Silicon anode powder manufacturing", "Composites manufacturing", "Aircarbon manufacturing", "Soil amendments production"],
+    items: ["Pesticide Manufacturing", "Fertilizer Manufacturing", "Silicon anode powder manufacturing", "Composites manufacturing", "Aircarbon manufacturing", "Soil amendments production"],
   },
   {
     icon: Recycle,
     title: "Recycling & Waste Processing",
-    items: ["Metal and plastic recycling", "Precious metals recycling", "Medical waste recycling", "Lead-acid battery recycling"],
+    items: ["Lead-acid battery recycling", "Waste incineration", "Metal recycling", "Precious metals recycling", "Medical waste recycling"],
   },
   {
     icon: Mountain,
     title: "Heavy Industry / Extraction",
-    items: ["Metal mining and extraction", "Rare earth materials (strip mining)", "Petroleum refineries", "Chemical manufacturing"],
+    items: ["Strip mining", "Chemical manufacturing", "Fertilizer manufacturing", "Metal mining and extraction", "Petroleum refineries"],
   },
   {
     icon: Zap,
@@ -42,7 +42,7 @@ const AdvancedManufacturing = () => (
         <span className="text-gold-gradient">"Advanced Manufacturing"</span>?
       </h2>
       <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-10">
-        California defines "advanced manufacturing" extremely broadly, covering any process that improves or creates materials and processes, with no requirement that it reduce pollution or environmental impacts.
+        California defines "advanced manufacturing" extremely broadly, covering more than 60 categories of industrial facilities — including facilities that use and, at times, emit toxic chemicals — with no requirement that it reduce pollution or environmental impacts.
       </p>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
