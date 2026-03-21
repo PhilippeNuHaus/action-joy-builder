@@ -27,7 +27,7 @@ const HeroSection = () => (
             to="/take-action"
             className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-6 py-3 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow"
           >
-            Contact Senator Catherine Blakespear <ArrowRight size={16} />
+            Thank Senator Catherine Blakespear <ArrowRight size={16} />
           </Link>
           <a
             href="#advanced-manufacturing"
