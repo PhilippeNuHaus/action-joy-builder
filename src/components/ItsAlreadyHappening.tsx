@@ -7,7 +7,7 @@ const ItsAlreadyHappening = () => (
   <section className="bg-card py-10 md:py-14">
     <div className="container">
       <h2 className="font-heading text-3xl md:text-5xl uppercase text-center mb-6">
-        It's Already <span className="text-primary">Happening</span>
+        The Long-Term <span className="text-primary">Costs</span>
       </h2>
 
       <div className="caution-stripe h-4 mb-6" />
