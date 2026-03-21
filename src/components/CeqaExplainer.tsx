@@ -15,7 +15,7 @@ const CeqaExplainer = () => (
           <span className="text-primary">dangerous loophole that exempts "advanced manufacturing" facilities</span> from environmental review.
         </p>
         <p className="italic">
-          <span className="text-primary">"Advanced Manufacturing"</span> may sound like it's from the future, but the reality is it's a very broad classification that includes more than 60 categories of industrial facilities, including facilities that use and, at times, emit toxic chemicals — such as pesticide manufacturing, oil refineries, nuclear weapons manufacturing, strip mining, and plastics fabrication.{" "}
+          <span className="text-primary">"Advanced manufacturing"</span> may sound like it's from the future, but the reality is it's a very broad classification that includes more than 60 categories of industrial facilities, including facilities that use and, at times, emit toxic chemicals — such as pesticide manufacturing, oil refineries, nuclear weapons manufacturing, strip mining, and plastics fabrication.{" "}
           <span className="text-primary italic">Our water, air, and public health are all at risk without appropriate environmental review.</span>
         </p>
         <p>
