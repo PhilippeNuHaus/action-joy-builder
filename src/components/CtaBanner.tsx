@@ -19,7 +19,7 @@ const CtaBanner = () => (
         <div className="space-y-3 mb-8 text-left max-w-md mx-auto">
           <div className="flex items-start gap-3">
             <CheckCircle size={18} className="text-primary mt-0.5 shrink-0" />
-            <span className="text-muted-foreground text-sm">Keep environmental review in place for advanced manufacturing projects.</span>
+            <span className="text-muted-foreground text-lg">Keep environmental review in place for "advanced manufacturing" projects.</span>
           </div>
           <div className="flex items-start gap-3">
             <CheckCircle size={18} className="text-primary mt-0.5 shrink-0" />
