@@ -84,7 +84,7 @@ const ItsAlreadyHappening = () => (
                 alt="Encina Power Station in Carlsbad"
                 className="w-full h-28 object-cover rounded-sm border border-primary mb-3"
               />
-              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium">
+              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-justify">
                 Industrial activity along the North County coastline has already left a lasting environmental footprint. The
                 Encina Power Station in Carlsbad, which operated for decades along the Pacific, relied on once-through ocean
                 cooling that drew in and killed marine life while discharging heated water back into the ocean. The facility
