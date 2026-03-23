@@ -32,13 +32,13 @@ const ItsAlreadyHappening = () => (
             strokeWidth="4"
           />
           <polyline
-            points="920,425 750,425 670,455"
+            points="920,425 750,425 655,455"
             fill="none"
             stroke="hsl(var(--navy))"
             strokeWidth="4"
           />
           <circle cx="553" cy="303" r="12" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
-          <circle cx="670" cy="455" r="12" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
+          <circle cx="655" cy="455" r="12" fill="hsl(var(--primary))" stroke="hsl(var(--navy))" strokeWidth="4" />
         </svg>
 
         <div className="relative z-10 p-4 md:p-6 lg:p-8">
