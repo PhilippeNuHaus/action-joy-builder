@@ -32,7 +32,7 @@ const ItsAlreadyHappening = () => (
             strokeWidth="4"
           />
           <polyline
-            points="920,425 750,425 655,455"
+            points="920,425 750,425 645,455"
             fill="none"
             stroke="hsl(var(--navy))"
             strokeWidth="4"
