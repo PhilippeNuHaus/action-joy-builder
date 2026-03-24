@@ -9,6 +9,7 @@ const TakeAction = () => {
     firstName: "",
     lastName: "",
     email: "",
+    address: "",
     zip: "",
     message: "Dear Senator Blakespear:\n\nThank you for authoring SB 954 and your work to protect and restore our rights to know under the California Environmental Quality Act (CEQA).\n\nI was shocked to learn the Legislature last year exempted a wide variety of polluting industrial projects from CEQA's critical public health and environmental protection requirements. That exemption will result in more contamination of our air and water, more greenhouse gas emissions, and more damage to critical wildlife habitat.\n\nThe so-called \"advanced manufacturing\" projects include industries that use, and at times emit, dangerous chemicals like cyanide, PFAs, arsenic, hexavalent chromium, lead, and many others. It just doesn't make sense to exempt these types of projects from California's foundational law protecting public health and the environment.\n\nI greatly appreciate your leadership on this urgent public health issue. Please continue the effort to limit any exemptions to only truly clean industries sited in locations that don't threaten our air, water, natural and coastal lands, or our communities. The Legislature made a serious mistake when it adopted the advanced manufacturing exemption to CEQA.\n\nThank you for working to correct this mistake.",
   });
@@ -100,18 +101,32 @@ const TakeAction = () => {
                     />
                     <input
                       type="text"
+                      placeholder="Street Address"
+                      required
+                      value={formData.address}
+                      onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                      className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                    <input
+                      type="text"
                       placeholder="ZIP Code"
                       required
                       value={formData.zip}
                       onChange={(e) => setFormData({ ...formData, zip: e.target.value })}
                       className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                     />
-                    <textarea
-                      rows={6}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none"
-                    />
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-2 italic">
+                        Feel free to personalize the message below — adding your own perspective makes it even more impactful.
+                      </p>
+                      <textarea
+                        rows={10}
+                        required
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none"
+                      />
+                    </div>
                     <button
                       type="submit"
                       disabled={sending}
