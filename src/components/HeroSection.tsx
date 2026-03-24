@@ -29,7 +29,7 @@ const HeroSection = () => (
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/take-action"
-              className="bg-primary text-primary-foreground font-heading text-xs uppercase tracking-wider px-5 py-2.5 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow"
+              className="bg-primary text-primary-foreground font-heading text-xs uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow"
             >
               Thank Senator<br />Catherine Blakespear <ArrowRight size={14} />
             </Link>
