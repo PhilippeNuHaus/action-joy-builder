@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, AlertTriangle } from "lucide-react";
-import heroImg from "@/assets/hero-coastal-aerial.png";
+import heroImg from "@/assets/hero-coastal.jpg";
 
 
 const HeroSection = () => (
