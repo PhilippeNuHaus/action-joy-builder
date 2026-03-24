@@ -2,12 +2,13 @@ const CeqaExplainer = () => (
   <section className="bg-card py-16">
     <div className="container max-w-3xl">
       <div className="space-y-6 text-muted-foreground leading-relaxed text-justify">
+        <h3 className="font-heading text-2xl text-foreground uppercase tracking-wide">Right to Know</h3>
         <p>
           <strong className="text-primary">CEQA</strong>, the{" "}
           <strong className="text-primary">California Environmental Quality Act</strong>, was created to protect your{" "}
-          <strong className="text-foreground uppercase">Right to Know</strong> by requiring that major development projects study and publicly disclose to the public potential harms to public health, air and water quality, and natural lands, and consider and reduce those harms before they are approved. But the so-called "advanced manufacturing" loophole breaks that protection. While it sounds like it applies to clean, high tech innovation, it actually includes a wide range of heavy industrial activities, <strong className="text-foreground uppercase">Right to Know</strong> by requiring that major development projects study and publicly disclose to the public potential harms to public health, air and water quality, and natural lands, and consider and reduce those harms before they are approved. But the so-called "advanced manufacturing" loophole breaks that protection. While it sounds like it applies to clean, high tech innovation, it actually includes a wide range of heavy industrial activities, from chemical processing to waste incineration and large scale fabrication. By exempting these projects from{" "}. By exempting these projects from{" "}
+          <strong className="text-foreground uppercase">Right to Know</strong> by requiring that major development projects study and publicly disclose to the public potential harms of a project and consider and reduce those harms before they are approved. But the so-called "<strong className="text-primary">advanced manufacturing</strong>" loophole breaks that protection. While it sounds like it applies to clean, high tech innovation, it actually includes a wide range of heavy industrial activities, from chemical processing to <strong className="text-foreground">waste incineration</strong> and large scale fabrication. By exempting these projects from{" "}
           <strong className="text-primary">CEQA</strong>, it takes away your{" "}
-          <strong className="text-foreground uppercase">Right to Know</strong>, allowing potentially harmful facilities to move forward without transparency, oversight, or public input. This isn't about innovation, it's about removing accountability and keeping communities in the dark.
+          <strong className="text-foreground uppercase">Right to Know</strong>, allowing potentially harmful facilities to move forward without transparency, oversight, or public input.
         </p>
         <p>
           That's because last year; the California Legislature passed a sweeping change to the{" "}
