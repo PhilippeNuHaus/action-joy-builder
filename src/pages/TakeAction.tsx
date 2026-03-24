@@ -174,10 +174,6 @@ const TakeAction = () => {
                   </p>
                 </div>
 
-                <div className="bg-card border border-border rounded-sm p-5 text-center">
-                  <p className="font-heading text-3xl text-primary font-bold">1,350</p>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Messages Sent</p>
-                </div>
               </div>
             </div>
           </div>

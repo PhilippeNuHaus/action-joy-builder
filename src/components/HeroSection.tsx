@@ -37,12 +37,6 @@ const HeroSection = () => (
           </a>
         </div>
 
-        <div className="flex items-center justify-center gap-2 text-muted-foreground">
-          <Users size={16} className="text-primary" />
-          <span className="text-sm font-heading tracking-wider">
-            <span className="text-primary font-bold">1,350</span> messages already sent
-          </span>
-        </div>
       </div>
     </div>
   </section>
