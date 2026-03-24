@@ -42,12 +42,6 @@ const ItsAlreadyHappening = () => (
         </svg>
 
         <div className="relative z-10 p-4 md:p-6 lg:p-8">
-          <Link
-            to="/whats-near-you"
-            className="mx-auto mb-6 block w-fit rounded-sm border border-primary bg-card px-6 py-3 font-heading text-xl uppercase tracking-wide text-primary hover:bg-secondary transition-colors"
-          >
-            Know What's Near You
-          </Link>
 
           <div className="grid gap-6 lg:grid-cols-[minmax(0,320px)_1fr_minmax(0,320px)] lg:items-start">
             <article className="bg-card/95 border-2 border-primary rounded-xl p-4">
