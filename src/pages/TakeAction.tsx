@@ -1,6 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { Send, Mail, Phone, CheckCircle } from "lucide-react";
+import { Send, Mail, Phone, CheckCircle, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -15,11 +15,34 @@ const TakeAction = () => {
   });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
+  const [districtError, setDistrictError] = useState(false);
+  const [validating, setValidating] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSending(true);
+    setDistrictError(false);
+    setValidating(true);
+
     try {
+      // Validate district first
+      const fullAddress = `${formData.address}, ${formData.zip}`;
+      const { data: districtData, error: districtFnError } = await supabase.functions.invoke("validate-district", {
+        body: { address: fullAddress },
+      });
+
+      if (districtFnError) {
+        console.error("District validation error:", districtFnError);
+      }
+
+      if (!districtData?.inDistrict) {
+        setDistrictError(true);
+        setValidating(false);
+        return;
+      }
+
+      setValidating(false);
+      setSending(true);
+
       const id = crypto.randomUUID();
       await supabase.functions.invoke("send-transactional-email", {
         body: {
@@ -32,9 +55,10 @@ const TakeAction = () => {
       setSent(true);
     } catch (err) {
       console.error("Failed to send confirmation email:", err);
-      setSent(true); // still show success to user
+      setSent(true);
     } finally {
       setSending(false);
+      setValidating(false);
     }
   };
 
@@ -62,7 +86,7 @@ const TakeAction = () => {
                     <h2 className="font-heading text-2xl uppercase text-foreground mb-2">Message Sent!</h2>
                     <p className="text-muted-foreground">Thank you for standing up for your community.</p>
                     <button
-                      onClick={() => setSent(false)}
+                      onClick={() => { setSent(false); setDistrictError(false); }}
                       className="mt-4 text-primary text-sm underline"
                     >
                       Send another message
@@ -73,6 +97,19 @@ const TakeAction = () => {
                     <h2 className="font-heading text-lg uppercase tracking-wider text-primary mb-2">
                       Send a Message to the Senator
                     </h2>
+
+                    {districtError && (
+                      <div className="bg-destructive/10 border border-destructive/30 rounded-sm p-4 flex items-start gap-3">
+                        <AlertTriangle size={20} className="text-destructive shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-foreground font-medium">Outside Senate District 38</p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            This message tool is designed for constituents of California Senate District 38, represented by Senator Blakespear. If you believe this is an error, please double-check your address. You can still reach the Senator directly via email or phone using the contact options on this page.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="grid sm:grid-cols-2 gap-4">
                       <input
                         type="text"
@@ -104,7 +141,7 @@ const TakeAction = () => {
                       placeholder="Street Address"
                       required
                       value={formData.address}
-                      onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                      onChange={(e) => { setFormData({ ...formData, address: e.target.value }); setDistrictError(false); }}
                       className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                     />
                     <input
@@ -112,7 +149,7 @@ const TakeAction = () => {
                       placeholder="ZIP Code"
                       required
                       value={formData.zip}
-                      onChange={(e) => setFormData({ ...formData, zip: e.target.value })}
+                      onChange={(e) => { setFormData({ ...formData, zip: e.target.value }); setDistrictError(false); }}
                       className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                     />
                     <div>
@@ -129,10 +166,10 @@ const TakeAction = () => {
                     </div>
                     <button
                       type="submit"
-                      disabled={sending}
+                      disabled={sending || validating}
                       className="w-full bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-6 py-3 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                     >
-                      <Send size={16} /> {sending ? "Sending..." : "Send Message"}
+                      <Send size={16} /> {validating ? "Verifying Address..." : sending ? "Sending..." : "Send Message"}
                     </button>
                   </form>
                 )}
