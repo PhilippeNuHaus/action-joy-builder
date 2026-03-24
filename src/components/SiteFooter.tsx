@@ -29,7 +29,7 @@ const SiteFooter = () => (
         </div>
       </div>
       <div className="mt-8 pt-6 border-t border-border text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Right to Know Campaign. All rights reserved.
+        © {new Date().getFullYear()} Right to Know, a Planning and Conservation League Campaign. All rights reserved.
       </div>
     </div>
   </footer>
