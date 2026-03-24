@@ -35,7 +35,7 @@ const HeroSection = () => (
             </Link>
             <a
               href="#advanced-manufacturing"
-              className="border border-primary text-primary font-heading text-xs uppercase tracking-wider px-5 py-2.5 rounded-sm hover:bg-primary/10 transition-colors text-center max-w-[320px]"
+              className="border border-primary text-primary font-heading text-xs uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-primary/10 transition-colors text-center max-w-[320px]"
             >
               Learn More About the Dangers of<br />the Advanced Manufacturing Exemption
             </a>
