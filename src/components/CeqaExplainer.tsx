@@ -1,7 +1,7 @@
 const CeqaExplainer = () => (
   <section className="bg-card py-16">
     <div className="container max-w-3xl">
-      <div className="space-y-6 text-muted-foreground leading-relaxed text-justify">
+      <div className="space-y-6 text-muted-foreground leading-relaxed <div className="space-y-6 text-muted-foreground leading-relaxed text-left">">
         <h3 className="font-heading text-2xl text-foreground uppercase tracking-wide">Right to Know</h3>
         <p>
           <strong className="text-primary">CEQA</strong>, the{" "}
