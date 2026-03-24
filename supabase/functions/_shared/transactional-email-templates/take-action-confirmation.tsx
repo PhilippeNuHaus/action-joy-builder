@@ -33,13 +33,7 @@ const TakeActionConfirmationEmail = ({ firstName }: TakeActionConfirmationProps)
         <Text style={subheading}>Keep the pressure on — here's what else you can do:</Text>
 
         <Section style={buttonSection}>
-          <Button style={primaryButton} href={`${SITE_URL}/whats-near-you`}>
-            See What's Near You
-          </Button>
-        </Section>
-
-        <Section style={buttonSection}>
-          <Button style={secondaryButton} href="mailto:senator.blakespear@senate.ca.gov">
+          <Button style={primaryButton} href="mailto:senator.blakespear@senate.ca.gov">
             Email the Senator Directly
           </Button>
         </Section>
