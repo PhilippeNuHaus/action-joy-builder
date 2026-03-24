@@ -82,7 +82,7 @@ const ItsAlreadyHappening = () => (
                 Industrial activity along the North County coastline has already left a lasting environmental footprint. The Encina Power Station in Carlsbad operated for decades along the Pacific, using once-through ocean cooling that killed marine life and discharged heated water back into the ocean, disrupting local ecosystems. It also contributed to air pollution and greenhouse gas emissions in surrounding communities before its closure in 2018.
                 {" "}Because the plant was built before modern environmental laws, many of these impacts occurred without the level of oversight required today. That's exactly why CEQA is so important — it requires projects to disclose impacts, reduce harm, and protect public health.
                 {" "}When Encina was finally shut down, CEQA review helped guide environmental cleanup and redevelopment, ensuring the site addressed long-term damage instead of passing those costs onto the community.
-                {" "}Without strong CEQA protections — and with the advanced manufacturing loophole — projects could move forward without full environmental review, increasing the risk of long-term environmental damage and costly cleanup for coastal communities.
+                {" "}By waiving CEQA for "advanced manufacturing," projects could move forward without full environmental review, increasing the risk of long-term environmental damage and costly cleanup for coastal communities.
               </p>
             </article>
           </div>
