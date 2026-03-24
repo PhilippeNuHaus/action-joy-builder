@@ -1,6 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { Send, Mail, Phone, CheckCircle, ExternalLink } from "lucide-react";
+import { Send, Mail, Phone, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
