@@ -27,18 +27,12 @@ const CtaBanner = () => (
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="flex justify-center">
           <Link
             to="/take-action"
             className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-8 py-3 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow"
           >
             Send Message <ArrowRight size={16} />
-          </Link>
-          <Link
-            to="/take-action"
-            className="border border-primary text-primary font-heading text-sm uppercase tracking-wider px-8 py-3 rounded-sm hover:bg-primary/10 transition-colors"
-          >
-            Take Action
           </Link>
         </div>
       </div>
