@@ -4,7 +4,7 @@ import { createClient } from 'npm:@supabase/supabase-js@2'
 import { TEMPLATES } from '../_shared/transactional-email-templates/registry.ts'
 
 // Configuration baked in at scaffold time
-const SITE_NAME = "Action Button Playground"
+const SITE_NAME = "Right to Know"
 const SENDER_DOMAIN = "notify.righttoknow-blakespear.org"
 const FROM_DOMAIN = "righttoknow-blakespear.org"
 
