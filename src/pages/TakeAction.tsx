@@ -114,9 +114,10 @@ const TakeAction = () => {
                     />
                     <button
                       type="submit"
-                      className="w-full bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-6 py-3 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2"
+                      disabled={sending}
+                      className="w-full bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-6 py-3 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                     >
-                      <Send size={16} /> Send Message
+                      <Send size={16} /> {sending ? "Sending..." : "Send Message"}
                     </button>
                   </form>
                 )}
