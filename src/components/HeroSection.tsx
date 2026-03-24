@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, AlertTriangle } from "lucide-react";
 import heroImg from "@/assets/hero-coastal.jpg";
-import districtMap from "@/assets/district-map.png";
+
 
 const HeroSection = () => (
   <section className="relative overflow-hidden">
