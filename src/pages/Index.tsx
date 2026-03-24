@@ -15,7 +15,6 @@ const Index = () => (
       <div className="caution-stripe h-3" />
       <CeqaExplainer />
       <div className="caution-stripe h-3" />
-      <div className="caution-stripe h-3" />
       <ItsAlreadyHappening />
       <div className="caution-stripe h-3" />
       <AdvancedManufacturing />
