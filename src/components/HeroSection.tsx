@@ -12,10 +12,7 @@ const HeroSection = () => (
 
     <div className="relative z-10 container py-16 md:py-28 flex items-center justify-center min-h-[70vh]">
       <div className="relative max-w-3xl w-full text-center rounded-lg p-8 md:p-12 overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={districtMap} alt="" className="w-full h-full object-cover opacity-20" />
-          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
-        </div>
+        <div className="absolute inset-0 bg-background/40 backdrop-blur-sm rounded-lg" />
 
         <div className="relative z-10">
           <p className="font-heading text-xs uppercase tracking-[0.3em] text-primary mb-4 flex items-center justify-center gap-2">
