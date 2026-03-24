@@ -17,7 +17,6 @@ const SiteFooter = () => (
           <h4 className="font-heading text-sm uppercase tracking-wider text-primary mb-3">Quick Links</h4>
           <div className="space-y-2">
             <Link to="/" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Home</Link>
-            <Link to="/whats-near-you" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">What's Near You</Link>
             <Link to="/take-action" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Take Action</Link>
           </div>
         </div>
