@@ -2,6 +2,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Send, Mail, Phone, CheckCircle, ExternalLink } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const TakeAction = () => {
   const [formData, setFormData] = useState({
@@ -12,10 +13,28 @@ const TakeAction = () => {
     message: "Dear Senator Blakespear,\n\nI urge you to act with urgency to close the advanced manufacturing loophole in CEQA. Our communities deserve the right to know about dangerous facilities being built in our neighborhoods.\n\nPlease keep environmental review in place for advanced manufacturing projects and protect water, air, and public health in our communities.\n\nThank you.",
   });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setSending(true);
+    try {
+      const id = crypto.randomUUID();
+      await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "take-action-confirmation",
+          recipientEmail: formData.email,
+          idempotencyKey: `take-action-confirm-${id}`,
+          templateData: { firstName: formData.firstName },
+        },
+      });
+      setSent(true);
+    } catch (err) {
+      console.error("Failed to send confirmation email:", err);
+      setSent(true); // still show success to user
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
