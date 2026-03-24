@@ -43,7 +43,7 @@ const ItsAlreadyHappening = () => (
 
         <div className="relative z-10 p-4 md:p-6 lg:p-8">
 
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,320px)_1fr_minmax(0,320px)] lg:items-start">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,368px)_1fr_minmax(0,368px)] lg:items-start">
             <article className="bg-card/95 border-2 border-primary rounded-xl p-4">
               <h3 className="font-heading text-3xl uppercase tracking-wide text-center mb-4">
                 Long Term <span className="text-primary">Costs</span>
