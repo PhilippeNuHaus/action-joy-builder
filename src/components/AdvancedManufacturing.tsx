@@ -42,7 +42,7 @@ const AdvancedManufacturing = () => (
         <span className="text-gold-gradient">"Advanced Manufacturing"</span>?
       </h2>
       <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-10">
-        California defines "advanced manufacturing" extremely broadly, covering more than 75 categories of industrial facilities — including facilities that use and, at times, emit toxic chemicals — with no requirement that it reduce pollution or environmental impacts.
+        California defines "advanced manufacturing" extremely broadly, covering more than 75 categories of industrial facilities — including facilities that use and, at times, emit toxic chemicals.
       </p>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
