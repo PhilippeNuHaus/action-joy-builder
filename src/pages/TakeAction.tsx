@@ -44,6 +44,25 @@ const TakeAction = () => {
       setSending(true);
 
       const id = crypto.randomUUID();
+
+      // Send the letter to the senator's office
+      await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "senator-notification",
+          recipientEmail: "senator.blakespear@senate.ca.gov",
+          idempotencyKey: `senator-notify-${id}`,
+          templateData: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            address: formData.address,
+            zip: formData.zip,
+            message: formData.message,
+          },
+        },
+      });
+
+      // Send confirmation to the user
       await supabase.functions.invoke("send-transactional-email", {
         body: {
           templateName: "take-action-confirmation",
