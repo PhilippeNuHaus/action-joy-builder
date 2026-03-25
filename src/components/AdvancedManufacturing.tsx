@@ -9,7 +9,7 @@ const categories = [
   {
     icon: Recycle,
     title: "Recycling & Waste Processing",
-    items: ["Lead-acid battery recycling", "Waste incineration", "Metal recycling", "Precious metals recycling", "Medical waste recycling"],
+    items: ["Lead-acid battery recycling", "Waste incineration", "Metal recycling", "Precious metals recycling", "Medical waste recycling", "Medical waste processing (including human tissue incineration)"],
   },
   {
     icon: Mountain,
