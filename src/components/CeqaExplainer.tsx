@@ -14,7 +14,7 @@ const CeqaExplainer = () => (
           Last year, lawmakers quietly exempted "<strong className="text-primary">advanced manufacturing</strong>" from <strong className="text-primary">CEQA</strong>. It sounds clean—but it's not. The exemption covers 75+ types of heavy industry, including facilities that use and can release toxic chemicals like arsenic, PFAS, and cyanide.
         </p>
         <p>
-          Now, these projects can be approved without full environmental review under <strong className="text-primary">CEQA</strong>, without transparency, and without giving communities a real say.
+          Now, these projects can be approved without environmental review under <strong className="text-primary">CEQA</strong>, without transparency, and without giving communities a real say.
         </p>
         <p>
           That means polluting facilities could be built near homes and schools—with little warning and fewer safeguards.
