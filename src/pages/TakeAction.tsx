@@ -93,7 +93,7 @@ const TakeAction = () => {
               Take <span className="text-primary">Action</span>
             </h1>
             <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">
-              Contact Senator Catherine Blakespear and demand accountability. Your voice matters.
+              Thank State Senator Catherine Blakespear for Protecting Your Community from Toxic Pollution
             </p>
 
             <div className="grid lg:grid-cols-5 gap-8">
