@@ -5,15 +5,25 @@ import { useEffect } from "react";
 
 const TakeAction = () => {
   useEffect(() => {
-    // Load ActionButton widget script
-    const script = document.createElement("script");
-    script.src = "https://embed.actionbutton.co/widget/widget.min.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
+    // Remove any previously loaded ActionButton scripts to avoid duplicates
+    const existing = document.querySelector('script[src*="actionbutton.co"]');
+    if (!existing) {
+      const script = document.createElement("script");
+      script.src = "https://embed.actionbutton.co/widget/widget.min.js";
+      script.async = true;
+      script.onload = () => {
+        // Trigger widget initialization after script loads
+        if ((window as any).ActionButton) {
+          (window as any).ActionButton.init();
+        }
+      };
+      document.body.appendChild(script);
+    } else {
+      // Script already loaded, re-init
+      if ((window as any).ActionButton) {
+        (window as any).ActionButton.init();
+      }
+    }
   }, []);
 
   return (
