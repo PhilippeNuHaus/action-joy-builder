@@ -21,10 +21,12 @@ const SiteFooter = () => (
           </div>
         </div>
         <div>
-          <h4 className="font-heading text-sm uppercase tracking-wider text-primary mb-3">Contact</h4>
+          <h4 className="font-heading text-sm uppercase tracking-wider text-primary mb-3">About</h4>
           <p className="text-sm text-muted-foreground">
-            Senator Catherine Blakespear<br />
-            California State Senate, District 38
+            Right to Know is a campaign of the{" "}
+            <a href="https://www.pcl.org" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-colors underline">
+              Planning and Conservation League
+            </a>, PCL.org
           </p>
         </div>
       </div>
