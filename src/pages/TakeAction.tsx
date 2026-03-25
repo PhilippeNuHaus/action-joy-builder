@@ -4,14 +4,25 @@ import { Mail, Phone } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 const TakeAction = () => {
+  const widgetRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const existing = document.querySelector('script[src*="actionbutton.co"]');
-    if (!existing) {
-      const script = document.createElement("script");
-      script.src = "https://embed.actionbutton.co/widget/widget.min.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
+    if (!widgetRef.current) return;
+    
+    // Clear any previous content
+    widgetRef.current.innerHTML = '';
+    
+    // Create the widget div
+    const widgetDiv = document.createElement("div");
+    widgetDiv.className = "action-button-widget";
+    widgetDiv.setAttribute("data-widget-id", "SPK-QEIDR0A=");
+    widgetRef.current.appendChild(widgetDiv);
+    
+    // Add the script
+    const script = document.createElement("script");
+    script.src = "https://embed.actionbutton.co/widget/widget.min.js";
+    script.async = true;
+    widgetRef.current.appendChild(script);
   }, []);
 
   return (
