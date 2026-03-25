@@ -21,9 +21,9 @@ const SiteFooter = () => (
           </div>
         </div>
         <div>
-          <h4 className="font-heading text-sm uppercase tracking-wider text-primary mb-3">About</h4>
+          <h4 className="font-heading text-sm uppercase tracking-wider text-primary mb-3">Contact</h4>
           <p className="text-sm text-muted-foreground">
-            Right to Know is a campaign of the{" "}
+            Right to Know is a campaign of the<br />
             <a href="https://www.pcl.org" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-colors underline">
               Planning and Conservation League
             </a>, PCL.org
