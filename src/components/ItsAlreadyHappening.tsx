@@ -53,7 +53,7 @@ const ItsAlreadyHappening = () => (
                 alt="San Onofre Nuclear Generating Station"
                 className="w-full h-28 object-cover rounded-sm border border-primary grayscale mb-3"
               />
-              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-justify">
+              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-left">
                 Industrial infrastructure along the Southern California coast has already left lasting risks for surrounding
                 communities. The <strong>San Onofre Nuclear Generating Station (SONGS)</strong>, located within the district, was permanently
                 shut down in 2013 following equipment failures and a radiation leak, yet more than 3.6 million pounds of
