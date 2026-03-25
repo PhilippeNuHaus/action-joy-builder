@@ -69,7 +69,7 @@ const ItsAlreadyHappening = () => (
 
             <article className="bg-card/95 border-2 border-primary rounded-xl p-4">
               <h3 className="font-heading text-3xl uppercase tracking-wide text-center mb-4">
-                Long Term <span className="text-primary">Costs</span>
+                Encina <span className="text-primary">Power Station</span>
               </h3>
               <img
                 src={encinaPower}
