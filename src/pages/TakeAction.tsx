@@ -1,85 +1,20 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { Send, Mail, Phone, CheckCircle, AlertTriangle } from "lucide-react";
-import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { Mail, Phone } from "lucide-react";
+import { useEffect } from "react";
 
 const TakeAction = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    address: "",
-    zip: "",
-    message: `Dear Senator Blakespear:\n\nThank you for authoring SB 954 and your work to protect and restore our right to know under the California Environmental Quality Act (CEQA).\n\nI was shocked to learn the Legislature last year exempted a wide variety of polluting industrial projects from CEQA's critical public health and environmental protection requirements. That exemption will result in more contamination of our air and water, more greenhouse gas emissions, and more damage to critical wildlife habitat.\n\nThe so-called "advanced manufacturing" projects include industries that use, and at times emit, dangerous chemicals like cyanide, PFAs, arsenic, hexavalent chromium, lead, and many others. It just doesn't make sense to exempt these types of projects from California's foundational law protecting public health and the environment.\n\nI greatly appreciate your leadership on this urgent public health issue. Please continue the effort to limit any exemptions to only truly clean industries sited in locations that don't threaten our air, water, natural and coastal lands, or our communities. The Legislature made a serious mistake when it adopted the advanced manufacturing exemption to CEQA.\n\nThank you for working to correct this mistake.`,
-  });
-  const [sent, setSent] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [districtError, setDistrictError] = useState(false);
-  const [validating, setValidating] = useState(false);
+  useEffect(() => {
+    // Load ActionButton widget script
+    const script = document.createElement("script");
+    script.src = "https://embed.actionbutton.co/widget/widget.min.js";
+    script.async = true;
+    document.body.appendChild(script);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setDistrictError(false);
-    setValidating(true);
-
-    try {
-      // Validate district first
-      const fullAddress = `${formData.address}, ${formData.zip}`;
-      const { data: districtData, error: districtFnError } = await supabase.functions.invoke("validate-district", {
-        body: { address: fullAddress },
-      });
-
-      if (districtFnError) {
-        console.error("District validation error:", districtFnError);
-      }
-
-      if (!districtData?.inDistrict) {
-        setDistrictError(true);
-        setValidating(false);
-        return;
-      }
-
-      setValidating(false);
-      setSending(true);
-
-      const id = crypto.randomUUID();
-
-      // Send the letter to the senator's office
-      await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "senator-notification",
-          recipientEmail: "senator.blakespear@senate.ca.gov",
-          idempotencyKey: `senator-notify-${id}`,
-          templateData: {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            address: formData.address,
-            zip: formData.zip,
-            message: formData.message,
-          },
-        },
-      });
-
-      // Send confirmation to the user
-      await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "take-action-confirmation",
-          recipientEmail: formData.email,
-          idempotencyKey: `take-action-confirm-${id}`,
-          templateData: { firstName: formData.firstName },
-        },
-      });
-      setSent(true);
-    } catch (err) {
-      console.error("Failed to send confirmation email:", err);
-      setSent(true);
-    } finally {
-      setSending(false);
-      setValidating(false);
-    }
-  };
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -97,101 +32,12 @@ const TakeAction = () => {
             </p>
 
             <div className="grid lg:grid-cols-5 gap-8">
-              {/* Form */}
+              {/* ActionButton Embed */}
               <div className="lg:col-span-3">
-                {sent ? (
-                  <div className="bg-card border border-primary/30 rounded-sm p-8 text-center">
-                    <CheckCircle size={48} className="text-primary mx-auto mb-4" />
-                    <h2 className="font-heading text-2xl uppercase text-foreground mb-2">Message Sent!</h2>
-                    <p className="text-muted-foreground">Thank you for standing up for your community.</p>
-                    <button
-                      onClick={() => { setSent(false); setDistrictError(false); }}
-                      className="mt-4 text-primary text-sm underline"
-                    >
-                      Send another message
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="bg-card border border-border rounded-sm p-6 space-y-4">
-                    <h2 className="font-heading text-lg uppercase tracking-wider text-primary mb-2">
-                      Send a Message to the Senator
-                    </h2>
-
-                    {districtError && (
-                      <div className="bg-destructive/10 border border-destructive/30 rounded-sm p-4 flex items-start gap-3">
-                        <AlertTriangle size={20} className="text-destructive shrink-0 mt-0.5" />
-                        <div>
-                          <p className="text-sm text-foreground font-medium">Outside Senate District 38</p>
-                          <p className="text-xs text-muted-foreground mt-1">
-                            This message tool is designed for constituents of California Senate District 38, represented by Senator Blakespear. If you believe this is an error, please double-check your address. You can still reach the Senator directly via email or phone using the contact options on this page.
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <input
-                        type="text"
-                        placeholder="First Name"
-                        required
-                        value={formData.firstName}
-                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                        className="bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                      />
-                      <input
-                        type="text"
-                        placeholder="Last Name"
-                        required
-                        value={formData.lastName}
-                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                        className="bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                      />
-                    </div>
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Street Address"
-                      required
-                      value={formData.address}
-                      onChange={(e) => { setFormData({ ...formData, address: e.target.value }); setDistrictError(false); }}
-                      className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                    />
-                    <input
-                      type="text"
-                      placeholder="ZIP Code"
-                      required
-                      value={formData.zip}
-                      onChange={(e) => { setFormData({ ...formData, zip: e.target.value }); setDistrictError(false); }}
-                      className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                    />
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-2 italic">
-                        Feel free to personalize the message below — adding your own perspective makes it even more impactful.
-                      </p>
-                      <textarea
-                        rows={10}
-                        required
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full bg-secondary/50 border border-border rounded-sm px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={sending || validating}
-                      className="w-full bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-6 py-3 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
-                    >
-                      <Send size={16} /> {validating ? "Verifying Address..." : sending ? "Sending..." : "Send Message"}
-                    </button>
-                  </form>
-                )}
+                <div
+                  className="action-button-widget bg-card border border-border rounded-sm p-6"
+                  data-widget-id="SPK-QEIDR0A="
+                />
               </div>
 
               {/* Sidebar actions */}
