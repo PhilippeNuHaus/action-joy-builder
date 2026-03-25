@@ -55,7 +55,7 @@ const ItsAlreadyHappening = () => (
               />
               <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-left">
                 Industrial infrastructure along the Southern California coast has already left lasting risks for surrounding
-                communities. The <strong>San Onofre Nuclear Generating Station (SONGS)</strong>, located within the district, was permanently
+                communities. The <strong>San Onofre Nuclear Generating Station (SONGS)</strong>, located within our district, was permanently
                 shut down in 2013 following equipment failures and a radiation leak, yet more than 3.6 million pounds of
                 nuclear waste remain stored on-site, just feet from the Pacific Ocean. Despite ongoing mitigation efforts,
                 the site continues to raise serious concerns around coastal erosion, groundwater contamination, and long-term
