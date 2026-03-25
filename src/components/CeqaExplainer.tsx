@@ -5,25 +5,25 @@ const CeqaExplainer = () => (
         
         <p>
           The <strong className="text-primary">California Environmental Quality Act (CEQA)</strong> protects your{" "}
-          <strong className="text-foreground uppercase">Right to Know</strong>. It requires industries to disclose environmental and health risks before projects are approved.
+          <strong className="text-foreground uppercase">Right to Know</strong>. It requires industries to disclose environmental and health risks and reduce potential harms before projects are approved.
         </p>
         <p>
           Until last year when a dangerous loophole just took that protection away.
         </p>
         <p>
-          Last year, lawmakers quietly exempted "<strong className="text-primary">advanced manufacturing</strong>" from <strong className="text-primary">CEQA</strong>. It sounds clean—but it's not. The exemption covers 60+ types of heavy industry, including facilities that use and can release toxic chemicals like arsenic, PFAS, and cyanide.
+          Last year, lawmakers quietly exempted "<strong className="text-primary">advanced manufacturing</strong>" from <strong className="text-primary">CEQA</strong>. It sounds clean—but it's not. The exemption covers 75+ types of heavy industry, including facilities that use and can release toxic chemicals like arsenic, PFAS, and cyanide.
         </p>
         <p>
-          Now, these projects can be approved without full environmental review, without transparency, and without giving communities a real say.
+          Now, these projects can be approved without full environmental review under <strong className="text-primary">CEQA</strong>, without transparency, and without giving communities a real say.
         </p>
         <p>
           That means polluting facilities could be built near homes and schools—with little warning and fewer safeguards.
         </p>
         <p className="text-primary italic font-semibold">
-          This is a direct threat to our air, our water, and our health.
+          This is a direct threat to our air, our water, our health, our coast, and our lands.
         </p>
         <p>
-          Doctors, nurses, scientists, environmental advocates, labor leaders and frontline communities are sounding the alarm. We cannot allow polluting industries to operate in the shadows.
+          Doctors, scientists, environmental advocates, labor leaders and frontline communities are sounding the alarm. We cannot allow polluting industries to operate in the shadows.
         </p>
       </div>
 

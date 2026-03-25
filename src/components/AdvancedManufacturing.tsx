@@ -4,7 +4,7 @@ const categories = [
   {
     icon: FlaskConical,
     title: "Toxic Chemical Production",
-    items: ["Pesticide Manufacturing", "Fertilizer Manufacturing", "Silicon anode powder manufacturing", "Composites manufacturing", "Aircarbon manufacturing", "Soil amendments production"],
+    items: ["Pesticide Manufacturing", "Silicon anode powder manufacturing", "Composites manufacturing", "Aircarbon manufacturing", "Soil amendments production"],
   },
   {
     icon: Recycle,
@@ -14,7 +14,7 @@ const categories = [
   {
     icon: Mountain,
     title: "Heavy Industry / Extraction",
-    items: ["Strip mining", "Chemical manufacturing", "Fertilizer manufacturing", "Metal mining and extraction", "Petroleum refineries"],
+    items: ["Strip mining", "Chemical manufacturing", "Fertilizer manufacturing", "Metal mining and extraction"],
   },
   {
     icon: Zap,
@@ -23,8 +23,8 @@ const categories = [
   },
   {
     icon: Factory,
-    title: "Metal Processing & Refining",
-    items: ["Metal forging", "Thin steel plate manufacturing", "Metal products manufacturing", "Tooling and metal stamping"],
+    title: "Metal, Plastic Processing & Refining",
+    items: ["Metal forging", "Thin steel plate manufacturing", "Metal products manufacturing", "Tooling and metal stamping", "Plastic manufacturing and fabrication"],
   },
   {
     icon: BatteryCharging,
@@ -42,7 +42,7 @@ const AdvancedManufacturing = () => (
         <span className="text-gold-gradient">"Advanced Manufacturing"</span>?
       </h2>
       <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-10">
-        California defines "advanced manufacturing" extremely broadly, covering more than 60 categories of industrial facilities — including facilities that use and, at times, emit toxic chemicals — with no requirement that it reduce pollution or environmental impacts.
+        California defines "advanced manufacturing" extremely broadly, covering more than 75 categories of industrial facilities — including facilities that use and, at times, emit toxic chemicals — with no requirement that it reduce pollution or environmental impacts.
       </p>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

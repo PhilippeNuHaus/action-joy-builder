@@ -59,11 +59,9 @@ const ItsAlreadyHappening = () => (
                 shut down in 2013 following equipment failures and a radiation leak, yet more than 3.6 million pounds of
                 nuclear waste remain stored on-site, just feet from the Pacific Ocean. Despite ongoing mitigation efforts,
                 the site continues to raise serious concerns around coastal erosion, groundwater contamination, and long-term
-                storage safety in a seismically active region. With no full <strong>CEQA</strong> process to address the significant negative
-                impacts in place, highly radioactive waste remains stranded in the community indefinitely. Large-scale
+                storage safety in a seismically active region. Large-scale
                 industrial projects can leave behind consequences that persist for decades, and without strong environmental
-                oversight, communities risk being exposed to long-term hazards while taxpayers are left carrying the cost of
-                monitoring, mitigation, and cleanup.
+                oversight, communities risk being exposed to long-term hazards.
               </p>
             </article>
 
