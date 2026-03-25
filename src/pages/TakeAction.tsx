@@ -1,7 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Mail, Phone } from "lucide-react";
-import { useEffect, useRef } from "react";
 
 const TakeAction = () => {
   const widgetRef = useRef<HTMLDivElement>(null);
