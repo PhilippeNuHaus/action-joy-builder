@@ -43,10 +43,7 @@ const TakeAction = () => {
             <div className="grid lg:grid-cols-5 gap-8">
               {/* ActionButton Embed */}
               <div className="lg:col-span-3">
-                <div
-                  className="action-button-widget bg-card border border-border rounded-sm p-6"
-                  data-widget-id="SPK-QEIDR0A="
-                />
+                <div ref={widgetRef} className="min-h-[400px]" />
               </div>
 
               {/* Sidebar actions */}
