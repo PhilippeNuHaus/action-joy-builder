@@ -23,7 +23,7 @@ const HeroSection = () => (
             <span>Thank State Senator</span>
             <span>Catherine Blakespear for</span>
             <span>Protecting</span>
-            <span className="text-gold-gradient">Your Community</span>
+            <span className="text-gold-gradient">Our Community</span>
             <span>from Toxic Pollution</span>
           </h1>
 
