@@ -46,7 +46,7 @@ const ItsAlreadyHappening = () => (
           <div className="grid gap-6 lg:grid-cols-[minmax(0,368px)_1fr_minmax(0,368px)] lg:items-start">
             <article className="bg-card/95 border-2 border-primary rounded-xl p-4">
               <h3 className="font-heading text-3xl uppercase tracking-wide text-center mb-4">
-                Risking Our <span className="text-primary">Environment</span>
+                San <span className="text-primary">Onofre</span>
               </h3>
               <img
                 src={songsNuclear}
