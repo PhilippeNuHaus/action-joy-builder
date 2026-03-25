@@ -31,7 +31,12 @@ const TakeAction = () => {
             <div className="grid lg:grid-cols-5 gap-8">
               {/* ActionButton Embed */}
               <div className="lg:col-span-3">
-                <div ref={widgetRef} className="min-h-[400px]" />
+                <iframe
+                  srcDoc={ACTIONBUTTON_HTML}
+                  className="w-full border-0 rounded-sm min-h-[600px]"
+                  title="Take Action - Contact Your Senator"
+                  sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
+                />
               </div>
 
               {/* Sidebar actions */}
