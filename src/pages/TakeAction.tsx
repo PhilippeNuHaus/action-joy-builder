@@ -2,27 +2,16 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Mail, Phone } from "lucide-react";
 
-const TakeAction = () => {
-  const widgetRef = useRef<HTMLDivElement>(null);
+const ACTIONBUTTON_HTML = `
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0;padding:0;background:transparent;}</style>
+</head><body>
+<div class="action-button-widget" data-widget-id="SPK-QEIDR0A="></div>
+<script src="https://embed.actionbutton.co/widget/widget.min.js"></script>
+</body></html>`;
 
-  useEffect(() => {
-    if (!widgetRef.current) return;
-    
-    // Clear any previous content
-    widgetRef.current.innerHTML = '';
-    
-    // Create the widget div
-    const widgetDiv = document.createElement("div");
-    widgetDiv.className = "action-button-widget";
-    widgetDiv.setAttribute("data-widget-id", "SPK-QEIDR0A=");
-    widgetRef.current.appendChild(widgetDiv);
-    
-    // Add the script
-    const script = document.createElement("script");
-    script.src = "https://embed.actionbutton.co/widget/widget.min.js";
-    script.async = true;
-    widgetRef.current.appendChild(script);
-  }, []);
+const TakeAction = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
