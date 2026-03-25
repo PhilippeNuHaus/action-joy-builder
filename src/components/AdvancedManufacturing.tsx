@@ -4,7 +4,7 @@ const categories = [
   {
     icon: FlaskConical,
     title: "Toxic Chemical Production",
-    items: ["Pesticide Manufacturing", "Silicon anode powder manufacturing", "Composites manufacturing", "Aircarbon manufacturing", "Soil amendments production"],
+    items: ["Pesticide manufacturing", "Silicon anode powder manufacturing", "Composites manufacturing", "Aircarbon manufacturing", "Soil amendments production"],
   },
   {
     icon: Recycle,
