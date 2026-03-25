@@ -1,18 +1,17 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Mail, Phone } from "lucide-react";
-import { useEffect } from "react";
+
+const ACTIONBUTTON_HTML = `
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0;padding:0;background:transparent;}</style>
+</head><body>
+<div class="action-button-widget" data-widget-id="SPK-QEIDR0A="></div>
+<script src="https://embed.actionbutton.co/widget/widget.min.js"></script>
+</body></html>`;
 
 const TakeAction = () => {
-  useEffect(() => {
-    const existing = document.querySelector('script[src*="actionbutton.co"]');
-    if (!existing) {
-      const script = document.createElement("script");
-      script.src = "https://embed.actionbutton.co/widget/widget.min.js";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -32,9 +31,11 @@ const TakeAction = () => {
             <div className="grid lg:grid-cols-5 gap-8">
               {/* ActionButton Embed */}
               <div className="lg:col-span-3">
-                <div
-                  className="action-button-widget bg-card border border-border rounded-sm p-6"
-                  data-widget-id="SPK-QEIDR0A="
+                <iframe
+                  srcDoc={ACTIONBUTTON_HTML}
+                  className="w-full border-0 rounded-sm min-h-[600px]"
+                  title="Take Action - Contact Your Senator"
+                  sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
                 />
               </div>
 
