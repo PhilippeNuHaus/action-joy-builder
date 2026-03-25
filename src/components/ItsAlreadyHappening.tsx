@@ -46,14 +46,14 @@ const ItsAlreadyHappening = () => (
           <div className="grid gap-6 lg:grid-cols-[minmax(0,368px)_1fr_minmax(0,368px)] lg:items-start">
             <article className="bg-card/95 border-2 border-primary rounded-xl p-4">
               <h3 className="font-heading text-3xl uppercase tracking-wide text-center mb-4">
-                Risking Our <span className="text-primary">Environment</span>
+                San <span className="text-primary">Onofre</span>
               </h3>
               <img
                 src={songsNuclear}
                 alt="San Onofre Nuclear Generating Station"
                 className="w-full h-28 object-cover rounded-sm border border-primary grayscale mb-3"
               />
-              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-justify">
+              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-left">
                 Industrial infrastructure along the Southern California coast has already left lasting risks for surrounding
                 communities. The <strong>San Onofre Nuclear Generating Station (SONGS)</strong>, located within the district, was permanently
                 shut down in 2013 following equipment failures and a radiation leak, yet more than 3.6 million pounds of
@@ -69,14 +69,14 @@ const ItsAlreadyHappening = () => (
 
             <article className="bg-card/95 border-2 border-primary rounded-xl p-4">
               <h3 className="font-heading text-3xl uppercase tracking-wide text-center mb-4">
-                Long Term <span className="text-primary">Costs</span>
+                Encina <span className="text-primary">Power Station</span>
               </h3>
               <img
                 src={encinaPower}
                 alt="Encina Power Station in Carlsbad"
                 className="w-full h-28 object-cover rounded-sm border border-primary mb-3"
               />
-              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-justify">
+              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-left">
                 Industrial activity along the North County coastline has already left a lasting environmental footprint. The <strong>Encina Power Station in Carlsbad</strong> operated for decades along the Pacific, using once-through ocean cooling that killed marine life and discharged heated water back into the ocean, disrupting local ecosystems. It also contributed to air pollution and greenhouse gas emissions in surrounding communities before its closure in 2018.
                 {" "}Because the plant was built before modern environmental laws, many of these impacts occurred without the level of oversight required today. That's exactly why <strong>CEQA</strong> is so important — it requires projects to disclose impacts, reduce harm, and protect public health.
                 {" "}When Encina was finally shut down, <strong>CEQA</strong> review helped guide environmental cleanup and redevelopment, ensuring the site addressed long-term damage instead of passing those costs onto the community.
