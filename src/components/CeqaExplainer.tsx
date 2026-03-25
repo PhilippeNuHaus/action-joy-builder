@@ -8,7 +8,7 @@ const CeqaExplainer = () => (
           <strong className="text-foreground uppercase">Right to Know</strong>. It requires industries to disclose environmental and health risks and reduce potential harms before projects are approved.
         </p>
         <p>
-          Until last year when a dangerous loophole just took that protection away.
+          Until last year, when a dangerous loophole just took that protection away.
         </p>
         <p>
           Last year, lawmakers quietly exempted "<strong className="text-primary">advanced manufacturing</strong>" from <strong className="text-primary">CEQA</strong>. It sounds clean—but it's not. The exemption covers 75+ types of heavy industry, including facilities that use and can release toxic chemicals like arsenic, PFAS, and cyanide.
