@@ -19,9 +19,9 @@ const HeroSection = () => (
             <AlertTriangle size={14} />
             San Diego and Southwestern Orange Counties
           </p>
-          <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.8rem] font-bold uppercase mb-10 flex flex-col items-center gap-1 leading-[1.15]">
+          <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.8rem] font-bold uppercase mb-10 flex flex-col items-center gap-3">
             <span>Thank Senator</span>
-            <span>Catherine Blakespear for Protecting</span>
+            <span className="mb-2">Catherine Blakespear for Protecting</span>
             <span className="text-gold-gradient">Your Community</span>
             <span>from Toxic Pollution</span>
           </h1>
