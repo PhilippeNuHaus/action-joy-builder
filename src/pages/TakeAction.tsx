@@ -17,14 +17,19 @@ const TakeAction = () => {
     widgetDiv.setAttribute('data-widget-id', 'SPK-QEIDR0A=');
     widgetRef.current.appendChild(widgetDiv);
 
+    // Script must be appended to document.body to execute properly
     const script = document.createElement('script');
     script.src = 'https://embed.actionbutton.co/widget/widget.min.js';
     script.async = true;
-    widgetRef.current.appendChild(script);
+    document.body.appendChild(script);
 
     return () => {
       if (widgetRef.current) {
         widgetRef.current.innerHTML = '';
+      }
+      // Clean up the script from body
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
       }
     };
   }, []);
