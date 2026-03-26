@@ -2,14 +2,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Mail, Phone } from "lucide-react";
 
-const ACTIONBUTTON_HTML = `
-<!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<style>body{margin:0;padding:0;background:transparent;}</style>
-</head><body>
-<div class="action-button-widget" data-widget-id="SPK-QEIDR0A="></div>
-<script src="https://embed.actionbutton.co/widget/widget.min.js"></script>
-</body></html>`;
+import { useEffect, useRef } from "react";
 
 const TakeAction = () => {
 
