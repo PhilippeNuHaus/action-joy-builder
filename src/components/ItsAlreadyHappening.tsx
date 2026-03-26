@@ -76,12 +76,17 @@ const ItsAlreadyHappening = () => (
                 alt="Encina Power Station in Carlsbad"
                 className="w-full h-28 object-cover rounded-sm border border-primary mb-3"
               />
-              <p className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-left">
-                Industrial activity along the North County coastline has already left a lasting environmental footprint. The <strong>Encina Power Station in Carlsbad</strong> operated for decades along the Pacific, using once-through ocean cooling that killed marine life and discharged heated water back into the ocean, disrupting local ecosystems. It also contributed to air pollution and greenhouse gas emissions in surrounding communities before its closure in 2018.
-                {" "}Because the plant was built before modern environmental laws, many of these impacts occurred without the level of oversight required today. That's exactly why <strong>CEQA</strong> is so important — it requires projects to disclose impacts, reduce harm, and protect public health.
-                {" "}When Encina was finally shut down, <strong>CEQA</strong> review helped guide environmental cleanup and redevelopment, ensuring the site addressed long-term damage instead of passing those costs onto the community.
-                {" "}By waiving <strong>CEQA</strong> for "<strong>advanced manufacturing</strong>," projects could move forward without full environmental review, increasing the risk of long-term environmental damage and costly cleanup for coastal communities.
-              </p>
+              <div className="text-xs md:text-sm text-foreground leading-relaxed font-medium text-left space-y-3">
+                <p>
+                  For decades, the <strong>Encina Power Station</strong> polluted the coast—killing marine life, discharging heated water into the ocean, and contributing to air pollution and greenhouse gases. It was built before modern environmental protections, so much of this damage happened with little oversight.
+                </p>
+                <p>
+                  That's exactly why <strong>CEQA</strong> matters. It forces projects to disclose impacts, reduce harm, and protect coastal communities before damage is done—not after.
+                </p>
+                <p>
+                  When Encina finally shut down, <strong>CEQA</strong> review helped ensure cleanup and redevelopment addressed the harm—rather than leaving the community to pay the price.
+                </p>
+              </div>
             </article>
           </div>
 
