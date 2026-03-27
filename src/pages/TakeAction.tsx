@@ -6,9 +6,9 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 const TakeAction = () => {
   const [verifiedAddress, setVerifiedAddress] = useState<string | null>(null);
-const SHARE_URL = "https://righttoknow-blakespear.org";
+  const SHARE_URL = "https://righttoknow-blakespear.org";
   const SHARE_MESSAGE = `A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: ${SHARE_URL} #SaveCEQA`;
-  const FACEBOOK_QUOTE = "A dangerous loophole is allowing polluting industrial projects to bypass environmental review and put our communities at risk. I just took action to support efforts to fix it.";
+  const FACEBOOK_QUOTE = "Protect our communities from toxic pollution. Thank Senator Blakespear for fighting to restore CEQA protections.";
 
   useEffect(() => {
     const addr = sessionStorage.getItem("verified_address");
@@ -70,7 +70,7 @@ const SHARE_URL = "https://righttoknow-blakespear.org";
                     <div className="flex items-center gap-4">
                       <span className="text-sm text-muted-foreground">Share:</span>
                       <a
-href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}&hashtag=${encodeURIComponent('#SaveCEQA')}`}
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-primary transition-colors"
@@ -79,7 +79,7 @@ href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_U
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                       </a>
                       <a
-                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("Protect our communities from toxic pollution! Thank Senator Blakespear for fighting to restore CEQA protections. Take action:")}&url=${encodeURIComponent("https://righttoknow-blakespear.org")}`}
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("Protect our communities from toxic pollution! Thank Senator Blakespear for fighting to restore CEQA protections. Take action:")}&url=${encodeURIComponent(SHARE_URL)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-primary transition-colors"

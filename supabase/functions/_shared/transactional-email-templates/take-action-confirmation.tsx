@@ -7,7 +7,7 @@ import type { TemplateEntry } from './registry.ts'
 const SITE_NAME = "Right to Know"
 const SITE_URL = "https://righttoknow-blakespear.org"
 const SHARE_MESSAGE = `A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: ${SITE_URL} #SaveCEQA`
-const FACEBOOK_QUOTE = "A dangerous loophole is allowing polluting industrial projects to bypass environmental review and put our communities at risk. I just took action to support efforts to fix it."
+const FACEBOOK_QUOTE = "Protect our communities from toxic pollution. Thank Senator Blakespear for fighting to restore CEQA protections."
 
 interface TakeActionConfirmationProps {
   firstName?: string
@@ -73,7 +73,7 @@ const TakeActionConfirmationEmail = ({ firstName }: TakeActionConfirmationProps)
         <Section style={socialButtonsRow}>
           <Button
             style={fbButton}
-href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}&hashtag=${encodeURIComponent('#SaveCEQA')}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}`}
           >
             Share on Facebook
           </Button>
