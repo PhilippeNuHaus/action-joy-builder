@@ -1,26 +1,61 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Mail, Phone } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const WIDGET_ID = "SPK-QEIDR0A=";
+const WIDGET_CONTAINER_ID = "action_button_container";
+
+type ActionButtonApi = {
+  loadButton?: (containerId: string, widgetId?: string) => Promise<unknown>;
+};
 
 const TakeAction = () => {
   const widgetRef = useRef<HTMLDivElement>(null);
+  const [widgetFailed, setWidgetFailed] = useState(false);
 
   useEffect(() => {
     const widgetEl = widgetRef.current;
     if (!widgetEl) return;
 
-    document
-      .querySelectorAll('script[src*="embed.actionbutton.co/widget/widget.min.js"]')
-      .forEach((script) => script.remove());
+    widgetEl.id = WIDGET_CONTAINER_ID;
+
+    const initWidget = () => {
+      const api = (window as Window & { ActionButton?: ActionButtonApi }).ActionButton;
+      if (!api?.loadButton) {
+        setWidgetFailed(true);
+        return;
+      }
+
+      setWidgetFailed(false);
+      api.loadButton(WIDGET_CONTAINER_ID, WIDGET_ID).catch(() => {
+        setWidgetFailed(true);
+      });
+    };
+
+    const existingScript = document.querySelector<HTMLScriptElement>(
+      'script[src="https://embed.actionbutton.co/widget/widget.min.js"]',
+    );
+
+    if (existingScript) {
+      if ((window as Window & { ActionButton?: ActionButtonApi }).ActionButton?.loadButton) {
+        initWidget();
+      } else {
+        existingScript.addEventListener("load", initWidget, { once: true });
+      }
+      return;
+    }
 
     const script = document.createElement("script");
     script.src = "https://embed.actionbutton.co/widget/widget.min.js";
     script.async = true;
-    widgetEl.insertAdjacentElement("afterend", script);
+    script.onload = initWidget;
+    script.onerror = () => setWidgetFailed(true);
+    document.body.appendChild(script);
 
     return () => {
-      script.remove();
+      script.onload = null;
+      script.onerror = null;
     };
   }, []);
 
@@ -45,8 +80,13 @@ const TakeAction = () => {
                 <div
                   ref={widgetRef}
                   className="action-button-widget min-h-[600px]"
-                  data-action-button-widget-id="SPK-QEIDR0A="
+                  data-action-button-widget-id={WIDGET_ID}
                 />
+                {widgetFailed && (
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    The action form failed to load. Please use the direct email or phone options on the right.
+                  </p>
+                )}
               </div>
 
               {/* Sidebar actions */}
