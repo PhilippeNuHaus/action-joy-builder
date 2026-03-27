@@ -57,7 +57,19 @@ const SenatorContactForm = () => {
   const onSubmit = async (data: FormValues) => {
     setSubmitting(true);
     try {
-      const idempotencyKey = `senator-${crypto.randomUUID()}`;
+      const submissionId = crypto.randomUUID();
+      const idempotencyKey = `senator-${submissionId}`;
+
+      // Store submission in database
+      await supabase.from("contact_submissions").insert({
+        id: submissionId,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+        address: verifiedAddress || null,
+        zip: zip || null,
+        message: data.message,
+      });
 
       // Send senator notification
       const { error: senatorError } = await supabase.functions.invoke("send-transactional-email", {
