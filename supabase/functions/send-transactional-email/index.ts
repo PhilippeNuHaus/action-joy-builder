@@ -307,7 +307,7 @@ Deno.serve(async (req) => {
       message_id: messageId,
       to: effectiveRecipient,
       from: templateData.firstName && templateData.lastName
-        ? `${templateData.firstName} ${templateData.lastName} via ${SITE_NAME} <noreply@${FROM_DOMAIN}>`
+        ? `${templateData.firstName} ${templateData.lastName} <noreply@${FROM_DOMAIN}>`
         : `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
       reply_to: templateData.email || undefined,
       sender_domain: SENDER_DOMAIN,
