@@ -55,16 +55,11 @@ const TakeAction = () => {
             </p>
 
             {verifiedAddress && (
-              <div className="bg-primary/10 border border-primary/30 rounded-sm p-4 mb-8 max-w-2xl mx-auto flex items-start gap-3">
-                <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">
-                    Verified constituent at: <span className="text-primary">{verifiedAddress}</span>
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Tip: Mention your address in your message — legislators pay more attention to constituents who identify where they live.
-                  </p>
-                </div>
+              <div className="bg-primary/10 border border-primary/30 rounded-sm p-4 mb-8 max-w-2xl mx-auto flex items-center gap-3">
+                <MapPin size={18} className="text-primary shrink-0" />
+                <p className="text-sm font-medium text-foreground">
+                  Verified constituent at: <span className="text-primary">{verifiedAddress}</span>
+                </p>
               </div>
             )}
 
