@@ -1,8 +1,23 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Mail, Phone } from "lucide-react";
+import { useEffect } from "react";
 
 const TakeAction = () => {
+  useEffect(() => {
+    // Remove any previously loaded actionbutton scripts
+    document.querySelectorAll('script[src*="actionbutton"]').forEach(s => s.remove());
+    
+    // Load the widget script after React has rendered the widget div
+    const script = document.createElement('script');
+    script.src = 'https://embed.actionbutton.co/widget/widget.min.js';
+    document.body.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
