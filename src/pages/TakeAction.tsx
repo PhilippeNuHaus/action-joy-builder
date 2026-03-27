@@ -6,8 +6,9 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 const TakeAction = () => {
   const [verifiedAddress, setVerifiedAddress] = useState<string | null>(null);
-  const SHARE_URL = "https://righttoknow-blakespear.org";
+const SHARE_URL = "https://righttoknow-blakespear.org";
   const SHARE_MESSAGE = `A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: ${SHARE_URL} #SaveCEQA`;
+  const FACEBOOK_QUOTE = "A dangerous loophole is allowing polluting industrial projects to bypass environmental review and put our communities at risk. I just took action to support efforts to fix it.";
 
   useEffect(() => {
     const addr = sessionStorage.getItem("verified_address");
@@ -69,7 +70,7 @@ const TakeAction = () => {
                     <div className="flex items-center gap-4">
                       <span className="text-sm text-muted-foreground">Share:</span>
                       <a
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(SHARE_MESSAGE)}`}
+href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}&hashtag=${encodeURIComponent('#SaveCEQA')}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-primary transition-colors"
