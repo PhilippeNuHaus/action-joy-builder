@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import ActionButtonWidget from "@/components/ActionButtonWidget";
+import SenatorContactForm from "@/components/SenatorContactForm";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const TakeAction = () => {
@@ -43,7 +43,7 @@ const TakeAction = () => {
 
             <div className="grid lg:grid-cols-5 gap-8">
               <div className="lg:col-span-3">
-                <ActionButtonWidget />
+                <SenatorContactForm />
               </div>
 
               <div className="lg:col-span-2 space-y-5">
