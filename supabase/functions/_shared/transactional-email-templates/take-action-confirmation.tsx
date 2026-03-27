@@ -149,6 +149,7 @@ const divider = { borderColor: '#e5e5e5', margin: '24px 0' }
 const quoteBlock = { backgroundColor: '#f5f5f0', padding: '16px 20px', borderLeft: `3px solid ${goldColor}`, margin: '0 0 16px' }
 const quoteText = { fontSize: '14px', color: '#444444', lineHeight: '1.7', margin: '0', fontStyle: 'italic' as const, whiteSpace: 'pre-wrap' as const }
 const socialButtonsRow = { margin: '0 0 8px' }
+const fbTip = { fontSize: '12px', color: '#888888', margin: '6px 0 0', fontStyle: 'italic' as const }
 const fbButton = {
   backgroundColor: '#1877F2',
   color: '#ffffff',
