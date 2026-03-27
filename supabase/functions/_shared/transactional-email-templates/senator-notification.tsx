@@ -87,6 +87,7 @@ const accentBar = { backgroundColor: goldColor, height: '4px', margin: '0 0 30px
 const h1 = { fontSize: '22px', fontWeight: '700' as const, color: navyColor, margin: '0 0 20px', fontFamily: "'Oswald', Arial, sans-serif", textTransform: 'uppercase' as const }
 const subheading = { fontSize: '13px', fontWeight: '600' as const, color: navyColor, margin: '0 0 8px', textTransform: 'uppercase' as const, letterSpacing: '0.5px' }
 const infoText = { fontSize: '14px', color: '#333333', lineHeight: '1.6', margin: '0 0 8px' }
+const verifiedAddress = { fontSize: '14px', color: navyColor, lineHeight: '1.6', margin: '0 0 8px', fontWeight: '600' as const, backgroundColor: '#f5f5f0', padding: '8px 12px', borderLeft: `3px solid ${goldColor}` }
 const messageText = { fontSize: '14px', color: '#333333', lineHeight: '1.8', margin: '0 0 16px', whiteSpace: 'pre-wrap' as const }
 const divider = { borderColor: '#e5e5e5', margin: '24px 0' }
 const footerText = { fontSize: '12px', color: '#999999', lineHeight: '1.4', margin: '0', fontStyle: 'italic' as const }
