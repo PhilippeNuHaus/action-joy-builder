@@ -43,7 +43,7 @@ const TakeAction = () => {
 
             <div className="grid lg:grid-cols-5 gap-8">
               <div className="lg:col-span-3">
-                <ActionButtonWidget />
+                <SenatorContactForm />
               </div>
 
               <div className="lg:col-span-2 space-y-5">
