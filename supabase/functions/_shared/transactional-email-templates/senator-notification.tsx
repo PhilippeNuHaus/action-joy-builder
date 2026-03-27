@@ -38,7 +38,7 @@ const SenatorNotificationEmail = ({
           My name is <strong>{firstName} {lastName}</strong> and I am a verified constituent of Senate District 38.
         </Text>
         <Text style={verifiedAddress}>
-          Verified constituent address: {address}, {zip}
+          Verified constituent address: {address}
         </Text>
 
         <Hr style={divider} />
