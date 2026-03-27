@@ -9,7 +9,66 @@ const TakeAction = () => {
   const SHARE_URL = "https://righttoknow-blakespear.org";
   const SHARE_MESSAGE = `A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: ${SHARE_URL} #SaveCEQA`;
   const FACEBOOK_QUOTE = "Protect our communities from toxic pollution. Thank Senator Blakespear for fighting to restore CEQA protections.";
-...
+
+  useEffect(() => {
+    const addr = sessionStorage.getItem("verified_address");
+    if (addr) setVerifiedAddress(addr);
+  }, []);
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <SiteHeader />
+      <main className="flex-1">
+        <div className="caution-stripe h-3" />
+
+        <section className="py-16">
+          <div className="container max-w-4xl">
+            <h1 className="font-heading text-4xl md:text-5xl uppercase text-center mb-3">
+              Take <span className="text-primary">Action</span>
+            </h1>
+            <p className="text-center text-muted-foreground mb-8 max-w-xl mx-auto">
+              Thank State Senator Catherine Blakespear for Protecting Your Community from Toxic Pollution
+            </p>
+
+            {verifiedAddress && (
+              <div className="bg-primary/10 border border-primary/30 rounded-sm p-4 mb-8 max-w-2xl mx-auto flex items-start gap-3">
+                <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">
+                    Verified constituent at: <span className="text-primary">{verifiedAddress}</span>
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Tip: Mention your address in your message — legislators pay more attention to constituents who identify where they live.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <div className="grid lg:grid-cols-5 gap-8">
+              <div className="lg:col-span-3">
+                <SenatorContactForm />
+              </div>
+
+              <div className="lg:col-span-2 space-y-5">
+                <div className="bg-card border border-border rounded-sm p-5">
+                  <h3 className="font-heading text-sm uppercase tracking-wider text-primary mb-3">Other Ways to Help</h3>
+                  <div className="space-y-4">
+                    <a
+                      href="mailto:senator.blakespear@senate.ca.gov"
+                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <Mail size={16} className="text-primary shrink-0" />
+                      Email the Senator directly
+                    </a>
+                    <a
+                      href="tel:+19168516038"
+                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <Phone size={16} className="text-primary shrink-0" />
+                      Call: (916) 651-6038
+                    </a>
+                    <div className="flex items-center gap-4">
+                      <span className="text-sm text-muted-foreground">Share:</span>
                       <a
                         href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}`}
                         target="_blank"
@@ -20,7 +79,7 @@ const TakeAction = () => {
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                       </a>
                       <a
-                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("Protect our communities from toxic pollution! Thank Senator Blakespear for fighting to restore CEQA protections. Take action:")}&url=${encodeURIComponent("https://righttoknow-blakespear.org")}`}
+                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("Protect our communities from toxic pollution! Thank Senator Blakespear for fighting to restore CEQA protections. Take action:")}&url=${encodeURIComponent(SHARE_URL)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-primary transition-colors"
