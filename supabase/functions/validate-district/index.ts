@@ -13,31 +13,39 @@ const requestSchema = z.object({
 
 const DISTRICT_ID_FRAGMENT = "state:ca/sldu:38";
 
-const getDivisionsFromCivicApi = async (address: string, apiKey: string) => {
-  const endpoints = [
-    "https://www.googleapis.com/civicinfo/v2/divisionsByAddress",
-    "https://www.googleapis.com/civicinfo/v2/representatives",
-  ];
+const extractDivisionIds = (payload: any): string[] => {
+  const ids = new Set<string>();
 
-  let lastError: unknown = null;
-
-  for (const endpoint of endpoints) {
-    const url = new URL(endpoint);
-    url.searchParams.set("address", address);
-    url.searchParams.set("key", apiKey);
-
-    const response = await fetch(url.toString());
-    const data = await response.json();
-
-    if (response.ok) {
-      return data?.divisions ?? {};
-    }
-
-    lastError = data;
-    console.error(`Google Civic API error (${endpoint}):`, JSON.stringify(data));
+  if (payload?.divisions && typeof payload.divisions === "object") {
+    Object.keys(payload.divisions).forEach((id) => ids.add(id));
   }
 
-  throw lastError;
+  if (Array.isArray(payload?.offices)) {
+    payload.offices.forEach((office: any) => {
+      if (typeof office?.divisionId === "string") {
+        ids.add(office.divisionId);
+      }
+    });
+  }
+
+  return Array.from(ids);
+};
+
+const fetchDivisionIds = async (address: string, apiKey: string): Promise<string[]> => {
+  const url = new URL("https://civicinfo.googleapis.com/civicinfo/v2/representatives");
+  url.searchParams.set("address", address);
+  url.searchParams.set("includeOffices", "true");
+  url.searchParams.set("key", apiKey);
+
+  const response = await fetch(url.toString());
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.error("Google Civic API error:", JSON.stringify(data));
+    throw new Error("Google Civic API request failed");
+  }
+
+  return extractDivisionIds(data);
 };
 
 serve(async (req) => {
@@ -62,10 +70,10 @@ serve(async (req) => {
     }
 
     const { address } = parsed.data;
-    const divisions = await getDivisionsFromCivicApi(address, apiKey);
+    const divisionIds = await fetchDivisionIds(address, apiKey);
 
-    const inDistrict = Object.keys(divisions).some((divisionId) =>
-      divisionId.includes(DISTRICT_ID_FRAGMENT),
+    const inDistrict = divisionIds.some((id) =>
+      id.toLowerCase().includes(DISTRICT_ID_FRAGMENT),
     );
 
     return new Response(JSON.stringify({ inDistrict }), {
@@ -74,7 +82,6 @@ serve(async (req) => {
     });
   } catch (error) {
     console.error("District validation error:", error);
-
     return new Response(
       JSON.stringify({ error: "Could not verify address", inDistrict: false }),
       {
