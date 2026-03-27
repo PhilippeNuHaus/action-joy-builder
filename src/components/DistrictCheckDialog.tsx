@@ -41,7 +41,7 @@ const DistrictCheckDialog = ({ open, onOpenChange }: DistrictCheckDialogProps) =
 
       if (data?.inDistrict) {
         onOpenChange(false);
-        navigate("/whats-near-you");
+        navigate("/take-action");
       } else {
         setStatus("not-in-district");
       }
