@@ -6,6 +6,7 @@ import type { TemplateEntry } from './registry.ts'
 
 const SITE_NAME = "Right to Know"
 const SITE_URL = "https://righttoknow-blakespear.org"
+const SHARE_MESSAGE = `A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: ${SITE_URL} #SaveCEQA`
 
 interface TakeActionConfirmationProps {
   firstName?: string
@@ -50,7 +51,7 @@ const TakeActionConfirmationEmail = ({ firstName }: TakeActionConfirmationProps)
 
         <Section style={quoteBlock}>
           <Text style={quoteText}>
-            I just took a minute to speak out about a dangerous loophole that allows polluting industrial projects in our communities to bypass environmental review.{'\n'}Can you take a quick look and send a message too? It really matters: <Link href={SITE_URL} style={linkStyle}>www.righttoknow-blakespear.org</Link>
+            I just took a minute to speak out about a dangerous loophole that allows polluting industrial projects in our communities to bypass environmental review.{"\n"}Can you take a quick look and send a message too? It really matters: <Link href={SITE_URL} style={linkStyle}>www.righttoknow-blakespear.org</Link>
           </Text>
         </Section>
 
@@ -64,14 +65,14 @@ const TakeActionConfirmationEmail = ({ firstName }: TakeActionConfirmationProps)
 
         <Section style={quoteBlock}>
           <Text style={quoteText}>
-            A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk.{'\n\n'}I just took action to support efforts to fix it. You can too: <Link href={SITE_URL} style={linkStyle}>www.righttoknow-blakespear.org</Link>{'\n\n'}#SaveCEQA
+            A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk.{"\n\n"}I just took action to support efforts to fix it. You can too: <Link href={SITE_URL} style={linkStyle}>www.righttoknow-blakespear.org</Link>{"\n\n"}#SaveCEQA
           </Text>
         </Section>
 
         <Section style={socialButtonsRow}>
           <Button
             style={fbButton}
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL)}&quote=${encodeURIComponent('A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: www.righttoknow-blakespear.org #SaveCEQA')}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL)}&quote=${encodeURIComponent(SHARE_MESSAGE)}`}
           >
             Share on Facebook
           </Button>
@@ -79,7 +80,7 @@ const TakeActionConfirmationEmail = ({ firstName }: TakeActionConfirmationProps)
         <Section style={socialButtonsRow}>
           <Button
             style={twitterButton}
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: www.righttoknow-blakespear.org #SaveCEQA')}`}
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_MESSAGE)}`}
           >
             Share on X (Twitter)
           </Button>
@@ -87,7 +88,7 @@ const TakeActionConfirmationEmail = ({ firstName }: TakeActionConfirmationProps)
         <Section style={socialButtonsRow}>
           <Button
             style={linkedinButton}
-            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SITE_URL)}`}
+            href={`https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(SHARE_MESSAGE)}`}
           >
             Share on LinkedIn
           </Button>
