@@ -66,7 +66,7 @@ export const template = {
   component: SenatorNotificationEmail,
   subject: (data: Record<string, any>) =>
     `Constituent Message: ${data.firstName || ''} ${data.lastName || ''} — SB 954 / CEQA`,
-  to: 'senator.blakespear@senate.ca.gov',
+  to: 'philippe@nuhausdm.com',
   displayName: 'Senator notification',
   previewData: {
     firstName: 'Jane',
