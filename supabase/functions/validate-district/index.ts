@@ -11,9 +11,31 @@ const requestSchema = z.object({
   address: z.string().min(1).max(500),
 });
 
+const DISTRICT_ID_FRAGMENT = "state:ca/sldu:38";
+
+const fetchDivisionIdsByAddress = async (
+  address: string,
+  apiKey: string,
+): Promise<string[]> => {
+  const url = new URL("https://www.googleapis.com/civicinfo/v2/divisionsByAddress");
+  url.searchParams.set("address", address);
+  url.searchParams.set("key", apiKey);
+
+  const response = await fetch(url.toString());
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.error("Google Civic API error:", JSON.stringify(data));
+    throw new Error("Google Civic API request failed");
+  }
+
+  const divisions = data?.divisions ?? {};
+  return Object.keys(divisions);
+};
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
@@ -24,51 +46,33 @@ serve(async (req) => {
 
     const body = await req.json();
     const parsed = requestSchema.safeParse(body);
+
     if (!parsed.success) {
-      return new Response(
-        JSON.stringify({ error: "Invalid address input" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Invalid address input" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const { address } = parsed.data;
-    const url = `https://www.googleapis.com/civicinfo/v2/representatives?address=${encodeURIComponent(address)}&levels=administrativeArea1&roles=legislatorUpperBody&key=${apiKey}`;
+    const divisionIds = await fetchDivisionIdsByAddress(address, apiKey);
 
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error("Google Civic API error:", JSON.stringify(data));
-      return new Response(
-        JSON.stringify({ error: "Could not verify address", inDistrict: false }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // Check if any division contains CA state senate district 38
-    const divisions = data.divisions || {};
-    let inDistrict = false;
-
-    for (const divisionId of Object.keys(divisions)) {
-      // Division IDs look like: ocd-division/country:us/state:ca/sldu:38
-      if (
-        divisionId.includes("state:ca") &&
-        divisionId.includes("sldu:38")
-      ) {
-        inDistrict = true;
-        break;
-      }
-    }
-
-    return new Response(
-      JSON.stringify({ inDistrict }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    const inDistrict = divisionIds.some((id) =>
+      id.toLowerCase().includes(DISTRICT_ID_FRAGMENT),
     );
+
+    return new Response(JSON.stringify({ inDistrict }), {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("District validation error:", error);
     return new Response(
-      JSON.stringify({ error: "Validation failed", inDistrict: false }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify({ error: "Could not verify address", inDistrict: false }),
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
     );
   }
 });
