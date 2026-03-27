@@ -13,28 +13,12 @@ const requestSchema = z.object({
 
 const DISTRICT_ID_FRAGMENT = "state:ca/sldu:38";
 
-const extractDivisionIds = (payload: any): string[] => {
-  const ids = new Set<string>();
-
-  if (payload?.divisions && typeof payload.divisions === "object") {
-    Object.keys(payload.divisions).forEach((id) => ids.add(id));
-  }
-
-  if (Array.isArray(payload?.offices)) {
-    payload.offices.forEach((office: any) => {
-      if (typeof office?.divisionId === "string") {
-        ids.add(office.divisionId);
-      }
-    });
-  }
-
-  return Array.from(ids);
-};
-
-const fetchDivisionIds = async (address: string, apiKey: string): Promise<string[]> => {
-  const url = new URL("https://civicinfo.googleapis.com/civicinfo/v2/representatives");
+const fetchDivisionIdsByAddress = async (
+  address: string,
+  apiKey: string,
+): Promise<string[]> => {
+  const url = new URL("https://www.googleapis.com/civicinfo/v2/divisionsByAddress");
   url.searchParams.set("address", address);
-  url.searchParams.set("includeOffices", "true");
   url.searchParams.set("key", apiKey);
 
   const response = await fetch(url.toString());
@@ -45,7 +29,8 @@ const fetchDivisionIds = async (address: string, apiKey: string): Promise<string
     throw new Error("Google Civic API request failed");
   }
 
-  return extractDivisionIds(data);
+  const divisions = data?.divisions ?? {};
+  return Object.keys(divisions);
 };
 
 serve(async (req) => {
@@ -70,7 +55,7 @@ serve(async (req) => {
     }
 
     const { address } = parsed.data;
-    const divisionIds = await fetchDivisionIds(address, apiKey);
+    const divisionIds = await fetchDivisionIdsByAddress(address, apiKey);
 
     const inDistrict = divisionIds.some((id) =>
       id.toLowerCase().includes(DISTRICT_ID_FRAGMENT),
