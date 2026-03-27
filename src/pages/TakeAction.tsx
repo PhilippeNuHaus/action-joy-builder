@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 
 const WIDGET_ID = "SPK-QEIDR0A=";
 const WIDGET_CONTAINER_ID = "action_button_container";
+const WIDGET_SCRIPT_SRC = "https://embed.actionbutton.co/widget/widget.min.js";
+const WIDGET_LOAD_TIMEOUT_MS = 8000;
 
 type ActionButtonApi = {
   loadButton?: (containerId: string, widgetId?: string) => Promise<unknown>;
@@ -13,51 +15,110 @@ type ActionButtonApi = {
 const TakeAction = () => {
   const widgetRef = useRef<HTMLDivElement>(null);
   const [widgetFailed, setWidgetFailed] = useState(false);
+  const [widgetLoading, setWidgetLoading] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     const widgetEl = widgetRef.current;
     if (!widgetEl) return;
 
     widgetEl.id = WIDGET_CONTAINER_ID;
+    widgetEl.setAttribute("data-action-button-widget-id", WIDGET_ID);
+
+    let cancelled = false;
+    let timeoutId: number | undefined;
+    let observer: MutationObserver | null = null;
+    let createdScript: HTMLScriptElement | null = null;
+    let existingLoadHandler: (() => void) | null = null;
+    let existingErrorHandler: (() => void) | null = null;
+
+    const hasRenderedWidget = () => Boolean(widgetEl.querySelector("iframe"));
+
+    const markFailed = () => {
+      if (cancelled) return;
+      setWidgetLoading(false);
+      setWidgetFailed(true);
+    };
+
+    const markReady = () => {
+      if (cancelled) return;
+      if (timeoutId) window.clearTimeout(timeoutId);
+      setWidgetLoading(false);
+      setWidgetFailed(false);
+    };
+
+    observer = new MutationObserver(() => {
+      if (hasRenderedWidget()) {
+        markReady();
+      }
+    });
+    observer.observe(widgetEl, { childList: true, subtree: true });
 
     const initWidget = () => {
       const api = (window as Window & { ActionButton?: ActionButtonApi }).ActionButton;
       if (!api?.loadButton) {
-        setWidgetFailed(true);
+        markFailed();
         return;
       }
 
+      widgetEl.replaceChildren();
+      setWidgetLoading(true);
       setWidgetFailed(false);
       api.loadButton(WIDGET_CONTAINER_ID, WIDGET_ID).catch(() => {
-        setWidgetFailed(true);
+        markFailed();
       });
+
+      timeoutId = window.setTimeout(() => {
+        if (!hasRenderedWidget()) {
+          markFailed();
+        }
+      }, WIDGET_LOAD_TIMEOUT_MS);
     };
 
     const existingScript = document.querySelector<HTMLScriptElement>(
-      'script[src="https://embed.actionbutton.co/widget/widget.min.js"]',
+      `script[src="${WIDGET_SCRIPT_SRC}"]`,
     );
 
     if (existingScript) {
       if ((window as Window & { ActionButton?: ActionButtonApi }).ActionButton?.loadButton) {
         initWidget();
       } else {
-        existingScript.addEventListener("load", initWidget, { once: true });
+        existingLoadHandler = () => initWidget();
+        existingErrorHandler = () => markFailed();
+        existingScript.addEventListener("load", existingLoadHandler, { once: true });
+        existingScript.addEventListener("error", existingErrorHandler, { once: true });
       }
-      return;
+      return () => {
+        cancelled = true;
+        if (timeoutId) window.clearTimeout(timeoutId);
+        observer?.disconnect();
+        if (existingLoadHandler) {
+          existingScript.removeEventListener("load", existingLoadHandler);
+        }
+        if (existingErrorHandler) {
+          existingScript.removeEventListener("error", existingErrorHandler);
+        }
+      };
     }
 
     const script = document.createElement("script");
-    script.src = "https://embed.actionbutton.co/widget/widget.min.js";
+    createdScript = script;
+    script.src = WIDGET_SCRIPT_SRC;
     script.async = true;
     script.onload = initWidget;
-    script.onerror = () => setWidgetFailed(true);
+    script.onerror = () => markFailed();
     document.body.appendChild(script);
 
     return () => {
-      script.onload = null;
-      script.onerror = null;
+      cancelled = true;
+      if (timeoutId) window.clearTimeout(timeoutId);
+      observer?.disconnect();
+      if (createdScript) {
+        createdScript.onload = null;
+        createdScript.onerror = null;
+      }
     };
-  }, []);
+  }, [retryCount]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -77,15 +138,31 @@ const TakeAction = () => {
             <div className="grid lg:grid-cols-5 gap-8">
               {/* ActionButton Embed */}
               <div className="lg:col-span-3">
-                <div
-                  ref={widgetRef}
-                  className="action-button-widget min-h-[600px]"
-                  data-action-button-widget-id={WIDGET_ID}
-                />
+                <div className="relative min-h-[600px] border border-border rounded-sm bg-card/40">
+                  {widgetLoading && (
+                    <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+                      <p className="text-sm text-muted-foreground">Loading action form…</p>
+                    </div>
+                  )}
+                  <div
+                    ref={widgetRef}
+                    className="action-button-widget min-h-[600px]"
+                    data-action-button-widget-id={WIDGET_ID}
+                  />
+                </div>
                 {widgetFailed && (
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    The action form failed to load. Please use the direct email or phone options on the right.
-                  </p>
+                  <div className="mt-3 p-4 rounded-sm border border-border bg-card/70 space-y-3">
+                    <p className="text-sm text-muted-foreground">
+                      We couldn't load the embedded form here. You can still contact the office directly, or retry loading.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setRetryCount((count) => count + 1)}
+                      className="text-sm font-semibold text-primary hover:text-accent transition-colors"
+                    >
+                      Retry loading the form
+                    </button>
+                  </div>
                 )}
               </div>
 
