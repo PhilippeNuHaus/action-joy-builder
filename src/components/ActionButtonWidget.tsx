@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const WIDGET_SCRIPT_SRC = "https://embed.actionbutton.co/widget/widget.min.js";
 const WIDGET_EMBED_HTML =
-  '<div data-action-button-widget-id="SPK-QElDR0A=" data-is-sponsored-content="false" show-border="true"></div>';
+  '<div data-action-button-widget-id="SPK-QElDRkg=" data-is-sponsored-content="false" show-border="true"></div>';
 
 const ActionButtonWidget = () => {
   const containerRef = useRef<HTMLDivElement>(null);
