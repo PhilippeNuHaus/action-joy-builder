@@ -1,9 +1,17 @@
+import { useState, useEffect } from "react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ActionButtonWidget from "@/components/ActionButtonWidget";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 const TakeAction = () => {
+  const [verifiedAddress, setVerifiedAddress] = useState<string | null>(null);
+
+  useEffect(() => {
+    const addr = sessionStorage.getItem("verified_address");
+    if (addr) setVerifiedAddress(addr);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
@@ -15,9 +23,23 @@ const TakeAction = () => {
             <h1 className="font-heading text-4xl md:text-5xl uppercase text-center mb-3">
               Take <span className="text-primary">Action</span>
             </h1>
-            <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">
+            <p className="text-center text-muted-foreground mb-8 max-w-xl mx-auto">
               Thank State Senator Catherine Blakespear for Protecting Your Community from Toxic Pollution
             </p>
+
+            {verifiedAddress && (
+              <div className="bg-primary/10 border border-primary/30 rounded-sm p-4 mb-8 max-w-2xl mx-auto flex items-start gap-3">
+                <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">
+                    Verified constituent at: <span className="text-primary">{verifiedAddress}</span>
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Tip: Mention your address in your message — legislators pay more attention to constituents who identify where they live.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="grid lg:grid-cols-5 gap-8">
               <div className="lg:col-span-3">

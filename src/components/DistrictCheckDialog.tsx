@@ -40,6 +40,7 @@ const DistrictCheckDialog = ({ open, onOpenChange }: DistrictCheckDialogProps) =
       if (fnError) throw fnError;
 
       if (data?.inDistrict) {
+        sessionStorage.setItem("verified_address", address.trim());
         onOpenChange(false);
         navigate("/take-action");
       } else {
