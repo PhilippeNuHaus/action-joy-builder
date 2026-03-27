@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import DistrictCheckDialog from "@/components/DistrictCheckDialog";
 
 const SiteHeader = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
