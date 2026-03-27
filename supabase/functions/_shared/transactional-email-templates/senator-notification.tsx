@@ -34,11 +34,11 @@ const SenatorNotificationEmail = ({
           Constituent Message
         </Heading>
 
-        <Text style={subheading}>From:</Text>
         <Text style={infoText}>
-          {firstName} {lastName}<br />
-          {address}, {zip}<br />
-          {email}
+          My name is <strong>{firstName} {lastName}</strong> and I am a verified constituent of Senate District 38.
+        </Text>
+        <Text style={verifiedAddress}>
+          Verified constituent address: {address}, {zip}
         </Text>
 
         <Hr style={divider} />
@@ -50,8 +50,12 @@ const SenatorNotificationEmail = ({
 
         <Hr style={divider} />
 
+        <Text style={infoText}>
+          Contact email: {email}
+        </Text>
+
         <Text style={footerText}>
-          This message was sent via {SITE_NAME} (righttoknow-blakespear.org) by a verified constituent of Senate District 38.
+          This message was sent via {SITE_NAME} (righttoknow-blakespear.org). The sender's address has been verified as being within Senate District 38.
         </Text>
       </Container>
     </Body>
