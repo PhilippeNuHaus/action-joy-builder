@@ -8,6 +8,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { MapPin, AlertTriangle, Loader2 } from "lucide-react";
@@ -20,27 +21,32 @@ interface DistrictCheckDialogProps {
 type Status = "idle" | "loading" | "not-in-district";
 
 const DistrictCheckDialog = ({ open, onOpenChange }: DistrictCheckDialogProps) => {
-  const [address, setAddress] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [zip, setZip] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const fullAddress = `${street.trim()}, ${city.trim()}, CA ${zip.trim()}`;
+  const isValid = street.trim() && city.trim() && zip.trim();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!address.trim()) return;
+    if (!isValid) return;
 
     setStatus("loading");
     setError(null);
 
     try {
       const { data, error: fnError } = await supabase.functions.invoke("validate-district", {
-        body: { address: address.trim() },
+        body: { address: fullAddress },
       });
 
       if (fnError) throw fnError;
 
       if (data?.inDistrict) {
-        sessionStorage.setItem("verified_address", address.trim());
+        sessionStorage.setItem("verified_address", fullAddress);
         onOpenChange(false);
         navigate("/take-action");
       } else {
@@ -55,7 +61,9 @@ const DistrictCheckDialog = ({ open, onOpenChange }: DistrictCheckDialogProps) =
 
   const handleReset = () => {
     setStatus("idle");
-    setAddress("");
+    setStreet("");
+    setCity("");
+    setZip("");
     setError(null);
   };
 
@@ -98,24 +106,50 @@ const DistrictCheckDialog = ({ open, onOpenChange }: DistrictCheckDialogProps) =
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="street">Street Address</Label>
               <Input
-                placeholder="123 Main St, Encinitas, CA 92024"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                id="street"
+                placeholder="123 Main St"
+                value={street}
+                onChange={(e) => setStreet(e.target.value)}
                 disabled={status === "loading"}
                 className="text-sm"
                 autoFocus
               />
-              {error && (
-                <p className="text-sm text-destructive mt-2">{error}</p>
-              )}
             </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="city">City</Label>
+                <Input
+                  id="city"
+                  placeholder="Encinitas"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  disabled={status === "loading"}
+                  className="text-sm"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="zip">Zip Code</Label>
+                <Input
+                  id="zip"
+                  placeholder="92024"
+                  value={zip}
+                  onChange={(e) => setZip(e.target.value)}
+                  disabled={status === "loading"}
+                  className="text-sm"
+                />
+              </div>
+            </div>
+            {error && (
+              <p className="text-sm text-destructive">{error}</p>
+            )}
             <Button
               type="submit"
               className="w-full"
-              disabled={!address.trim() || status === "loading"}
+              disabled={!isValid || status === "loading"}
             >
               {status === "loading" ? (
                 <>
