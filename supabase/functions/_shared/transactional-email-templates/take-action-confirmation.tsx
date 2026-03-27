@@ -7,73 +7,11 @@ import type { TemplateEntry } from './registry.ts'
 const SITE_NAME = "Right to Know"
 const SITE_URL = "https://righttoknow-blakespear.org"
 const SHARE_MESSAGE = `A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: ${SITE_URL} #SaveCEQA`
-const FACEBOOK_QUOTE = "A dangerous loophole is allowing polluting industrial projects to bypass environmental review and put our communities at risk. I just took action to support efforts to fix it."
-
-interface TakeActionConfirmationProps {
-  firstName?: string
-}
-
-const TakeActionConfirmationEmail = ({ firstName }: TakeActionConfirmationProps) => (
-  <Html lang="en" dir="ltr">
-    <Head />
-    <Preview>Thank you for taking action to protect our communities</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        {/* Gold accent bar */}
-        <Section style={accentBar} />
-
-        <Heading style={h1}>
-          {firstName ? `Hi ${firstName},` : 'Hi,'}
-        </Heading>
-
-        <Text style={text}>
-          Thank you for taking action to protect our communities and our right to know. Your message to your elected representative makes a real difference—especially right now, as decisions are being made that could impact our air, water, and public health for years to come.
-        </Text>
-
-        <Text style={text}>
-          But this is one of those moments where a little more action can go a long way. Here are two simple ways you can help build momentum:
-        </Text>
-
-        <Hr style={divider} />
-
-        <Text style={subheading}>1. Forward this to a few friends</Text>
-
-        <Text style={text}>
-          The more people who speak up, the harder it is to ignore. Please take a moment to email or text 3–5 friends and ask them to take action too.
-        </Text>
-
-        <Text style={text}>
-          <Link href={SITE_URL} style={linkStyle}>{SITE_URL.replace('https://', 'www.')}</Link>
-        </Text>
-
-        <Text style={text}>
-          Here are a couple sentences you can copy and paste into your message:
-        </Text>
-
-        <Section style={quoteBlock}>
-          <Text style={quoteText}>
-            I just took a minute to speak out about a dangerous loophole that allows polluting industrial projects in our communities to bypass environmental review.{"\n"}Can you take a quick look and send a message too? It really matters: <Link href={SITE_URL} style={linkStyle}>www.righttoknow-blakespear.org</Link>
-          </Text>
-        </Section>
-
-        <Hr style={divider} />
-
-        <Text style={subheading}>2. Post on social media</Text>
-
-        <Text style={text}>
-          Help spread the word and raise awareness in your network. Here's a simple post you can copy and share:
-        </Text>
-
-        <Section style={quoteBlock}>
-          <Text style={quoteText}>
-            A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk.{"\n\n"}I just took action to support efforts to fix it. You can too: <Link href={SITE_URL} style={linkStyle}>www.righttoknow-blakespear.org</Link>{"\n\n"}#SaveCEQA
-          </Text>
-        </Section>
-
-        <Section style={socialButtonsRow}>
+const FACEBOOK_QUOTE = "Protect our communities from toxic pollution. Thank Senator Blakespear for fighting to restore CEQA protections."
+...
           <Button
             style={fbButton}
-href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}&hashtag=${encodeURIComponent('#SaveCEQA')}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}`}
           >
             Share on Facebook
           </Button>

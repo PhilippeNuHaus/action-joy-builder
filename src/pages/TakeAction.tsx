@@ -6,71 +6,12 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 const TakeAction = () => {
   const [verifiedAddress, setVerifiedAddress] = useState<string | null>(null);
-const SHARE_URL = "https://righttoknow-blakespear.org";
+  const SHARE_URL = "https://righttoknow-blakespear.org";
   const SHARE_MESSAGE = `A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: ${SHARE_URL} #SaveCEQA`;
-  const FACEBOOK_QUOTE = "A dangerous loophole is allowing polluting industrial projects to bypass environmental review and put our communities at risk. I just took action to support efforts to fix it.";
-
-  useEffect(() => {
-    const addr = sessionStorage.getItem("verified_address");
-    if (addr) setVerifiedAddress(addr);
-  }, []);
-
-  return (
-    <div className="min-h-screen flex flex-col">
-      <SiteHeader />
-      <main className="flex-1">
-        <div className="caution-stripe h-3" />
-
-        <section className="py-16">
-          <div className="container max-w-4xl">
-            <h1 className="font-heading text-4xl md:text-5xl uppercase text-center mb-3">
-              Take <span className="text-primary">Action</span>
-            </h1>
-            <p className="text-center text-muted-foreground mb-8 max-w-xl mx-auto">
-              Thank State Senator Catherine Blakespear for Protecting Your Community from Toxic Pollution
-            </p>
-
-            {verifiedAddress && (
-              <div className="bg-primary/10 border border-primary/30 rounded-sm p-4 mb-8 max-w-2xl mx-auto flex items-start gap-3">
-                <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">
-                    Verified constituent at: <span className="text-primary">{verifiedAddress}</span>
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Tip: Mention your address in your message — legislators pay more attention to constituents who identify where they live.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            <div className="grid lg:grid-cols-5 gap-8">
-              <div className="lg:col-span-3">
-                <SenatorContactForm />
-              </div>
-
-              <div className="lg:col-span-2 space-y-5">
-                <div className="bg-card border border-border rounded-sm p-5">
-                  <h3 className="font-heading text-sm uppercase tracking-wider text-primary mb-3">Other Ways to Help</h3>
-                  <div className="space-y-4">
-                    <a
-                      href="mailto:senator.blakespear@senate.ca.gov"
-                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <Mail size={16} className="text-primary shrink-0" />
-                      Email the Senator directly
-                    </a>
-                    <a
-                      href="tel:+19168516038"
-                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <Phone size={16} className="text-primary shrink-0" />
-                      Call: (916) 651-6038
-                    </a>
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm text-muted-foreground">Share:</span>
+  const FACEBOOK_QUOTE = "Protect our communities from toxic pollution. Thank Senator Blakespear for fighting to restore CEQA protections.";
+...
                       <a
-href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}&hashtag=${encodeURIComponent('#SaveCEQA')}`}
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-primary transition-colors"
