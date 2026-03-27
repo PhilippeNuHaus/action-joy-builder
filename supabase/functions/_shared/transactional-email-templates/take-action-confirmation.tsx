@@ -73,7 +73,7 @@ const TakeActionConfirmationEmail = ({ firstName }: TakeActionConfirmationProps)
         <Section style={socialButtonsRow}>
           <Button
             style={fbButton}
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}&hashtag=${encodeURIComponent('#SaveCEQA')}`}
           >
             Share on Facebook
           </Button>

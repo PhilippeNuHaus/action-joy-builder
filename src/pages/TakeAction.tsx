@@ -70,7 +70,7 @@ const TakeAction = () => {
                     <div className="flex items-center gap-4">
                       <span className="text-sm text-muted-foreground">Share:</span>
                       <a
-                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}`}
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(FACEBOOK_QUOTE)}&hashtag=${encodeURIComponent('#SaveCEQA')}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-muted-foreground hover:text-primary transition-colors"
