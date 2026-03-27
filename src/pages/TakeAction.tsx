@@ -1,17 +1,23 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Mail, Phone } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const TakeAction = () => {
+  const widgetRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    // Remove any previously loaded actionbutton scripts
-    document.querySelectorAll('script[src*="actionbutton"]').forEach(s => s.remove());
-    
-    // Load the widget script after React has rendered the widget div
-    const script = document.createElement('script');
-    script.src = 'https://embed.actionbutton.co/widget/widget.min.js';
-    document.body.appendChild(script);
+    const widgetEl = widgetRef.current;
+    if (!widgetEl) return;
+
+    document
+      .querySelectorAll('script[src*="embed.actionbutton.co/widget/widget.min.js"]')
+      .forEach((script) => script.remove());
+
+    const script = document.createElement("script");
+    script.src = "https://embed.actionbutton.co/widget/widget.min.js";
+    script.async = true;
+    widgetEl.insertAdjacentElement("afterend", script);
 
     return () => {
       script.remove();
@@ -36,7 +42,11 @@ const TakeAction = () => {
             <div className="grid lg:grid-cols-5 gap-8">
               {/* ActionButton Embed */}
               <div className="lg:col-span-3">
-                <div className="action-button-widget min-h-[600px]" data-widget-id="SPK-QEIDR0A="></div>
+                <div
+                  ref={widgetRef}
+                  className="action-button-widget min-h-[600px]"
+                  data-action-button-widget-id="SPK-QEIDR0A="
+                />
               </div>
 
               {/* Sidebar actions */}
