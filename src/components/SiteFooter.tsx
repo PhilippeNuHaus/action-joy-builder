@@ -30,8 +30,9 @@ const SiteFooter = () => (
           </p>
         </div>
       </div>
-      <div className="mt-8 pt-6 border-t border-border text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Right to Know, a Planning and Conservation League Campaign. All rights reserved.
+      <div className="mt-8 pt-6 border-t border-border text-center text-xs text-muted-foreground space-y-1">
+        <p>Paid for by Planning and Conservation League (Right to Know Campaign). Not authorized by any candidate or candidate's committee.</p>
+        <p>© {new Date().getFullYear()} Right to Know.</p>
       </div>
     </div>
   </footer>
