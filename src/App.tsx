@@ -8,6 +8,7 @@ import TakeAction from "./pages/TakeAction.tsx";
 import WhatsNearYou from "./pages/WhatsNearYou.tsx";
 import Unsubscribe from "./pages/Unsubscribe.tsx";
 import CampaignRedirect from "./pages/CampaignRedirect.tsx";
+import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
