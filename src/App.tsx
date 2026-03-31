@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import TakeAction from "./pages/TakeAction.tsx";
 import WhatsNearYou from "./pages/WhatsNearYou.tsx";
 import Unsubscribe from "./pages/Unsubscribe.tsx";
+import CampaignRedirect from "./pages/CampaignRedirect.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/take-action" element={<TakeAction />} />
           <Route path="/whats-near-you" element={<WhatsNearYou />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
+          <Route path="/go/:channel" element={<CampaignRedirect />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
