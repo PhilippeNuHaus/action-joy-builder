@@ -25,6 +25,7 @@ const App = () => (
           <Route path="/whats-near-you" element={<WhatsNearYou />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/go/:channel" element={<CampaignRedirect />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
