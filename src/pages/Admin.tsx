@@ -11,7 +11,7 @@ interface Stats {
   totalClicks: number;
   clicksBySource: Record<string, number>;
   totalSubmissions: number;
-  submissions: Array<{ first_name: string; last_name: string; email: string; created_at: string }>;
+  submissions: Array<{ first_name: string; last_name: string; email: string; source: string; created_at: string }>;
   totalSenatorEmails: number;
   senatorEmails: Array<{ template_name: string; status: string; created_at: string; error_message: string | null }>;
 }
@@ -135,6 +135,7 @@ const Admin = () => {
                   <TableRow>
                     <TableHead>Name</TableHead>
                     <TableHead>Email</TableHead>
+                    <TableHead>Channel</TableHead>
                     <TableHead>Date (PST)</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -143,6 +144,11 @@ const Admin = () => {
                     <TableRow key={i}>
                       <TableCell className="text-foreground">{s.first_name} {s.last_name}</TableCell>
                       <TableCell className="text-foreground">{s.email}</TableCell>
+                      <TableCell>
+                        <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary capitalize">
+                          {s.source || "direct"}
+                        </span>
+                      </TableCell>
                       <TableCell className="text-muted-foreground">{toPST(s.created_at)}</TableCell>
                     </TableRow>
                   ))}

@@ -36,12 +36,14 @@ const SenatorContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [verifiedAddress, setVerifiedAddress] = useState("");
   const [zip, setZip] = useState("");
+  const [campaignSource, setCampaignSource] = useState("direct");
 
   useEffect(() => {
     const addr = sessionStorage.getItem("verified_address") || "";
     setVerifiedAddress(addr);
     const zipMatch = addr.match(/\b(\d{5})\b/);
     if (zipMatch) setZip(zipMatch[1]);
+    setCampaignSource(sessionStorage.getItem("campaign_source") || "direct");
   }, []);
 
   const form = useForm<FormValues>({
@@ -69,6 +71,7 @@ const SenatorContactForm = () => {
         address: verifiedAddress || null,
         zip: zip || null,
         message: data.message,
+        source: campaignSource,
       });
 
       // Send senator notification

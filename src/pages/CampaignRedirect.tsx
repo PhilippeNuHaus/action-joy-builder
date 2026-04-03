@@ -40,6 +40,9 @@ const CampaignRedirect = () => {
         console.error("Failed to log campaign visit:", err);
       }
 
+      // Store source for form attribution
+      sessionStorage.setItem("campaign_source", source);
+
       // Instant redirect to homepage
       navigate("/", { replace: true });
     };

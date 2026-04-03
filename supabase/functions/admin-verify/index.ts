@@ -29,7 +29,7 @@ Deno.serve(async (req) => {
 
     const [visitsRes, submissionsRes, emailsRes] = await Promise.all([
       supabase.from("campaign_visits").select("source, created_at"),
-      supabase.from("contact_submissions").select("first_name, last_name, email, created_at"),
+      supabase.from("contact_submissions").select("first_name, last_name, email, source, created_at"),
       supabase
         .from("email_send_log")
         .select("*")
