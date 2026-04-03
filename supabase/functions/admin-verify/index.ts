@@ -22,7 +22,6 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Password correct — fetch stats
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, serviceKey);
@@ -54,6 +53,16 @@ Deno.serve(async (req) => {
       visitsBySource[v.source] = (visitsBySource[v.source] || 0) + 1;
     }
 
+    // Group submissions by source
+    const submissionsBySource: Record<string, number> = {};
+    for (const s of submissionsRes.data || []) {
+      const src = s.source || "direct";
+      submissionsBySource[src] = (submissionsBySource[src] || 0) + 1;
+    }
+
+    // Count unique channels
+    const allChannels = new Set([...Object.keys(visitsBySource), ...Object.keys(submissionsBySource)]);
+
     return new Response(
       JSON.stringify({
         valid: true,
@@ -62,8 +71,10 @@ Deno.serve(async (req) => {
           clicksBySource: visitsBySource,
           totalSubmissions: (submissionsRes.data || []).length,
           submissions: submissionsRes.data || [],
+          submissionsBySource,
           totalSenatorEmails: dedupedEmails.length,
           senatorEmails: dedupedEmails,
+          channelsTracked: allChannels.size,
         },
       }),
       {

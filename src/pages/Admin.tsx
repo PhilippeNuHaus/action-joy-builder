@@ -2,10 +2,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Lock, BarChart3, Mail, Users } from "lucide-react";
+import { Lock, Users, Sparkles, Mail, BarChart3, RefreshCw } from "lucide-react";
 
 interface Stats {
   totalClicks: number;
@@ -14,6 +11,8 @@ interface Stats {
   submissions: Array<{ first_name: string; last_name: string; email: string; source: string; created_at: string }>;
   totalSenatorEmails: number;
   senatorEmails: Array<{ template_name: string; status: string; created_at: string; error_message: string | null }>;
+  submissionsBySource: Record<string, number>;
+  channelsTracked: number;
 }
 
 const toPST = (utc: string) =>
@@ -23,174 +22,218 @@ const Admin = () => {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
   const [stats, setStats] = useState<Stats | null>(null);
+  const [savedPassword, setSavedPassword] = useState("");
+
+  const fetchStats = async (pw: string) => {
+    const { data, error: fnError } = await supabase.functions.invoke("admin-verify", {
+      body: { password: pw },
+    });
+    if (fnError || !data?.valid) throw new Error("Wrong password");
+    return data.stats as Stats;
+  };
 
   const handleLogin = async () => {
     setLoading(true);
     setError("");
     try {
-      const { data, error: fnError } = await supabase.functions.invoke("admin-verify", {
-        body: { password },
-      });
-      if (fnError || !data?.valid) {
-        setError("Wrong password");
-        return;
-      }
-      setStats(data.stats);
+      const s = await fetchStats(password);
+      setStats(s);
+      setSavedPassword(password);
       setAuthenticated(true);
     } catch {
-      setError("Something went wrong");
+      setError("Wrong password");
     } finally {
       setLoading(false);
     }
   };
 
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      const s = await fetchStats(savedPassword);
+      setStats(s);
+    } catch {
+      // silent
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="w-full max-w-sm">
-          <CardHeader className="text-center">
-            <Lock className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
-            <CardTitle className="text-lg">Admin Access</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Input
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-            />
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button onClick={handleLogin} disabled={loading} className="w-full">
-              {loading ? "Checking..." : "Enter"}
-            </Button>
-          </CardContent>
-        </Card>
+      <div className="min-h-screen bg-[#0f1923] flex items-center justify-center p-4">
+        <div className="w-full max-w-sm bg-[#162029] border border-[#1e2d3a] rounded-lg p-6 space-y-4">
+          <div className="text-center">
+            <Lock className="mx-auto h-8 w-8 text-[#d4a843] mb-2" />
+            <h2 className="text-lg font-bold text-white">Admin Access</h2>
+          </div>
+          <Input
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+            className="bg-[#0f1923] border-[#1e2d3a] text-white placeholder:text-gray-500"
+          />
+          {error && <p className="text-sm text-red-400">{error}</p>}
+          <Button onClick={handleLogin} disabled={loading} className="w-full bg-[#d4a843] text-[#0f1923] hover:bg-[#c49a3a] font-semibold">
+            {loading ? "Checking..." : "Enter"}
+          </Button>
+        </div>
       </div>
     );
   }
 
   if (!stats) return null;
 
-  return (
-    <div className="min-h-screen bg-background p-4 md:p-8 max-w-4xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold text-foreground">Campaign Dashboard</h1>
+  const statCards = [
+    { label: "Letters Sent", value: stats.totalSubmissions, icon: Users },
+    { label: "Link Clicks", value: stats.totalClicks, icon: Sparkles },
+    { label: "Emails Sent", value: stats.totalSenatorEmails, icon: Mail },
+    { label: "Channels Tracked", value: stats.channelsTracked, icon: BarChart3 },
+  ];
 
-      {/* Summary cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="pt-6 text-center">
-            <BarChart3 className="mx-auto h-6 w-6 text-primary mb-1" />
-            <p className="text-3xl font-bold text-foreground">{stats.totalClicks}</p>
-            <p className="text-sm text-muted-foreground">Link Clicks</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6 text-center">
-            <Users className="mx-auto h-6 w-6 text-primary mb-1" />
-            <p className="text-3xl font-bold text-foreground">{stats.totalSubmissions}</p>
-            <p className="text-sm text-muted-foreground">Form Submissions</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6 text-center">
-            <Mail className="mx-auto h-6 w-6 text-primary mb-1" />
-            <p className="text-3xl font-bold text-foreground">{stats.totalSenatorEmails}</p>
-            <p className="text-sm text-muted-foreground">Emails to Senator</p>
-          </CardContent>
-        </Card>
+  return (
+    <div className="min-h-screen bg-[#0f1923] text-white p-4 md:p-8 max-w-5xl mx-auto space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold italic">Campaign Dashboard</h1>
+        <Button
+          onClick={handleRefresh}
+          disabled={refreshing}
+          variant="outline"
+          className="border-[#1e2d3a] bg-[#162029] text-white hover:bg-[#1e2d3a]"
+        >
+          <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? "animate-spin" : ""}`} />
+          Refresh
+        </Button>
       </div>
 
-      {/* Clicks by source */}
-      <Card>
-        <CardHeader><CardTitle className="text-base">Clicks by Source</CardTitle></CardHeader>
-        <CardContent>
-          <div className="space-y-2">
+      {/* Stat cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {statCards.map((card) => (
+          <div key={card.label} className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-4">
+            <div className="flex items-center gap-2 text-[#d4a843] mb-1">
+              <card.icon className="h-5 w-5" />
+              <span className="text-sm text-gray-400">{card.label}</span>
+            </div>
+            <p className="text-3xl font-bold">{card.value}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Clicks by Channel */}
+      <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
+        <h2 className="text-lg font-bold italic mb-4">Clicks by Channel</h2>
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-[#1e2d3a]">
+              <th className="text-left text-sm text-gray-400 pb-2">Channel</th>
+              <th className="text-right text-sm text-gray-400 pb-2">Clicks</th>
+            </tr>
+          </thead>
+          <tbody>
             {Object.entries(stats.clicksBySource)
               .sort(([, a], [, b]) => b - a)
               .map(([source, count]) => (
-                <div key={source} className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-foreground capitalize">{source}</span>
-                  <span className="text-sm text-muted-foreground">{count}</span>
-                </div>
+                <tr key={source} className="border-b border-[#1e2d3a]/50">
+                  <td className="py-3 font-medium">{source}</td>
+                  <td className="py-3 text-right">{count}</td>
+                </tr>
               ))}
-          </div>
-        </CardContent>
-      </Card>
+          </tbody>
+        </table>
+      </div>
 
-      {/* Detail tabs */}
-      <Tabs defaultValue="submissions">
-        <TabsList>
-          <TabsTrigger value="submissions">Submissions</TabsTrigger>
-          <TabsTrigger value="emails">Senator Emails</TabsTrigger>
-        </TabsList>
+      {/* Letters by Channel */}
+      <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
+        <h2 className="text-lg font-bold italic mb-4">Letters by Channel</h2>
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-[#1e2d3a]">
+              <th className="text-left text-sm text-gray-400 pb-2">Channel</th>
+              <th className="text-right text-sm text-gray-400 pb-2">Letters</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(stats.submissionsBySource || {})
+              .sort(([, a], [, b]) => b - a)
+              .map(([source, count]) => (
+                <tr key={source} className="border-b border-[#1e2d3a]/50">
+                  <td className="py-3 font-medium">{source}</td>
+                  <td className="py-3 text-right">{count}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
 
-        <TabsContent value="submissions">
-          <Card>
-            <CardContent className="pt-4 overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Channel</TableHead>
-                    <TableHead>Date (PST)</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {stats.submissions.map((s, i) => (
-                    <TableRow key={i}>
-                      <TableCell className="text-foreground">{s.first_name} {s.last_name}</TableCell>
-                      <TableCell className="text-foreground">{s.email}</TableCell>
-                      <TableCell>
-                        <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary capitalize">
-                          {s.source || "direct"}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">{toPST(s.created_at)}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
+      {/* Recent Submissions */}
+      <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
+        <h2 className="text-lg font-bold italic mb-4">Recent Submissions</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-[#1e2d3a]">
+                <th className="text-left text-sm text-gray-400 pb-2">Name</th>
+                <th className="text-left text-sm text-gray-400 pb-2">Email</th>
+                <th className="text-left text-sm text-gray-400 pb-2">Channel</th>
+                <th className="text-left text-sm text-gray-400 pb-2">Date (PST)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stats.submissions.map((s, i) => (
+                <tr key={i} className="border-b border-[#1e2d3a]/50">
+                  <td className="py-3">{s.first_name} {s.last_name}</td>
+                  <td className="py-3 text-gray-300">{s.email}</td>
+                  <td className="py-3">
+                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#d4a843]/15 text-[#d4a843]">
+                      {s.source || "direct"}
+                    </span>
+                  </td>
+                  <td className="py-3 text-gray-400">{toPST(s.created_at)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-        <TabsContent value="emails">
-          <Card>
-            <CardContent className="pt-4 overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Template</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Date (PST)</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {stats.senatorEmails.map((e, i) => (
-                    <TableRow key={i}>
-                      <TableCell className="text-foreground">{e.template_name}</TableCell>
-                      <TableCell>
-                        <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
-                          e.status === "sent" ? "bg-green-100 text-green-800" :
-                          e.status === "failed" || e.status === "dlq" ? "bg-red-100 text-red-800" :
-                          "bg-yellow-100 text-yellow-800"
-                        }`}>
-                          {e.status}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">{toPST(e.created_at)}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+      {/* Senator Emails */}
+      <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
+        <h2 className="text-lg font-bold italic mb-4">Emails to Senator</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-[#1e2d3a]">
+                <th className="text-left text-sm text-gray-400 pb-2">Template</th>
+                <th className="text-left text-sm text-gray-400 pb-2">Status</th>
+                <th className="text-left text-sm text-gray-400 pb-2">Date (PST)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stats.senatorEmails.map((e, i) => (
+                <tr key={i} className="border-b border-[#1e2d3a]/50">
+                  <td className="py-3">{e.template_name}</td>
+                  <td className="py-3">
+                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                      e.status === "sent" ? "bg-green-900/30 text-green-400" :
+                      e.status === "failed" || e.status === "dlq" ? "bg-red-900/30 text-red-400" :
+                      "bg-yellow-900/30 text-yellow-400"
+                    }`}>
+                      {e.status}
+                    </span>
+                  </td>
+                  <td className="py-3 text-gray-400">{toPST(e.created_at)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
