@@ -71,6 +71,7 @@ const SenatorContactForm = () => {
         address: verifiedAddress || null,
         zip: zip || null,
         message: data.message,
+        source: campaignSource,
       });
 
       // Send senator notification
