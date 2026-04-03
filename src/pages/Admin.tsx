@@ -11,7 +11,7 @@ interface Stats {
   totalClicks: number;
   clicksBySource: Record<string, number>;
   totalSubmissions: number;
-  submissions: Array<{ first_name: string; last_name: string; email: string; created_at: string }>;
+  submissions: Array<{ first_name: string; last_name: string; email: string; source: string; created_at: string }>;
   totalSenatorEmails: number;
   senatorEmails: Array<{ template_name: string; status: string; created_at: string; error_message: string | null }>;
 }
