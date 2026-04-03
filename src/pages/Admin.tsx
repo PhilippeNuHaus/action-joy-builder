@@ -135,6 +135,7 @@ const Admin = () => {
                   <TableRow>
                     <TableHead>Name</TableHead>
                     <TableHead>Email</TableHead>
+                    <TableHead>Channel</TableHead>
                     <TableHead>Date (PST)</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -143,6 +144,11 @@ const Admin = () => {
                     <TableRow key={i}>
                       <TableCell className="text-foreground">{s.first_name} {s.last_name}</TableCell>
                       <TableCell className="text-foreground">{s.email}</TableCell>
+                      <TableCell>
+                        <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary capitalize">
+                          {s.source || "direct"}
+                        </span>
+                      </TableCell>
                       <TableCell className="text-muted-foreground">{toPST(s.created_at)}</TableCell>
                     </TableRow>
                   ))}
