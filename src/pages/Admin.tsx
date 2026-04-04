@@ -127,6 +127,9 @@ const Admin = () => {
         ))}
       </div>
 
+      {/* Activity Map */}
+      <AdminMap submissions={stats.submissions} clickLocations={stats.clickLocations || []} />
+
       {/* Clicks by Channel */}
       <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
         <h2 className="text-lg font-bold italic mb-4">Clicks by Channel</h2>
