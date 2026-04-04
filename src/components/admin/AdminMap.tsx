@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+// leaflet CSS loaded via index.html CDN link
 
 interface SubmissionPoint {
   first_name: string;
@@ -81,6 +81,15 @@ async function geocodeAddress(address: string): Promise<{ lat: number; lng: numb
     // silent
   }
 
+  return null;
+}
+
+function MapReady() {
+  const map = useMap();
+  useEffect(() => {
+    // Force Leaflet to recalculate container size after mount
+    setTimeout(() => map.invalidateSize(), 100);
+  }, [map]);
   return null;
 }
 
@@ -190,6 +199,7 @@ const AdminMap = ({ submissions, clickLocations }: AdminMapProps) => {
 
       <div className="rounded-lg overflow-hidden" style={{ height: 400 }}>
         <MapContainer center={defaultCenter} zoom={9} style={{ height: "100%", width: "100%" }} scrollWheelZoom>
+          <MapReady />
           <TileLayer
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
