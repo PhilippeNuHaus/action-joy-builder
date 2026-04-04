@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -7,7 +7,7 @@ interface SubmissionPoint {
   first_name: string;
   last_name: string;
   source: string;
-  address: string;
+  address: string | null;
   created_at: string;
 }
 
@@ -52,6 +52,12 @@ const CHANNEL_COLORS: Record<string, string> = {
 
 const getColor = (source: string) => CHANNEL_COLORS[source] || "#9ca3af";
 
+const isValidCoordinate = (latitude: number, longitude: number) =>
+  Number.isFinite(latitude) &&
+  Number.isFinite(longitude) &&
+  Math.abs(latitude) <= 90 &&
+  Math.abs(longitude) <= 180;
+
 const toPST = (utc: string) =>
   new Date(utc).toLocaleString("en-US", {
     timeZone: "America/Los_Angeles",
@@ -62,27 +68,32 @@ const toPST = (utc: string) =>
 async function geocodeAddress(address: string): Promise<{ lat: number; lng: number } | null> {
   try {
     const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`,
-      { headers: { "User-Agent": "RightToKnowAdmin/1.0" } }
+      `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`
     );
     const data = await res.json();
-    if (data.length > 0) {
-      return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+    const lat = Number.parseFloat(data?.[0]?.lat ?? "");
+    const lng = Number.parseFloat(data?.[0]?.lon ?? "");
+
+    if (isValidCoordinate(lat, lng)) {
+      return { lat, lng };
     }
   } catch {
     // silent
   }
+
   return null;
 }
 
 function FitBounds({ points }: { points: [number, number][] }) {
   const map = useMap();
+
   useEffect(() => {
     if (points.length > 0) {
       const bounds = L.latLngBounds(points.map(([lat, lng]) => [lat, lng]));
       map.fitBounds(bounds, { padding: [30, 30] });
     }
   }, [points, map]);
+
   return null;
 }
 
@@ -91,48 +102,70 @@ const AdminMap = ({ submissions, clickLocations }: AdminMapProps) => {
   const [geocoding, setGeocoding] = useState(false);
   const [progress, setProgress] = useState(0);
 
+  const validClickLocations = useMemo(
+    () => clickLocations.filter((point) => isValidCoordinate(point.latitude, point.longitude)),
+    [clickLocations]
+  );
+
   useEffect(() => {
     let cancelled = false;
 
     const run = async () => {
       setGeocoding(true);
-      const results: GeocodedPoint[] = [];
-      const toGeocode = submissions.filter((s) => s.address);
+      setGeocoded([]);
+      setProgress(0);
 
-      for (let i = 0; i < toGeocode.length; i++) {
+      const results: GeocodedPoint[] = [];
+      const toGeocode = submissions.filter((submission) => Boolean(submission.address));
+
+      for (let index = 0; index < toGeocode.length; index += 1) {
         if (cancelled) break;
-        const s = toGeocode[i];
-        const coords = await geocodeAddress(s.address);
-        if (coords) {
-          results.push({ ...s, latitude: coords.lat, longitude: coords.lng });
+
+        const submission = toGeocode[index];
+        const coords = await geocodeAddress(submission.address as string);
+
+        if (coords && isValidCoordinate(coords.lat, coords.lng)) {
+          results.push({ ...submission, latitude: coords.lat, longitude: coords.lng });
           setGeocoded([...results]);
         }
-        setProgress(i + 1);
-        // Nominatim rate limit
-        if (i < toGeocode.length - 1) {
-          await new Promise((r) => setTimeout(r, 1100));
+
+        setProgress(index + 1);
+
+        if (index < toGeocode.length - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 1100));
         }
       }
-      setGeocoding(false);
+
+      if (!cancelled) {
+        setGeocoding(false);
+      }
     };
 
-    if (submissions.length > 0) run();
-    return () => { cancelled = true; };
+    if (submissions.length > 0) {
+      run();
+    } else {
+      setGeocoded([]);
+      setGeocoding(false);
+      setProgress(0);
+    }
+
+    return () => {
+      cancelled = true;
+    };
   }, [submissions]);
 
   const allPoints: [number, number][] = [
-    ...geocoded.map((s) => [s.latitude, s.longitude] as [number, number]),
-    ...clickLocations.map((c) => [c.latitude, c.longitude] as [number, number]),
+    ...geocoded.map((point) => [point.latitude, point.longitude] as [number, number]),
+    ...validClickLocations.map((point) => [point.latitude, point.longitude] as [number, number]),
   ];
 
   const defaultCenter: [number, number] = [33.1, -117.3];
-  const totalToGeocode = submissions.filter((s) => s.address).length;
+  const totalToGeocode = submissions.filter((submission) => Boolean(submission.address)).length;
 
   return (
     <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
       <h2 className="text-lg font-bold italic mb-2 text-white">Activity Map</h2>
 
-      {/* Legend */}
       <div className="flex flex-wrap gap-4 mb-3 text-sm">
         <span className="text-gray-400">Letters:</span>
         {Object.entries(CHANNEL_COLORS).map(([channel, color]) => (
@@ -156,47 +189,42 @@ const AdminMap = ({ submissions, clickLocations }: AdminMapProps) => {
       </div>
 
       <div className="rounded-lg overflow-hidden" style={{ height: 400 }}>
-        <MapContainer
-          center={defaultCenter}
-          zoom={9}
-          style={{ height: "100%", width: "100%" }}
-          scrollWheelZoom={true}
-        >
+        <MapContainer center={defaultCenter} zoom={9} style={{ height: "100%", width: "100%" }} scrollWheelZoom>
           <TileLayer
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           />
           {allPoints.length > 0 && <FitBounds points={allPoints} />}
 
-          {geocoded.map((s, i) => (
+          {geocoded.map((submission, index) => (
             <Marker
-              key={`sub-${i}`}
-              position={[s.latitude, s.longitude]}
-              icon={createIcon(getColor(s.source), "circle")}
+              key={`submission-${index}`}
+              position={[submission.latitude, submission.longitude]}
+              icon={createIcon(getColor(submission.source), "circle")}
             >
               <Popup>
                 <div className="text-xs">
-                  <strong>{s.first_name} {s.last_name}</strong>
+                  <strong>{submission.first_name} {submission.last_name}</strong>
                   <br />
-                  📬 Letter sent via <strong>{s.source || "direct"}</strong>
+                  📬 Letter sent via <strong>{submission.source || "direct"}</strong>
                   <br />
-                  {toPST(s.created_at)}
+                  {toPST(submission.created_at)}
                 </div>
               </Popup>
             </Marker>
           ))}
 
-          {clickLocations.map((c, i) => (
+          {validClickLocations.map((click, index) => (
             <Marker
-              key={`click-${i}`}
-              position={[c.latitude, c.longitude]}
+              key={`click-${index}`}
+              position={[click.latitude, click.longitude]}
               icon={createIcon("#f97316", "square")}
             >
               <Popup>
                 <div className="text-xs">
-                  🖱️ Click via <strong>{c.source}</strong>
+                  🖱️ Click via <strong>{click.source}</strong>
                   <br />
-                  {toPST(c.created_at)}
+                  {toPST(click.created_at)}
                 </div>
               </Popup>
             </Marker>
@@ -207,7 +235,7 @@ const AdminMap = ({ submissions, clickLocations }: AdminMapProps) => {
       <p className="text-xs text-gray-500 mt-2">
         {geocoding
           ? `Plotting addresses... ${progress}/${totalToGeocode}`
-          : `${geocoded.length} letters plotted · ${clickLocations.length} clicks plotted`}
+          : `${geocoded.length} letters plotted · ${validClickLocations.length} clicks plotted`}
       </p>
     </div>
   );

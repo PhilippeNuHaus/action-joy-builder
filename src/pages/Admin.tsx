@@ -4,12 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Users, Sparkles, Mail, BarChart3, RefreshCw } from "lucide-react";
 import AdminMap from "@/components/admin/AdminMap";
+import AdminMapBoundary from "@/components/admin/AdminMapBoundary";
 
 interface Stats {
   totalClicks: number;
   clicksBySource: Record<string, number>;
   totalSubmissions: number;
-  submissions: Array<{ first_name: string; last_name: string; email: string; source: string; created_at: string; address: string; latitude: number | null; longitude: number | null }>;
+  submissions: Array<{
+    first_name: string;
+    last_name: string;
+    email: string;
+    source: string;
+    created_at: string;
+    address: string | null;
+  }>;
   totalSenatorEmails: number;
   senatorEmails: Array<{ template_name: string; status: string; created_at: string; error_message: string | null }>;
   submissionsBySource: Record<string, number>;
@@ -17,8 +25,38 @@ interface Stats {
   clickLocations: Array<{ source: string; latitude: number; longitude: number; created_at: string }>;
 }
 
+const EMPTY_STATS: Stats = {
+  totalClicks: 0,
+  clicksBySource: {},
+  totalSubmissions: 0,
+  submissions: [],
+  totalSenatorEmails: 0,
+  senatorEmails: [],
+  submissionsBySource: {},
+  channelsTracked: 0,
+  clickLocations: [],
+};
+
 const toPST = (utc: string) =>
   new Date(utc).toLocaleString("en-US", { timeZone: "America/Los_Angeles", dateStyle: "short", timeStyle: "short" });
+
+const normalizeStats = (value: unknown): Stats => {
+  if (!value || typeof value !== "object") {
+    throw new Error("Invalid admin response");
+  }
+
+  const stats = value as Partial<Stats>;
+
+  return {
+    ...EMPTY_STATS,
+    ...stats,
+    clicksBySource: stats.clicksBySource ?? {},
+    submissions: Array.isArray(stats.submissions) ? stats.submissions : [],
+    senatorEmails: Array.isArray(stats.senatorEmails) ? stats.senatorEmails : [],
+    submissionsBySource: stats.submissionsBySource ?? {},
+    clickLocations: Array.isArray(stats.clickLocations) ? stats.clickLocations : [],
+  };
+};
 
 const Admin = () => {
   const [password, setPassword] = useState("");
@@ -33,19 +71,26 @@ const Admin = () => {
     const { data, error: fnError } = await supabase.functions.invoke("admin-verify", {
       body: { password: pw },
     });
-    if (fnError || !data?.valid) throw new Error("Wrong password");
-    return data.stats as Stats;
+
+    if (fnError || !data?.valid) {
+      throw new Error("Wrong password");
+    }
+
+    return normalizeStats(data.stats);
   };
 
   const handleLogin = async () => {
     setLoading(true);
     setError("");
+
     try {
-      const s = await fetchStats(password);
-      setStats(s);
+      const nextStats = await fetchStats(password);
+      setStats(nextStats);
       setSavedPassword(password);
       setAuthenticated(true);
     } catch {
+      setAuthenticated(false);
+      setStats(null);
       setError("Wrong password");
     } finally {
       setLoading(false);
@@ -54,9 +99,10 @@ const Admin = () => {
 
   const handleRefresh = async () => {
     setRefreshing(true);
+
     try {
-      const s = await fetchStats(savedPassword);
-      setStats(s);
+      const nextStats = await fetchStats(savedPassword);
+      setStats(nextStats);
     } catch {
       // silent
     } finally {
@@ -89,7 +135,13 @@ const Admin = () => {
     );
   }
 
-  if (!stats) return null;
+  if (!stats) {
+    return (
+      <div className="min-h-screen bg-[#0f1923] flex items-center justify-center p-4 text-white">
+        Loading dashboard...
+      </div>
+    );
+  }
 
   const statCards = [
     { label: "Letters Sent", value: stats.totalSubmissions, icon: Users },
@@ -100,7 +152,6 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-[#0f1923] text-white p-4 md:p-8 max-w-5xl mx-auto space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold italic">Campaign Dashboard</h1>
         <Button
@@ -114,7 +165,6 @@ const Admin = () => {
         </Button>
       </div>
 
-      {/* Stat cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {statCards.map((card) => (
           <div key={card.label} className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-4">
@@ -127,10 +177,10 @@ const Admin = () => {
         ))}
       </div>
 
-      {/* Activity Map */}
-      <AdminMap submissions={stats.submissions} clickLocations={stats.clickLocations || []} />
+      <AdminMapBoundary>
+        <AdminMap submissions={stats.submissions} clickLocations={stats.clickLocations} />
+      </AdminMapBoundary>
 
-      {/* Clicks by Channel */}
       <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
         <h2 className="text-lg font-bold italic mb-4">Clicks by Channel</h2>
         <table className="w-full">
@@ -153,7 +203,6 @@ const Admin = () => {
         </table>
       </div>
 
-      {/* Letters by Channel */}
       <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
         <h2 className="text-lg font-bold italic mb-4">Letters by Channel</h2>
         <table className="w-full">
@@ -164,7 +213,7 @@ const Admin = () => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(stats.submissionsBySource || {})
+            {Object.entries(stats.submissionsBySource)
               .sort(([, a], [, b]) => b - a)
               .map(([source, count]) => (
                 <tr key={source} className="border-b border-[#1e2d3a]/50">
@@ -176,7 +225,6 @@ const Admin = () => {
         </table>
       </div>
 
-      {/* Recent Submissions */}
       <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
         <h2 className="text-lg font-bold italic mb-4">Recent Submissions</h2>
         <div className="overflow-x-auto">
@@ -190,16 +238,16 @@ const Admin = () => {
               </tr>
             </thead>
             <tbody>
-              {stats.submissions.map((s, i) => (
-                <tr key={i} className="border-b border-[#1e2d3a]/50">
-                  <td className="py-3">{s.first_name} {s.last_name}</td>
-                  <td className="py-3 text-gray-300">{s.email}</td>
+              {stats.submissions.map((submission, index) => (
+                <tr key={index} className="border-b border-[#1e2d3a]/50">
+                  <td className="py-3">{submission.first_name} {submission.last_name}</td>
+                  <td className="py-3 text-gray-300">{submission.email}</td>
                   <td className="py-3">
                     <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#d4a843]/15 text-[#d4a843]">
-                      {s.source || "direct"}
+                      {submission.source || "direct"}
                     </span>
                   </td>
-                  <td className="py-3 text-gray-400">{toPST(s.created_at)}</td>
+                  <td className="py-3 text-gray-400">{toPST(submission.created_at)}</td>
                 </tr>
               ))}
             </tbody>
@@ -207,7 +255,6 @@ const Admin = () => {
         </div>
       </div>
 
-      {/* Senator Emails */}
       <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
         <h2 className="text-lg font-bold italic mb-4">Emails to Senator</h2>
         <div className="overflow-x-auto">
@@ -220,19 +267,21 @@ const Admin = () => {
               </tr>
             </thead>
             <tbody>
-              {stats.senatorEmails.map((e, i) => (
-                <tr key={i} className="border-b border-[#1e2d3a]/50">
-                  <td className="py-3">{e.template_name}</td>
+              {stats.senatorEmails.map((email, index) => (
+                <tr key={index} className="border-b border-[#1e2d3a]/50">
+                  <td className="py-3">{email.template_name}</td>
                   <td className="py-3">
                     <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                      e.status === "sent" ? "bg-green-900/30 text-green-400" :
-                      e.status === "failed" || e.status === "dlq" ? "bg-red-900/30 text-red-400" :
-                      "bg-yellow-900/30 text-yellow-400"
+                      email.status === "sent"
+                        ? "bg-green-900/30 text-green-400"
+                        : email.status === "failed" || email.status === "dlq"
+                          ? "bg-red-900/30 text-red-400"
+                          : "bg-yellow-900/30 text-yellow-400"
                     }`}>
-                      {e.status}
+                      {email.status}
                     </span>
                   </td>
-                  <td className="py-3 text-gray-400">{toPST(e.created_at)}</td>
+                  <td className="py-3 text-gray-400">{toPST(email.created_at)}</td>
                 </tr>
               ))}
             </tbody>
