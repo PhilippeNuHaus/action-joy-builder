@@ -1,7 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { useEffect, useMemo, useRef, useState } from "react";
 import L from "leaflet";
-// leaflet CSS loaded via index.html CDN link
 
 interface SubmissionPoint {
   first_name: string;
@@ -53,6 +51,24 @@ const CHANNEL_COLORS: Record<string, string> = {
 
 const getColor = (source: string) => CHANNEL_COLORS[source] || "#9ca3af";
 
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (character) => {
+    switch (character) {
+      case "&":
+        return "&amp;";
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case '"':
+        return "&quot;";
+      case "'":
+        return "&#39;";
+      default:
+        return character;
+    }
+  });
+
 const isValidCoordinate = (latitude: number, longitude: number) =>
   Number.isFinite(latitude) &&
   Number.isFinite(longitude) &&
@@ -85,42 +101,28 @@ async function geocodeAddress(address: string): Promise<{ lat: number; lng: numb
   return null;
 }
 
-function MapReady({ active, markerCount }: { active: boolean; markerCount: number }) {
-  const map = useMap();
+const buildSubmissionPopup = (submission: GeocodedPoint) => `
+  <div class="text-xs">
+    <strong>${escapeHtml(`${submission.first_name} ${submission.last_name}`.trim())}</strong><br />
+    📬 Letter sent via <strong>${escapeHtml(submission.source || "direct")}</strong><br />
+    ${escapeHtml(toPST(submission.created_at))}
+  </div>
+`;
 
-  useEffect(() => {
-    if (!active) return;
-
-    const resizeMap = () => map.invalidateSize();
-    const frame = requestAnimationFrame(resizeMap);
-    const timer = window.setTimeout(resizeMap, 180);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.clearTimeout(timer);
-    };
-  }, [active, map, markerCount]);
-
-  return null;
-}
-
-function FitBounds({ points }: { points: [number, number][] }) {
-  const map = useMap();
-
-  useEffect(() => {
-    if (points.length > 0) {
-      const bounds = L.latLngBounds(points.map(([lat, lng]) => [lat, lng]));
-      map.fitBounds(bounds, { padding: [30, 30] });
-    }
-  }, [points, map]);
-
-  return null;
-}
+const buildClickPopup = (click: ClickPoint) => `
+  <div class="text-xs">
+    🖱️ Click via <strong>${escapeHtml(click.source || "unknown")}</strong><br />
+    ${escapeHtml(toPST(click.created_at))}
+  </div>
+`;
 
 const AdminMap = ({ submissions, clickLocations, visible = true }: AdminMapProps) => {
   const [geocoded, setGeocoded] = useState<GeocodedPoint[]>([]);
   const [geocoding, setGeocoding] = useState(false);
   const [progress, setProgress] = useState(0);
+  const mapElementRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<L.Map | null>(null);
+  const markerLayerRef = useRef<L.LayerGroup | null>(null);
 
   const validClickLocations = useMemo(
     () => clickLocations.filter((point) => isValidCoordinate(point.latitude, point.longitude)),
@@ -182,6 +184,97 @@ const AdminMap = ({ submissions, clickLocations, visible = true }: AdminMapProps
   const defaultCenter: [number, number] = [33.1, -117.3];
   const totalToGeocode = submissions.filter((submission) => Boolean(submission.address)).length;
 
+  useEffect(() => {
+    const container = mapElementRef.current;
+
+    if (!container || mapRef.current) {
+      return;
+    }
+
+    const map = L.map(container, {
+      center: defaultCenter,
+      zoom: 9,
+      scrollWheelZoom: true,
+      zoomControl: true,
+    });
+
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+    }).addTo(map);
+
+    markerLayerRef.current = L.layerGroup().addTo(map);
+    mapRef.current = map;
+
+    const resizeMap = () => map.invalidateSize();
+    const frame = requestAnimationFrame(resizeMap);
+    const timer = window.setTimeout(resizeMap, 200);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+      markerLayerRef.current?.clearLayers();
+      markerLayerRef.current = null;
+      map.remove();
+      mapRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+
+    if (!visible || !map) {
+      return;
+    }
+
+    const resizeMap = () => map.invalidateSize();
+    const frame = requestAnimationFrame(resizeMap);
+    const timer = window.setTimeout(resizeMap, 220);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+    };
+  }, [visible, geocoded.length, validClickLocations.length]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    const markerLayer = markerLayerRef.current;
+
+    if (!map || !markerLayer) {
+      return;
+    }
+
+    markerLayer.clearLayers();
+
+    const boundsPoints: [number, number][] = [];
+
+    geocoded.forEach((submission) => {
+      boundsPoints.push([submission.latitude, submission.longitude]);
+
+      L.marker([submission.latitude, submission.longitude], {
+        icon: createIcon(getColor(submission.source), "circle"),
+      })
+        .bindPopup(buildSubmissionPopup(submission))
+        .addTo(markerLayer);
+    });
+
+    validClickLocations.forEach((click) => {
+      boundsPoints.push([click.latitude, click.longitude]);
+
+      L.marker([click.latitude, click.longitude], {
+        icon: createIcon("#f97316", "square"),
+      })
+        .bindPopup(buildClickPopup(click))
+        .addTo(markerLayer);
+    });
+
+    if (boundsPoints.length > 0) {
+      map.fitBounds(L.latLngBounds(boundsPoints), { padding: [30, 30] });
+    } else {
+      map.setView(defaultCenter, 9);
+    }
+  }, [geocoded, validClickLocations]);
+
   return (
     <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
       <h2 className="text-lg font-bold italic mb-2 text-white">Activity Map</h2>
@@ -209,48 +302,7 @@ const AdminMap = ({ submissions, clickLocations, visible = true }: AdminMapProps
       </div>
 
       <div className="rounded-lg overflow-hidden" style={{ height: 400 }}>
-        <MapContainer center={defaultCenter} zoom={9} style={{ height: "100%", width: "100%" }} scrollWheelZoom>
-          <MapReady active={visible} markerCount={allPoints.length} />
-          <TileLayer
-            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          />
-          {allPoints.length > 0 && <FitBounds points={allPoints} />}
-
-          {geocoded.map((submission, index) => (
-            <Marker
-              key={`submission-${index}`}
-              position={[submission.latitude, submission.longitude]}
-              icon={createIcon(getColor(submission.source), "circle")}
-            >
-              <Popup>
-                <div className="text-xs">
-                  <strong>{submission.first_name} {submission.last_name}</strong>
-                  <br />
-                  📬 Letter sent via <strong>{submission.source || "direct"}</strong>
-                  <br />
-                  {toPST(submission.created_at)}
-                </div>
-              </Popup>
-            </Marker>
-          ))}
-
-          {validClickLocations.map((click, index) => (
-            <Marker
-              key={`click-${index}`}
-              position={[click.latitude, click.longitude]}
-              icon={createIcon("#f97316", "square")}
-            >
-              <Popup>
-                <div className="text-xs">
-                  🖱️ Click via <strong>{click.source}</strong>
-                  <br />
-                  {toPST(click.created_at)}
-                </div>
-              </Popup>
-            </Marker>
-          ))}
-        </MapContainer>
+        <div ref={mapElementRef} style={{ height: "100%", width: "100%" }} />
       </div>
 
       <p className="text-xs text-gray-500 mt-2">
