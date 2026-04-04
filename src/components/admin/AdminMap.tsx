@@ -26,6 +26,7 @@ interface GeocodedPoint extends SubmissionPoint {
 interface AdminMapProps {
   submissions: SubmissionPoint[];
   clickLocations: ClickPoint[];
+  visible?: boolean;
 }
 
 const createIcon = (color: string, shape: "circle" | "square" = "circle") => {

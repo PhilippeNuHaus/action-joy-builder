@@ -67,6 +67,7 @@ const Admin = () => {
   const [error, setError] = useState("");
   const [stats, setStats] = useState<Stats | null>(null);
   const [savedPassword, setSavedPassword] = useState("");
+  const [activeTab, setActiveTab] = useState("stats");
 
   const fetchStats = async (pw: string) => {
     const { data, error: fnError } = await supabase.functions.invoke("admin-verify", {
