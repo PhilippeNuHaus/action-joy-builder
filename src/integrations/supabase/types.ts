@@ -19,6 +19,8 @@ export type Database = {
           created_at: string
           device_type: string | null
           id: string
+          latitude: number | null
+          longitude: number | null
           referrer: string | null
           source: string
           user_agent: string | null
@@ -27,6 +29,8 @@ export type Database = {
           created_at?: string
           device_type?: string | null
           id?: string
+          latitude?: number | null
+          longitude?: number | null
           referrer?: string | null
           source: string
           user_agent?: string | null
@@ -35,6 +39,8 @@ export type Database = {
           created_at?: string
           device_type?: string | null
           id?: string
+          latitude?: number | null
+          longitude?: number | null
           referrer?: string | null
           source?: string
           user_agent?: string | null
