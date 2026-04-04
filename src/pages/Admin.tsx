@@ -303,7 +303,11 @@ const Admin = () => {
 
         <TabsContent value="map" className="mt-4">
           <AdminMapBoundary>
-            <AdminMap submissions={stats.submissions} clickLocations={stats.clickLocations} />
+            <AdminMap
+              submissions={stats.submissions}
+              clickLocations={stats.clickLocations}
+              visible={activeTab === "map"}
+            />
           </AdminMapBoundary>
         </TabsContent>
       </Tabs>
