@@ -28,7 +28,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { password } = await req.json();
+    const { password, action } = await req.json();
     const expected = Deno.env.get("ADMIN_DASHBOARD_PASSWORD");
 
     if (!expected || password !== expected) {
@@ -42,6 +42,29 @@ Deno.serve(async (req) => {
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, serviceKey);
 
+    // Geocode action — called separately to avoid timeout
+    if (action === "geocode") {
+      const { data: subs } = await supabase
+        .from("contact_submissions")
+        .select("id, address, zip");
+
+      const results: Array<{ id: string; latitude: number; longitude: number }> = [];
+      for (const s of subs || []) {
+        if (s.address) {
+          const coords = await geocodeAddress(s.address);
+          if (coords) {
+            results.push({ id: s.id, latitude: coords.lat, longitude: coords.lng });
+          }
+          await new Promise((r) => setTimeout(r, 1100));
+        }
+      }
+
+      return new Response(JSON.stringify({ valid: true, geocoded: results }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Default: return stats
     const [visitsRes, submissionsRes, emailsRes] = await Promise.all([
       supabase.from("campaign_visits").select("source, created_at, latitude, longitude"),
       supabase.from("contact_submissions").select("first_name, last_name, email, source, created_at, address, zip"),
@@ -76,28 +99,9 @@ Deno.serve(async (req) => {
       submissionsBySource[src] = (submissionsBySource[src] || 0) + 1;
     }
 
-    // Count unique channels
     const allChannels = new Set([...Object.keys(visitsBySource), ...Object.keys(submissionsBySource)]);
 
-    // Geocode submission addresses (with 1s delay between to respect Nominatim rate limits)
-    const submissions = submissionsRes.data || [];
-    const geocodedSubmissions = [];
-    for (const s of submissions) {
-      if (s.address) {
-        const coords = await geocodeAddress(s.address);
-        geocodedSubmissions.push({
-          ...s,
-          latitude: coords?.lat || null,
-          longitude: coords?.lng || null,
-        });
-        // Nominatim rate limit: 1 request per second
-        await new Promise((r) => setTimeout(r, 1100));
-      } else {
-        geocodedSubmissions.push({ ...s, latitude: null, longitude: null });
-      }
-    }
-
-    // Clicks with location data
+    // Click locations
     const clickLocations = (visitsRes.data || [])
       .filter((v: any) => v.latitude && v.longitude)
       .map((v: any) => ({
@@ -113,8 +117,8 @@ Deno.serve(async (req) => {
         stats: {
           totalClicks: (visitsRes.data || []).length,
           clicksBySource: visitsBySource,
-          totalSubmissions: submissions.length,
-          submissions: geocodedSubmissions,
+          totalSubmissions: (submissionsRes.data || []).length,
+          submissions: submissionsRes.data || [],
           submissionsBySource,
           totalSenatorEmails: dedupedEmails.length,
           senatorEmails: dedupedEmails,
