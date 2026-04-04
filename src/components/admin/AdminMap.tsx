@@ -84,6 +84,15 @@ async function geocodeAddress(address: string): Promise<{ lat: number; lng: numb
   return null;
 }
 
+function MapReady() {
+  const map = useMap();
+  useEffect(() => {
+    // Force Leaflet to recalculate container size after mount
+    setTimeout(() => map.invalidateSize(), 100);
+  }, [map]);
+  return null;
+}
+
 function FitBounds({ points }: { points: [number, number][] }) {
   const map = useMap();
 
