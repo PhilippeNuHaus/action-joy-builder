@@ -2,7 +2,8 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Lock, Users, Sparkles, Mail, BarChart3, RefreshCw } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Lock, Users, Sparkles, Mail, BarChart3, RefreshCw, MapPin } from "lucide-react";
 import AdminMap from "@/components/admin/AdminMap";
 import AdminMapBoundary from "@/components/admin/AdminMapBoundary";
 
