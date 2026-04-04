@@ -199,6 +199,7 @@ const AdminMap = ({ submissions, clickLocations }: AdminMapProps) => {
 
       <div className="rounded-lg overflow-hidden" style={{ height: 400 }}>
         <MapContainer center={defaultCenter} zoom={9} style={{ height: "100%", width: "100%" }} scrollWheelZoom>
+          <MapReady />
           <TileLayer
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
