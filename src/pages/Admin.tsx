@@ -302,8 +302,9 @@ const Admin = () => {
         </TabsContent>
 
         <TabsContent value="map" className="mt-4">
-          <AdminMapBoundary>
+          <AdminMapBoundary resetKey={`${activeTab}-${stats.submissions.length}-${stats.clickLocations.length}`}>
             <AdminMap
+              key={`map-${activeTab}-${stats.submissions.length}-${stats.clickLocations.length}`}
               submissions={stats.submissions}
               clickLocations={stats.clickLocations}
               visible={activeTab === "map"}
