@@ -6,6 +6,22 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+async function geocodeAddress(address: string): Promise<{ lat: number; lng: number } | null> {
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`;
+    const res = await fetch(url, {
+      headers: { "User-Agent": "RightToKnowAdmin/1.0" },
+    });
+    const data = await res.json();
+    if (data.length > 0) {
+      return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+    }
+  } catch {
+    // silent fail
+  }
+  return null;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -27,8 +43,8 @@ Deno.serve(async (req) => {
     const supabase = createClient(supabaseUrl, serviceKey);
 
     const [visitsRes, submissionsRes, emailsRes] = await Promise.all([
-      supabase.from("campaign_visits").select("source, created_at"),
-      supabase.from("contact_submissions").select("first_name, last_name, email, source, created_at"),
+      supabase.from("campaign_visits").select("source, created_at, latitude, longitude"),
+      supabase.from("contact_submissions").select("first_name, last_name, email, source, created_at, address, zip"),
       supabase
         .from("email_send_log")
         .select("*")
@@ -63,18 +79,47 @@ Deno.serve(async (req) => {
     // Count unique channels
     const allChannels = new Set([...Object.keys(visitsBySource), ...Object.keys(submissionsBySource)]);
 
+    // Geocode submission addresses (with 1s delay between to respect Nominatim rate limits)
+    const submissions = submissionsRes.data || [];
+    const geocodedSubmissions = [];
+    for (const s of submissions) {
+      if (s.address) {
+        const coords = await geocodeAddress(s.address);
+        geocodedSubmissions.push({
+          ...s,
+          latitude: coords?.lat || null,
+          longitude: coords?.lng || null,
+        });
+        // Nominatim rate limit: 1 request per second
+        await new Promise((r) => setTimeout(r, 1100));
+      } else {
+        geocodedSubmissions.push({ ...s, latitude: null, longitude: null });
+      }
+    }
+
+    // Clicks with location data
+    const clickLocations = (visitsRes.data || [])
+      .filter((v: any) => v.latitude && v.longitude)
+      .map((v: any) => ({
+        source: v.source,
+        latitude: v.latitude,
+        longitude: v.longitude,
+        created_at: v.created_at,
+      }));
+
     return new Response(
       JSON.stringify({
         valid: true,
         stats: {
           totalClicks: (visitsRes.data || []).length,
           clicksBySource: visitsBySource,
-          totalSubmissions: (submissionsRes.data || []).length,
-          submissions: submissionsRes.data || [],
+          totalSubmissions: submissions.length,
+          submissions: geocodedSubmissions,
           submissionsBySource,
           totalSenatorEmails: dedupedEmails.length,
           senatorEmails: dedupedEmails,
           channelsTracked: allChannels.size,
+          clickLocations,
         },
       }),
       {

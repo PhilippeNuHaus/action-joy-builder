@@ -3,16 +3,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Users, Sparkles, Mail, BarChart3, RefreshCw } from "lucide-react";
+import AdminMap from "@/components/admin/AdminMap";
 
 interface Stats {
   totalClicks: number;
   clicksBySource: Record<string, number>;
   totalSubmissions: number;
-  submissions: Array<{ first_name: string; last_name: string; email: string; source: string; created_at: string }>;
+  submissions: Array<{ first_name: string; last_name: string; email: string; source: string; created_at: string; address: string; latitude: number | null; longitude: number | null }>;
   totalSenatorEmails: number;
   senatorEmails: Array<{ template_name: string; status: string; created_at: string; error_message: string | null }>;
   submissionsBySource: Record<string, number>;
   channelsTracked: number;
+  clickLocations: Array<{ source: string; latitude: number; longitude: number; created_at: string }>;
 }
 
 const toPST = (utc: string) =>
@@ -124,6 +126,9 @@ const Admin = () => {
           </div>
         ))}
       </div>
+
+      {/* Activity Map */}
+      <AdminMap submissions={stats.submissions} clickLocations={stats.clickLocations || []} />
 
       {/* Clicks by Channel */}
       <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
