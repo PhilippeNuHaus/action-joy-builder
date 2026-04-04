@@ -2,6 +2,7 @@ import { Component, type ErrorInfo, type ReactNode } from "react";
 
 interface AdminMapBoundaryProps {
   children: ReactNode;
+  resetKey?: string;
 }
 
 interface AdminMapBoundaryState {
@@ -17,6 +18,12 @@ class AdminMapBoundary extends Component<AdminMapBoundaryProps, AdminMapBoundary
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Admin map crashed", error, errorInfo);
+  }
+
+  componentDidUpdate(prevProps: AdminMapBoundaryProps) {
+    if (this.state.hasError && prevProps.resetKey !== this.props.resetKey) {
+      this.setState({ hasError: false });
+    }
   }
 
   render() {
