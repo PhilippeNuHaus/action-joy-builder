@@ -166,129 +166,146 @@ const Admin = () => {
         </Button>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {statCards.map((card) => (
-          <div key={card.label} className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-4">
-            <div className="flex items-center gap-2 text-[#d4a843] mb-1">
-              <card.icon className="h-5 w-5" />
-              <span className="text-sm text-gray-400">{card.label}</span>
-            </div>
-            <p className="text-3xl font-bold">{card.value}</p>
+      <Tabs defaultValue="stats" className="w-full">
+        <TabsList className="bg-[#162029] border border-[#1e2d3a]">
+          <TabsTrigger value="stats" className="data-[state=active]:bg-[#d4a843] data-[state=active]:text-[#0f1923]">
+            <BarChart3 className="h-4 w-4 mr-2" />
+            Stats
+          </TabsTrigger>
+          <TabsTrigger value="map" className="data-[state=active]:bg-[#d4a843] data-[state=active]:text-[#0f1923]">
+            <MapPin className="h-4 w-4 mr-2" />
+            Map
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="stats" className="space-y-6 mt-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {statCards.map((card) => (
+              <div key={card.label} className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-4">
+                <div className="flex items-center gap-2 text-[#d4a843] mb-1">
+                  <card.icon className="h-5 w-5" />
+                  <span className="text-sm text-gray-400">{card.label}</span>
+                </div>
+                <p className="text-3xl font-bold">{card.value}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <AdminMapBoundary>
-        <AdminMap submissions={stats.submissions} clickLocations={stats.clickLocations} />
-      </AdminMapBoundary>
-
-      <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
-        <h2 className="text-lg font-bold italic mb-4">Clicks by Channel</h2>
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-[#1e2d3a]">
-              <th className="text-left text-sm text-gray-400 pb-2">Channel</th>
-              <th className="text-right text-sm text-gray-400 pb-2">Clicks</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(stats.clicksBySource)
-              .sort(([, a], [, b]) => b - a)
-              .map(([source, count]) => (
-                <tr key={source} className="border-b border-[#1e2d3a]/50">
-                  <td className="py-3 font-medium">{source}</td>
-                  <td className="py-3 text-right">{count}</td>
+          <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
+            <h2 className="text-lg font-bold italic mb-4">Clicks by Channel</h2>
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-[#1e2d3a]">
+                  <th className="text-left text-sm text-gray-400 pb-2">Channel</th>
+                  <th className="text-right text-sm text-gray-400 pb-2">Clicks</th>
                 </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody>
+                {Object.entries(stats.clicksBySource)
+                  .sort(([, a], [, b]) => b - a)
+                  .map(([source, count]) => (
+                    <tr key={source} className="border-b border-[#1e2d3a]/50">
+                      <td className="py-3 font-medium">{source}</td>
+                      <td className="py-3 text-right">{count}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
 
-      <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
-        <h2 className="text-lg font-bold italic mb-4">Letters by Channel</h2>
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-[#1e2d3a]">
-              <th className="text-left text-sm text-gray-400 pb-2">Channel</th>
-              <th className="text-right text-sm text-gray-400 pb-2">Letters</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(stats.submissionsBySource)
-              .sort(([, a], [, b]) => b - a)
-              .map(([source, count]) => (
-                <tr key={source} className="border-b border-[#1e2d3a]/50">
-                  <td className="py-3 font-medium">{source}</td>
-                  <td className="py-3 text-right">{count}</td>
+          <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
+            <h2 className="text-lg font-bold italic mb-4">Letters by Channel</h2>
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-[#1e2d3a]">
+                  <th className="text-left text-sm text-gray-400 pb-2">Channel</th>
+                  <th className="text-right text-sm text-gray-400 pb-2">Letters</th>
                 </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody>
+                {Object.entries(stats.submissionsBySource)
+                  .sort(([, a], [, b]) => b - a)
+                  .map(([source, count]) => (
+                    <tr key={source} className="border-b border-[#1e2d3a]/50">
+                      <td className="py-3 font-medium">{source}</td>
+                      <td className="py-3 text-right">{count}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
 
-      <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
-        <h2 className="text-lg font-bold italic mb-4">Recent Submissions</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-[#1e2d3a]">
-                <th className="text-left text-sm text-gray-400 pb-2">Name</th>
-                <th className="text-left text-sm text-gray-400 pb-2">Email</th>
-                <th className="text-left text-sm text-gray-400 pb-2">Channel</th>
-                <th className="text-left text-sm text-gray-400 pb-2">Date (PST)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stats.submissions.map((submission, index) => (
-                <tr key={index} className="border-b border-[#1e2d3a]/50">
-                  <td className="py-3">{submission.first_name} {submission.last_name}</td>
-                  <td className="py-3 text-gray-300">{submission.email}</td>
-                  <td className="py-3">
-                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#d4a843]/15 text-[#d4a843]">
-                      {submission.source || "direct"}
-                    </span>
-                  </td>
-                  <td className="py-3 text-gray-400">{toPST(submission.created_at)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+          <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
+            <h2 className="text-lg font-bold italic mb-4">Recent Submissions</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-[#1e2d3a]">
+                    <th className="text-left text-sm text-gray-400 pb-2">Name</th>
+                    <th className="text-left text-sm text-gray-400 pb-2">Email</th>
+                    <th className="text-left text-sm text-gray-400 pb-2">Channel</th>
+                    <th className="text-left text-sm text-gray-400 pb-2">Date (PST)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stats.submissions.map((submission, index) => (
+                    <tr key={index} className="border-b border-[#1e2d3a]/50">
+                      <td className="py-3">{submission.first_name} {submission.last_name}</td>
+                      <td className="py-3 text-gray-300">{submission.email}</td>
+                      <td className="py-3">
+                        <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#d4a843]/15 text-[#d4a843]">
+                          {submission.source || "direct"}
+                        </span>
+                      </td>
+                      <td className="py-3 text-gray-400">{toPST(submission.created_at)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-      <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
-        <h2 className="text-lg font-bold italic mb-4">Emails to Senator</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-[#1e2d3a]">
-                <th className="text-left text-sm text-gray-400 pb-2">Template</th>
-                <th className="text-left text-sm text-gray-400 pb-2">Status</th>
-                <th className="text-left text-sm text-gray-400 pb-2">Date (PST)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stats.senatorEmails.map((email, index) => (
-                <tr key={index} className="border-b border-[#1e2d3a]/50">
-                  <td className="py-3">{email.template_name}</td>
-                  <td className="py-3">
-                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                      email.status === "sent"
-                        ? "bg-green-900/30 text-green-400"
-                        : email.status === "failed" || email.status === "dlq"
-                          ? "bg-red-900/30 text-red-400"
-                          : "bg-yellow-900/30 text-yellow-400"
-                    }`}>
-                      {email.status}
-                    </span>
-                  </td>
-                  <td className="py-3 text-gray-400">{toPST(email.created_at)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+          <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
+            <h2 className="text-lg font-bold italic mb-4">Emails to Senator</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-[#1e2d3a]">
+                    <th className="text-left text-sm text-gray-400 pb-2">Template</th>
+                    <th className="text-left text-sm text-gray-400 pb-2">Status</th>
+                    <th className="text-left text-sm text-gray-400 pb-2">Date (PST)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stats.senatorEmails.map((email, index) => (
+                    <tr key={index} className="border-b border-[#1e2d3a]/50">
+                      <td className="py-3">{email.template_name}</td>
+                      <td className="py-3">
+                        <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                          email.status === "sent"
+                            ? "bg-green-900/30 text-green-400"
+                            : email.status === "failed" || email.status === "dlq"
+                              ? "bg-red-900/30 text-red-400"
+                              : "bg-yellow-900/30 text-yellow-400"
+                        }`}>
+                          {email.status}
+                        </span>
+                      </td>
+                      <td className="py-3 text-gray-400">{toPST(email.created_at)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="map" className="mt-4">
+          <AdminMapBoundary>
+            <AdminMap submissions={stats.submissions} clickLocations={stats.clickLocations} />
+          </AdminMapBoundary>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
