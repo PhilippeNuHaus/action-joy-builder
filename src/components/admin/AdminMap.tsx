@@ -117,7 +117,7 @@ function FitBounds({ points }: { points: [number, number][] }) {
   return null;
 }
 
-const AdminMap = ({ submissions, clickLocations }: AdminMapProps) => {
+const AdminMap = ({ submissions, clickLocations, visible = true }: AdminMapProps) => {
   const [geocoded, setGeocoded] = useState<GeocodedPoint[]>([]);
   const [geocoding, setGeocoding] = useState(false);
   const [progress, setProgress] = useState(0);
