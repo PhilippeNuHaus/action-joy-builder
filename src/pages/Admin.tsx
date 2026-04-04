@@ -167,7 +167,7 @@ const Admin = () => {
         </Button>
       </div>
 
-      <Tabs defaultValue="stats" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="bg-[#162029] border border-[#1e2d3a]">
           <TabsTrigger value="stats" className="data-[state=active]:bg-[#d4a843] data-[state=active]:text-[#0f1923]">
             <BarChart3 className="h-4 w-4 mr-2" />
