@@ -85,12 +85,22 @@ async function geocodeAddress(address: string): Promise<{ lat: number; lng: numb
   return null;
 }
 
-function MapReady() {
+function MapReady({ active, markerCount }: { active: boolean; markerCount: number }) {
   const map = useMap();
+
   useEffect(() => {
-    // Force Leaflet to recalculate container size after mount
-    setTimeout(() => map.invalidateSize(), 100);
-  }, [map]);
+    if (!active) return;
+
+    const resizeMap = () => map.invalidateSize();
+    const frame = requestAnimationFrame(resizeMap);
+    const timer = window.setTimeout(resizeMap, 180);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+    };
+  }, [active, map, markerCount]);
+
   return null;
 }
 
