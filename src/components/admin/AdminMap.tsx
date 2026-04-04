@@ -26,6 +26,7 @@ interface GeocodedPoint extends SubmissionPoint {
 interface AdminMapProps {
   submissions: SubmissionPoint[];
   clickLocations: ClickPoint[];
+  visible?: boolean;
 }
 
 const createIcon = (color: string, shape: "circle" | "square" = "circle") => {
@@ -84,12 +85,22 @@ async function geocodeAddress(address: string): Promise<{ lat: number; lng: numb
   return null;
 }
 
-function MapReady() {
+function MapReady({ active, markerCount }: { active: boolean; markerCount: number }) {
   const map = useMap();
+
   useEffect(() => {
-    // Force Leaflet to recalculate container size after mount
-    setTimeout(() => map.invalidateSize(), 100);
-  }, [map]);
+    if (!active) return;
+
+    const resizeMap = () => map.invalidateSize();
+    const frame = requestAnimationFrame(resizeMap);
+    const timer = window.setTimeout(resizeMap, 180);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+    };
+  }, [active, map, markerCount]);
+
   return null;
 }
 
@@ -106,7 +117,7 @@ function FitBounds({ points }: { points: [number, number][] }) {
   return null;
 }
 
-const AdminMap = ({ submissions, clickLocations }: AdminMapProps) => {
+const AdminMap = ({ submissions, clickLocations, visible = true }: AdminMapProps) => {
   const [geocoded, setGeocoded] = useState<GeocodedPoint[]>([]);
   const [geocoding, setGeocoding] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -199,7 +210,7 @@ const AdminMap = ({ submissions, clickLocations }: AdminMapProps) => {
 
       <div className="rounded-lg overflow-hidden" style={{ height: 400 }}>
         <MapContainer center={defaultCenter} zoom={9} style={{ height: "100%", width: "100%" }} scrollWheelZoom>
-          <MapReady />
+          <MapReady active={visible} markerCount={allPoints.length} />
           <TileLayer
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"

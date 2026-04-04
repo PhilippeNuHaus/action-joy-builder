@@ -67,6 +67,7 @@ const Admin = () => {
   const [error, setError] = useState("");
   const [stats, setStats] = useState<Stats | null>(null);
   const [savedPassword, setSavedPassword] = useState("");
+  const [activeTab, setActiveTab] = useState("stats");
 
   const fetchStats = async (pw: string) => {
     const { data, error: fnError } = await supabase.functions.invoke("admin-verify", {
@@ -166,7 +167,7 @@ const Admin = () => {
         </Button>
       </div>
 
-      <Tabs defaultValue="stats" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="bg-[#162029] border border-[#1e2d3a]">
           <TabsTrigger value="stats" className="data-[state=active]:bg-[#d4a843] data-[state=active]:text-[#0f1923]">
             <BarChart3 className="h-4 w-4 mr-2" />
@@ -302,7 +303,11 @@ const Admin = () => {
 
         <TabsContent value="map" className="mt-4">
           <AdminMapBoundary>
-            <AdminMap submissions={stats.submissions} clickLocations={stats.clickLocations} />
+            <AdminMap
+              submissions={stats.submissions}
+              clickLocations={stats.clickLocations}
+              visible={activeTab === "map"}
+            />
           </AdminMapBoundary>
         </TabsContent>
       </Tabs>
