@@ -59,11 +59,12 @@ const InTheNews = () => {
         {/* Hero */}
         <section className="bg-secondary py-16 md:py-24">
           <div className="container text-center">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground tracking-tight">
-              In The News
+            <h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tight uppercase">
+              <span className="text-foreground">In The </span>
+              <span className="text-primary">News</span>
             </h1>
             <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
-              Coverage of the fight to protect California's environmental review process.
+              Coverage of the fight against the "advanced manufacturing" loophole and the push for SB 954 to restore CEQA protections for California communities.
             </p>
           </div>
         </section>
