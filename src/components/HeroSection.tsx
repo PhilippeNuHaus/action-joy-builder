@@ -34,15 +34,15 @@ const HeroSection = () => {
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
                   onClick={() => setDialogOpen(true)}
-                  className="bg-primary text-primary-foreground font-heading text-xs uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow"
+                  className="bg-primary text-primary-foreground font-heading text-xs uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow max-w-[320px] w-full"
                 >
-                  Thank Senator<br />Catherine Blakespear <ArrowRight size={14} />
+                  Click to Quickly Thank Senator Blakespear <ArrowRight size={14} />
                 </button>
                 <a
                   href="#advanced-manufacturing"
-                  className="border border-primary text-primary font-heading text-xs uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-primary/10 transition-colors text-center max-w-[320px]"
+                  className="border border-primary text-primary font-heading text-xs uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-primary/10 transition-colors text-center max-w-[320px] w-full"
                 >
-                  Learn More About the Dangers of<br />the Advanced Manufacturing Exemption
+                  Learn More About the Dangers of the Advanced Manufacturing Exemption
                 </a>
               </div>
             </div>
