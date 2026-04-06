@@ -25,7 +25,7 @@ const articles: NewsArticle[] = [
     author: "Alejandra Reyes-Velarde",
     summary:
       "State Sen. Catherine Blakespear introduced a bill seeking to more narrowly define what kinds of facilities are exempt from environmental review — after last year's rushed CEQA reforms created a loophole so broad that even a toxic battery recycling plant might qualify for a pass.",
-    url: "https://calmatters.org/environment/2026/03/ceqa-advanced-manufacturing-exemption/",
+    url: "https://calmatters.org/environment/2026/03/advanced-manufacturing-ceqa-reform-blakespear/",
     imageUrl: calmattersImg,
     body: [
       "Just south of downtown Los Angeles, the Exide battery recycling facility spent decades leaking lead and arsenic into the soil — sickening children, causing cancer, and creating a nearly billion-dollar liability for the state of California. A flurry of last-minute reforms to the California Environmental Quality Act at the end of last year's legislative session exempted a broad, poorly defined category of industrial facilities from environmental review – so broad that if Exide were proposed now, it might get a pass, critics say.",
