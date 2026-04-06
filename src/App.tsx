@@ -9,6 +9,7 @@ import WhatsNearYou from "./pages/WhatsNearYou.tsx";
 import Unsubscribe from "./pages/Unsubscribe.tsx";
 import CampaignRedirect from "./pages/CampaignRedirect.tsx";
 import InTheNews from "./pages/InTheNews.tsx";
+import Resources from "./pages/Resources.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
