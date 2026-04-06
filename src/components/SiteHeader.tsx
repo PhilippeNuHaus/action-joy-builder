@@ -28,6 +28,14 @@ const SiteHeader = () => {
             >
               Home
             </Link>
+            <Link
+              to="/in-the-news"
+              className={`font-heading text-sm uppercase tracking-widest transition-colors hover:text-primary ${
+                location.pathname === "/in-the-news" ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              In The News
+            </Link>
             <button
               onClick={() => setDialogOpen(true)}
               className={`font-heading text-sm uppercase tracking-widest transition-colors hover:text-primary ${
