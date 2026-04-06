@@ -34,7 +34,7 @@ const HeroSection = () => {
               <div className="flex justify-center">
                 <button
                   onClick={() => setDialogOpen(true)}
-                  className="bg-primary text-primary-foreground font-heading text-xs uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow max-w-[320px] w-full"
+                  className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow max-w-[400px] w-full"
                 >
                   Click to Quickly Send a Thank You to Senator Blakespear <ArrowRight size={14} />
                 </button>
