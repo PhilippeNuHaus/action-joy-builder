@@ -24,6 +24,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/take-action" element={<TakeAction />} />
           <Route path="/whats-near-you" element={<WhatsNearYou />} />
+          <Route path="/in-the-news" element={<InTheNews />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/go/:channel" element={<CampaignRedirect />} />
           <Route path="/admin" element={<Admin />} />
