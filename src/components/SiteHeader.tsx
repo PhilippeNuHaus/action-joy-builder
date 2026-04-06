@@ -36,6 +36,14 @@ const SiteHeader = () => {
             >
               In The News
             </Link>
+            <Link
+              to="/resources"
+              className={`font-heading text-sm uppercase tracking-widest transition-colors hover:text-primary ${
+                location.pathname === "/resources" ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              Resources
+            </Link>
             <button
               onClick={() => setDialogOpen(true)}
               className={`font-heading text-sm uppercase tracking-widest transition-colors hover:text-primary ${
@@ -77,6 +85,13 @@ const SiteHeader = () => {
               className="block font-heading text-sm uppercase tracking-widest text-foreground hover:text-primary"
             >
               In The News
+            </Link>
+            <Link
+              to="/resources"
+              onClick={() => setMobileOpen(false)}
+              className="block font-heading text-sm uppercase tracking-widest text-foreground hover:text-primary"
+            >
+              Resources
             </Link>
             <button
               onClick={() => { setMobileOpen(false); setDialogOpen(true); }}
