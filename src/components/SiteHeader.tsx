@@ -86,6 +86,13 @@ const SiteHeader = () => {
             >
               In The News
             </Link>
+            <Link
+              to="/resources"
+              onClick={() => setMobileOpen(false)}
+              className="block font-heading text-sm uppercase tracking-widest text-foreground hover:text-primary"
+            >
+              Resources
+            </Link>
             <button
               onClick={() => { setMobileOpen(false); setDialogOpen(true); }}
               className="block font-heading text-sm uppercase tracking-widest text-foreground hover:text-primary w-full text-left"
