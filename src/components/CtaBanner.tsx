@@ -36,7 +36,7 @@ const CtaBanner = () => {
                 onClick={() => setDialogOpen(true)}
                 className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-8 py-3 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow"
               >
-                Send Message <ArrowRight size={16} />
+                Click to Quickly Send a Thank You to Senator Blakespear <ArrowRight size={16} />
               </button>
             </div>
           </div>
