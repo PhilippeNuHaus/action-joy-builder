@@ -31,7 +31,7 @@ const SiteFooter = () => (
         </div>
       </div>
       <div className="mt-8 pt-6 border-t border-border text-center text-xs text-muted-foreground space-y-1">
-        <p>Paid for by Planning and Conservation League (Right to Know Campaign). Not authorized by any candidate or candidate's committee.</p>
+        <p>Paid for by Planning and Conservation League (Right to Know Campaign).</p>
         <p>© {new Date().getFullYear()} Right to Know.</p>
       </div>
     </div>
