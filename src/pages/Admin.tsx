@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Lock, Users, Sparkles, BarChart3, RefreshCw, MapPin } from "lucide-react";
+import { Lock, Users, Sparkles, BarChart3, RefreshCw, MapPin, Mail } from "lucide-react";
 import AdminMap from "@/components/admin/AdminMap";
 import AdminMapBoundary from "@/components/admin/AdminMapBoundary";
 
@@ -151,6 +151,7 @@ const Admin = () => {
   const statCards = [
     { label: "Letters Sent", value: stats.totalSubmissions, icon: Users },
     { label: "Link Clicks", value: stats.totalClicks, icon: Sparkles },
+    { label: "Emails Delivered", value: stats.totalSenatorEmails, icon: Mail },
     { label: "Channels Tracked", value: stats.channelsTracked, icon: BarChart3 },
   ];
 
