@@ -239,7 +239,7 @@ const Admin = () => {
           </div>
 
           <div className="bg-[#162029] border border-[#1e2d3a] rounded-lg p-5">
-            <h2 className="text-lg font-bold italic mb-4">Recent Submissions</h2>
+            <h2 className="text-lg font-bold italic mb-4">Recent Submissions ({stats.totalSubmissions})</h2>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
