@@ -252,7 +252,9 @@ const Admin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {stats.submissions.map((submission, index) => (
+                  {stats.submissions
+                    .slice((submissionPage - 1) * ROWS_PER_PAGE, submissionPage * ROWS_PER_PAGE)
+                    .map((submission, index) => (
                     <tr key={index} className="border-b border-[#1e2d3a]/50">
                       <td className="py-3">{submission.first_name} {submission.last_name}</td>
                       <td className="py-3 text-gray-300">{submission.email}</td>
@@ -266,6 +268,32 @@ const Admin = () => {
                   ))}
                 </tbody>
               </table>
+              {(() => {
+                const totalPages = Math.ceil(stats.submissions.length / ROWS_PER_PAGE);
+                return totalPages > 1 ? (
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#1e2d3a]">
+                    <Button
+                      onClick={() => setSubmissionPage((p) => Math.max(1, p - 1))}
+                      disabled={submissionPage === 1}
+                      variant="outline"
+                      size="sm"
+                      className="border-[#1e2d3a] bg-[#0f1923] text-white hover:bg-[#1e2d3a] disabled:opacity-40"
+                    >
+                      Previous
+                    </Button>
+                    <span className="text-sm text-gray-400">Page {submissionPage} of {totalPages}</span>
+                    <Button
+                      onClick={() => setSubmissionPage((p) => Math.min(totalPages, p + 1))}
+                      disabled={submissionPage === totalPages}
+                      variant="outline"
+                      size="sm"
+                      className="border-[#1e2d3a] bg-[#0f1923] text-white hover:bg-[#1e2d3a] disabled:opacity-40"
+                    >
+                      Next
+                    </Button>
+                  </div>
+                ) : null;
+              })()}
             </div>
           </div>
 
