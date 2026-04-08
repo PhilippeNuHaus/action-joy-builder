@@ -1,9 +1,11 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Card, CardContent } from "@/components/ui/card";
-import { ExternalLink, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink, X, Star } from "lucide-react";
 import { useState } from "react";
 import calmattersImg from "@/assets/calmatters-article.png";
+import capitolWeeklyImg from "@/assets/capitol-weekly-article.png";
 
 interface NewsArticle {
   title: string;
@@ -14,9 +16,32 @@ interface NewsArticle {
   url: string;
   imageUrl: string;
   body: string[];
+  featured?: boolean;
 }
 
 const articles: NewsArticle[] = [
+  {
+    title: "Voters oppose advanced manufacturing CEQA exemptions",
+    source: "Capitol Weekly",
+    date: "April 6, 2026",
+    author: "Bonnie Hamilton",
+    summary:
+      "A new statewide poll finds 64% of voters would hold it against lawmakers who approved exemptions for polluting industries near homes and schools.",
+    url: "https://capitolweekly.net/voters-oppose-advanced-manufacturing-ceqa-exemptions/",
+    imageUrl: capitolWeeklyImg,
+    featured: true,
+    body: [
+      "As a pediatrician, I see the consequences of industrial pollution affecting children's health every day: the asthma that keeps a child home from school, the developmental delays that follow early lead exposure, the elevated cancer risk that trails a childhood spent near a petrochemical facility. These outcomes are not inevitable; they are the predictable result of policy choices. Last year, the California Legislature voted to exempt dozens of categories of industrial facilities from the environmental review process that exists to prevent exactly those harms, and a striking new poll suggests they badly misjudged how the public would feel about it.",
+      "When lawmakers passed Senate Bill 131, exempting more than 75 categories of industrial facilities from California's landmark environmental review law, perhaps they assumed voters either weren't paying attention or didn't care. Voters were additionally concerned about the cost to taxpayers when contamination goes unaddressed, and California has a $750 million lesson in what that looks like. The remediation of the Exide battery recycling plant in L.A. County landed almost entirely on the public.",
+      "The bipartisan character of these findings deserves particular attention in Sacramento, where the Abundance Agenda has been sold as a politically safe vehicle for deregulation. CEQA approval runs to 90% among Democrats, 73% among independents, and even a plurality (41%) among Republicans. Opposition to the advanced manufacturing exemption created by SB 131 holds at 58% and up to 67% in every region of the state.",
+      "Californians approve of CEQA, nearly two-thirds oppose the exemption, and most significantly for anyone serving in the Legislature, 64% say they would be less likely to support a lawmaker who backed these exemptions. Those numbers hold across party lines, regions, and every age group surveyed.",
+      "After SB 131 passed, many lawmakers acknowledged that including the manufacturing exemption had been a mistake and promised to remedy it. However, they did not do so during last year's session. SB 954, now before the Legislature, is their opportunity to keep that promise, restoring the most essential safeguards removed by SB 131 and requiring the environmental review and public disclosure that communities deserve before an industrial facility goes up near their child's school.",
+      "Advanced manufacturing is a broad category comprising more than 75 types of industrial operations spanning plastics, petrochemicals, nuclear, defense, and mining. Industrial facilities like these often emit toxic pollutants – arsenic, cyanide, hexavalent chromium, and PFAS among them – that are linked to cancers, respiratory illnesses, developmental problems, and miscarriages. Exempting them from CEQA means communities might not know that such projects are going to be built nearby, and that projects could be approved even when they are sited near homes and schools. This defies common sense, and voters know it.",
+      "The breadth of what voters want protected is also striking. More than four out of five believe that pesticide manufacturing, battery manufacturing, strip mining, oil refineries, and nuclear weapons manufacturing should all remain subject to CEQA safeguards. Under SB 131, they currently do not. Large majorities ranging from 71% to 79% say the same for nuclear energy plants, waste incineration, plastic fabrication, and data center facilities. This is not a narrow or ideological position. It is a broad, consistent mandate from the California public.",
+      "(Methodology: FM3 Research conducted 820 online and telephone interviews with likely November 2026 California voters from March 5 through 11, 2026. Margin of sampling error: +/- 4.0% at the 95% confidence level.)",
+      "Dr. Bonnie Hamilton is a pediatrician, mom, and community volunteer who practices pediatric medicine in Vallejo, California.",
+    ],
+  },
   {
     title:
       "California blew a hole in environmental planning law. Now, lawmakers are trying to fix it",
@@ -49,8 +74,97 @@ const articles: NewsArticle[] = [
   },
 ];
 
+const FeaturedArticleCard = ({
+  article,
+  onClick,
+}: {
+  article: NewsArticle;
+  onClick: () => void;
+}) => (
+  <button onClick={onClick} className="group block w-full text-left">
+    <Card className="transition-shadow hover:shadow-xl border-primary/30 overflow-hidden ring-1 ring-primary/20">
+      {article.imageUrl && (
+        <div className="w-full h-56 md:h-72 overflow-hidden relative">
+          <img
+            src={article.imageUrl}
+            alt={article.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute top-4 left-4">
+            <Badge className="bg-primary text-primary-foreground font-heading uppercase tracking-wider text-xs px-3 py-1 gap-1.5">
+              <Star size={12} className="fill-current" />
+              Featured Article
+            </Badge>
+          </div>
+        </div>
+      )}
+      <CardContent className="p-6 md:p-8 bg-gradient-to-b from-primary/5 to-transparent">
+        <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
+          <span className="font-semibold text-primary">{article.source}</span>
+          <span>•</span>
+          <span>{article.date}</span>
+          <span>•</span>
+          <span>Opinion by {article.author}</span>
+        </div>
+        <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
+          {article.title}
+        </h2>
+        <p className="mt-3 text-muted-foreground leading-relaxed text-base">
+          {article.summary}
+        </p>
+        <div className="mt-5 flex items-center gap-1.5 text-primary font-heading text-sm uppercase tracking-wider">
+          Read Full Article
+        </div>
+      </CardContent>
+    </Card>
+  </button>
+);
+
+const ArticleCard = ({
+  article,
+  onClick,
+}: {
+  article: NewsArticle;
+  onClick: () => void;
+}) => (
+  <button onClick={onClick} className="group block w-full text-left">
+    <Card className="transition-shadow hover:shadow-lg border-border overflow-hidden">
+      {article.imageUrl && (
+        <div className="w-full h-48 md:h-56 overflow-hidden">
+          <img
+            src={article.imageUrl}
+            alt={article.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+      )}
+      <CardContent className="p-6 md:p-8">
+        <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
+          <span className="font-semibold text-primary">{article.source}</span>
+          <span>•</span>
+          <span>{article.date}</span>
+        </div>
+        <h2 className="font-heading text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
+          {article.title}
+        </h2>
+        <p className="mt-3 text-muted-foreground leading-relaxed">
+          {article.summary}
+        </p>
+        <div className="mt-4 flex items-center gap-1.5 text-primary font-heading text-sm uppercase tracking-wider">
+          Read Article
+        </div>
+      </CardContent>
+    </Card>
+  </button>
+);
+
 const InTheNews = () => {
-  const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null);
+  const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(
+    null
+  );
+
+  const featuredArticle = articles.find((a) => a.featured);
+  const otherArticles = articles.filter((a) => !a.featured);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -64,7 +178,9 @@ const InTheNews = () => {
               <span className="text-primary">News</span>
             </h1>
             <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
-              Coverage of the fight against the "advanced manufacturing" loophole and the push for SB 954 to restore CEQA protections for California communities.
+              Coverage of the fight against the "advanced manufacturing"
+              loophole and the push for SB 954 to restore CEQA protections for
+              California communities.
             </p>
           </div>
         </section>
@@ -76,40 +192,21 @@ const InTheNews = () => {
           <div className="flex flex-col md:flex-row gap-10 max-w-6xl mx-auto">
             {/* Articles */}
             <div className="flex-1 space-y-8">
-              {articles.map((article, i) => (
-                <button
+              {/* Featured article always on top */}
+              {featuredArticle && (
+                <FeaturedArticleCard
+                  article={featuredArticle}
+                  onClick={() => setSelectedArticle(featuredArticle)}
+                />
+              )}
+
+              {/* Other articles */}
+              {otherArticles.map((article, i) => (
+                <ArticleCard
                   key={i}
+                  article={article}
                   onClick={() => setSelectedArticle(article)}
-                  className="group block w-full text-left"
-                >
-                  <Card className="transition-shadow hover:shadow-lg border-border overflow-hidden">
-                    {article.imageUrl && (
-                      <div className="w-full h-48 md:h-56 overflow-hidden">
-                        <img
-                          src={article.imageUrl}
-                          alt={article.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-                    <CardContent className="p-6 md:p-8">
-                      <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
-                        <span className="font-semibold text-primary">{article.source}</span>
-                        <span>•</span>
-                        <span>{article.date}</span>
-                      </div>
-                      <h2 className="font-heading text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
-                        {article.title}
-                      </h2>
-                      <p className="mt-3 text-muted-foreground leading-relaxed">
-                        {article.summary}
-                      </p>
-                      <div className="mt-4 flex items-center gap-1.5 text-primary font-heading text-sm uppercase tracking-wider">
-                        Read Article
-                      </div>
-                    </CardContent>
-                  </Card>
-                </button>
+                />
               ))}
             </div>
 
@@ -126,7 +223,9 @@ const InTheNews = () => {
                       onClick={() => setSelectedArticle(article)}
                       className="block w-full text-left group"
                     >
-                      <div className="flex gap-3 items-start p-3 rounded-md hover:bg-secondary transition-colors">
+                      <div
+                        className={`flex gap-3 items-start p-3 rounded-md hover:bg-secondary transition-colors ${article.featured ? "border border-primary/20 bg-primary/5" : ""}`}
+                      >
                         {article.imageUrl && (
                           <img
                             src={article.imageUrl}
@@ -135,6 +234,14 @@ const InTheNews = () => {
                           />
                         )}
                         <div className="min-w-0">
+                          {article.featured && (
+                            <Badge
+                              variant="default"
+                              className="text-[10px] px-1.5 py-0 mb-1"
+                            >
+                              Featured
+                            </Badge>
+                          )}
                           <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-snug line-clamp-2">
                             {article.title}
                           </p>
@@ -173,19 +280,29 @@ const InTheNews = () => {
 
             {/* Article image */}
             {selectedArticle.imageUrl && (
-              <div className="w-full h-64 md:h-80 overflow-hidden">
+              <div className="w-full h-64 md:h-80 overflow-hidden relative">
                 <img
                   src={selectedArticle.imageUrl}
                   alt={selectedArticle.title}
                   className="w-full h-full object-cover"
                 />
+                {selectedArticle.featured && (
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-primary text-primary-foreground font-heading uppercase tracking-wider text-xs px-3 py-1 gap-1.5">
+                      <Star size={12} className="fill-current" />
+                      Featured Article
+                    </Badge>
+                  </div>
+                )}
               </div>
             )}
 
             {/* Article content */}
             <div className="p-6 md:p-10">
               <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
-                <span className="font-semibold text-primary">{selectedArticle.source}</span>
+                <span className="font-semibold text-primary">
+                  {selectedArticle.source}
+                </span>
                 <span>•</span>
                 <span>{selectedArticle.date}</span>
                 <span>•</span>
@@ -198,7 +315,10 @@ const InTheNews = () => {
 
               <div className="prose prose-lg max-w-none text-foreground/90">
                 {selectedArticle.body.map((paragraph, i) => (
-                  <p key={i} className="mb-4 leading-relaxed text-muted-foreground">
+                  <p
+                    key={i}
+                    className="mb-4 leading-relaxed text-muted-foreground"
+                  >
                     {paragraph}
                   </p>
                 ))}
