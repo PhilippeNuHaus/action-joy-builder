@@ -1,16 +1,20 @@
 
 
-## Plan: Update Hero CTA Button Text and Size
+## Plan: Add pagination to admin dashboard tables
 
-### What changes
-**File: `src/components/HeroSection.tsx`**
+### Changes to `src/pages/Admin.tsx`
 
-1. Change the primary (gold) button text from "Thank Senator Catherine Blakespear" to **"Click to Quickly Thank Senator Blakespear"** (single line, no `<br />`)
-2. Make both buttons the same size by ensuring they share identical padding and width constraints — both will use the same `max-w-[320px] w-full` so they appear uniform
-3. Remove the `<br />` line breaks from both buttons for cleaner single-flow text
+1. **Add pagination state** — `submissionPage` and `emailPage` state variables, defaulting to 1.
 
-### Technical detail
-- Primary button: update inner text, remove `<br />`, keep `px-10 py-5` padding, add `max-w-[320px] w-full`
-- Secondary button: already has `max-w-[320px]`, add `w-full` to match
-- Both buttons will render at the same width on desktop, stacking on mobile
+2. **Paginate submissions table** — Show 10 rows per page using `.slice((page-1)*10, page*10)`. Add Previous/Next buttons and "Page X of Y" indicator below the table. Table columns stay exactly as they are: Name, Email, Channel, Date (PST).
+
+3. **Paginate Emails to Senator table** — Same 10-per-page pattern with Previous/Next controls.
+
+4. **All stat cards remain unchanged** — Letters Sent, Link Clicks, Emails Sent, Channels Tracked all stay.
+
+### Technical details
+- No changes to data fetching, stat cards, or column layout
+- Pagination is client-side only using array `.slice()`
+- Previous button disabled on page 1, Next disabled on last page
+- Styled to match the existing dark theme with gold accents
 
