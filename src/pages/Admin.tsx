@@ -68,6 +68,9 @@ const Admin = () => {
   const [stats, setStats] = useState<Stats | null>(null);
   const [savedPassword, setSavedPassword] = useState("");
   const [activeTab, setActiveTab] = useState("stats");
+  const [submissionPage, setSubmissionPage] = useState(1);
+  const [emailPage, setEmailPage] = useState(1);
+  const ROWS_PER_PAGE = 10;
 
   const fetchStats = async (pw: string) => {
     const { data, error: fnError } = await supabase.functions.invoke("admin-verify", {
