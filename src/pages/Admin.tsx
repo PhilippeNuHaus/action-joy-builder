@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Lock, Users, Sparkles, Mail, BarChart3, RefreshCw, MapPin } from "lucide-react";
+import { Lock, Users, Sparkles, BarChart3, RefreshCw, MapPin } from "lucide-react";
 import AdminMap from "@/components/admin/AdminMap";
 import AdminMapBoundary from "@/components/admin/AdminMapBoundary";
 
