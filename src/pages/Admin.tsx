@@ -309,7 +309,9 @@ const Admin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {stats.senatorEmails.map((email, index) => (
+                  {stats.senatorEmails
+                    .slice((emailPage - 1) * ROWS_PER_PAGE, emailPage * ROWS_PER_PAGE)
+                    .map((email, index) => (
                     <tr key={index} className="border-b border-[#1e2d3a]/50">
                       <td className="py-3">{email.template_name}</td>
                       <td className="py-3">
@@ -328,6 +330,32 @@ const Admin = () => {
                   ))}
                 </tbody>
               </table>
+              {(() => {
+                const totalPages = Math.ceil(stats.senatorEmails.length / ROWS_PER_PAGE);
+                return totalPages > 1 ? (
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#1e2d3a]">
+                    <Button
+                      onClick={() => setEmailPage((p) => Math.max(1, p - 1))}
+                      disabled={emailPage === 1}
+                      variant="outline"
+                      size="sm"
+                      className="border-[#1e2d3a] bg-[#0f1923] text-white hover:bg-[#1e2d3a] disabled:opacity-40"
+                    >
+                      Previous
+                    </Button>
+                    <span className="text-sm text-gray-400">Page {emailPage} of {totalPages}</span>
+                    <Button
+                      onClick={() => setEmailPage((p) => Math.min(totalPages, p + 1))}
+                      disabled={emailPage === totalPages}
+                      variant="outline"
+                      size="sm"
+                      className="border-[#1e2d3a] bg-[#0f1923] text-white hover:bg-[#1e2d3a] disabled:opacity-40"
+                    >
+                      Next
+                    </Button>
+                  </div>
+                ) : null;
+              })()}
             </div>
           </div>
         </TabsContent>
