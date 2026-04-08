@@ -151,6 +151,7 @@ const Admin = () => {
   const statCards = [
     { label: "Letters Sent", value: stats.totalSubmissions, icon: Users },
     { label: "Link Clicks", value: stats.totalClicks, icon: Sparkles },
+    { label: "Emails Delivered", value: stats.totalSenatorEmails, icon: Mail },
     { label: "Channels Tracked", value: stats.channelsTracked, icon: BarChart3 },
   ];
 
