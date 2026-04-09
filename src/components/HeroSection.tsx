@@ -24,11 +24,9 @@ const HeroSection = () => {
                 San Diego and Southwestern Orange Counties
               </p>
               <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.8rem] font-bold uppercase mb-10 flex flex-col items-center gap-4">
-                <span>Thank State Senator</span>
-                <span>Catherine Blakespear for</span>
-                <span>Protecting <span className="text-gold-gradient">Our Community</span></span>
-                <span>from Toxic Pollution</span>
-                <span>by Introducing SB 954</span>
+               <span>Thank Senator <span className="text-gold-gradient">Blakespear</span></span>
+                <span>for Introducing SB 954</span>
+                <span>and Leading the Fight to…</span>
               </h1>
 
               <div className="flex justify-center">
