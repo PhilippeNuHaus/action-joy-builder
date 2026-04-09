@@ -30,20 +30,22 @@ Deno.serve(async (req) => {
     }
 
     const url = `https://api.lovable.dev/v1/projects/${PROJECT_ID}/analytics?startdate=${startDate}&enddate=${endDate}&granularity=daily`;
+    console.log("Fetching analytics from:", url);
 
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${apiKey}` },
     });
 
+    console.log("Lovable API Response Status:", response.status);
+    const data = await response.json();
+    console.log("Lovable API Response Data:", JSON.stringify(data).substring(0, 500));
+
     if (!response.ok) {
-      const text = await response.text();
-      return new Response(JSON.stringify({ error: `Analytics API error: ${response.status}`, details: text }), {
+      return new Response(JSON.stringify({ error: `Analytics API error: ${response.status}`, details: data }), {
         status: response.status,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
-
-    const data = await response.json();
 
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
