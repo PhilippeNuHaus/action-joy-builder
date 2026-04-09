@@ -5,6 +5,8 @@ import ResourcePdfModal from "@/components/ResourcePdfModal";
 import { useState } from "react";
 import advocacyThumb from "@/assets/advocacy-letter-thumb.jpg";
 import factsThumb from "@/assets/myths-facts-thumb.jpg";
+import sb954Thumb from "@/assets/sb954-support-thumb.jpg";
+import laborNgoThumb from "@/assets/labor-ngo-cleanup-thumb.jpg";
 
 export interface Resource {
   title: string;
@@ -15,6 +17,22 @@ export interface Resource {
 }
 
 const resources: Resource[] = [
+  {
+    title: "120+ Orgs: Support in Concept for SB 954",
+    category: "Advocacy",
+    description:
+      "A coalition of 120+ labor, environmental, and environmental justice organizations expressing support in concept for SB 954 (Blakespear), which addresses the environmental and public health rollbacks enacted under SB 131.",
+    pdfUrl: "/resources/sb954-support-letter.pdf",
+    thumbUrl: sb954Thumb,
+  },
+  {
+    title: "Labor × NGO SB 131 Adv. Manufacturing Cleanup Letter",
+    category: "Advocacy",
+    description:
+      "A joint labor and environmental coalition letter urging removal of the advanced manufacturing CEQA exemption from SB 131 via a budget trailer bill.",
+    pdfUrl: "/resources/labor-ngo-cleanup-letter.pdf",
+    thumbUrl: laborNgoThumb,
+  },
   {
     title: "NGO SB 131 Cleanup Letter",
     category: "Advocacy",
