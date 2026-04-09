@@ -30,7 +30,7 @@ const HeroSection = () => {
                 <span>from Toxic Pollution</span>
                 <span>by Enacting the SB 954 Public</span>
                 <span>Health and Environment Safeguards</span>
-                <span>by Introducing SB 954</span>
+                
               </h1>
 
               <div className="flex justify-center">
