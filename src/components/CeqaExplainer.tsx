@@ -4,6 +4,9 @@ const CeqaExplainer = () => (
       <div className="space-y-6 text-muted-foreground leading-relaxed text-left">
         
         <p>
+          Polluting facilities can now be built near homes and schools — with little warning and fewer safeguards.
+        </p>
+        <p>
           The <strong className="text-primary">California Environmental Quality Act (CEQA)</strong> protects your{" "}
           <strong className="text-foreground uppercase">Right to Know</strong>. It requires industries to disclose environmental and health risks and reduce potential harms before projects are approved.
         </p>
@@ -15,9 +18,6 @@ const CeqaExplainer = () => (
         </p>
         <p>
           Now, these projects can be approved without environmental review under <strong className="text-primary">CEQA</strong>, without transparency, without giving communities a real say, and without mitigation to protect the health of the public.
-        </p>
-        <p>
-          Polluting facilities can now be built near homes and schools — with little warning and fewer safeguards.
         </p>
         <p className="text-primary italic font-semibold">
           This is a direct threat to our air, our water, our health, our coast, and our lands.
