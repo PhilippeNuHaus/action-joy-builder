@@ -14,12 +14,11 @@ const CtaBanner = () => {
               Take Action to <span className="text-primary">Protect Your Community</span>
             </h2>
 
-            <p className="font-heading text-3xl md:text-5xl uppercase tracking-wider text-foreground mb-6 leading-[1.85]">
-              Thank Senator{" "}
-              <span className="text-primary">Blakespear</span><br />
-              for Introducing SB 954<br />
-              and Leading the Fight to…
-            </p>
+            <div className="font-heading text-3xl md:text-5xl uppercase tracking-wider text-foreground mb-6 flex flex-col items-center gap-3 md:gap-5">
+              <span>Thank Senator{" "}<span className="text-primary">Blakespear</span></span>
+              <span>for Introducing SB 954</span>
+              <span>and Leading the Fight to…</span>
+            </div>
 
             <div className="space-y-3 mb-8 text-left max-w-md mx-auto">
               <div className="flex items-start gap-3">
