@@ -30,7 +30,8 @@ const CeqaExplainer = () => (
       <div className="mt-8 bg-secondary/50 rounded-sm p-8 border border-primary/30 text-center">
         <p className="font-heading text-2xl md:text-3xl text-foreground leading-snug">
           We must close the{" "}
-          <span className="text-primary font-bold">Advanced Manufacturing Loophole</span>—before it's too late.
+          <span className="text-primary font-bold">Toxics Pollution Loophole</span>{" "}
+          by enacting Senate Bill 954—before it's too late.
         </p>
       </div>
     </div>
