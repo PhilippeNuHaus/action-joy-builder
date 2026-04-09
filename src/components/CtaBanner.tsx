@@ -10,6 +10,10 @@ const CtaBanner = () => {
       <section className="py-16 bg-card">
         <div className="container">
           <div className="text-center max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg md:text-xl mb-6">
+              Polluting facilities can now be built near homes and schools — with little warning and fewer safeguards.
+            </p>
+
             <h2 className="font-heading text-xl md:text-2xl uppercase mb-6">
               Take Action to <span className="text-primary">Protect Your Community</span>
             </h2>
