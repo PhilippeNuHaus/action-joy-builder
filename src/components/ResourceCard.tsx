@@ -27,9 +27,11 @@ const ResourceCard = ({ resource, onClick }: ResourceCardProps) => {
           {resource.category}
         </span>
 
-        <h3 className="font-heading text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
+        <h3 className="font-heading text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-snug min-h-[2.8rem]">
           {resource.title}
         </h3>
+
+        <div className="border-t border-border/50 mt-3 mb-1" />
 
         <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-3">
           {resource.description}
