@@ -191,6 +191,8 @@ const Admin = () => {
       const nextStats = await fetchStats(password);
       setStats(nextStats);
       setSavedPassword(password);
+      setAnalytics(null);
+      setAnalyticsFetched(false);
       setAuthenticated(true);
     } catch {
       setAuthenticated(false);
@@ -208,7 +210,13 @@ const Admin = () => {
       setStats(nextStats);
       if (activeTab === "analytics") {
         const a = await fetchAnalytics(savedPassword, analyticsRange);
-        if (a) setAnalytics(a);
+        if (a) {
+          setAnalytics(a);
+          setAnalyticsFetched(true);
+        } else {
+          setAnalytics(null);
+          setAnalyticsFetched(false);
+        }
       }
     } catch {
       // silent
@@ -219,11 +227,22 @@ const Admin = () => {
 
   const handleTabChange = async (tab: string) => {
     setActiveTab(tab);
-    if (tab === "analytics" && !analyticsFetched) {
-      setAnalyticsLoading(true);
+
+    if (tab !== "analytics" || analyticsFetched || analyticsLoading) {
+      return;
+    }
+
+    setAnalyticsLoading(true);
+    try {
       const a = await fetchAnalytics(savedPassword, analyticsRange);
-      if (a) setAnalytics(a);
-      setAnalyticsFetched(true);
+      if (a) {
+        setAnalytics(a);
+        setAnalyticsFetched(true);
+      } else {
+        setAnalytics(null);
+        setAnalyticsFetched(false);
+      }
+    } finally {
       setAnalyticsLoading(false);
     }
   };
@@ -231,9 +250,18 @@ const Admin = () => {
   const handleRangeChange = async (range: "7" | "30") => {
     setAnalyticsRange(range);
     setAnalyticsLoading(true);
-    const a = await fetchAnalytics(savedPassword, range);
-    if (a) setAnalytics(a);
-    setAnalyticsLoading(false);
+    try {
+      const a = await fetchAnalytics(savedPassword, range);
+      if (a) {
+        setAnalytics(a);
+        setAnalyticsFetched(true);
+      } else {
+        setAnalytics(null);
+        setAnalyticsFetched(false);
+      }
+    } finally {
+      setAnalyticsLoading(false);
+    }
   };
 
   if (!authenticated) {
