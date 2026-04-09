@@ -17,7 +17,7 @@ const CeqaExplainer = () => (
           Now, these projects can be approved without environmental review under <strong className="text-primary">CEQA</strong>, without transparency, without giving communities a real say, and without mitigation to protect the health of the public.
         </p>
         <p>
-          That means polluting facilities could be built near homes and schools—with little warning and fewer safeguards.
+          Polluting facilities can now be built near homes and schools — with little warning and fewer safeguards.
         </p>
         <p className="text-primary italic font-semibold">
           This is a direct threat to our air, our water, our health, our coast, and our lands.
