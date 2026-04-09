@@ -14,7 +14,7 @@ const CtaBanner = () => {
               Take Action to <span className="text-primary">Protect Your Community</span>
             </h2>
 
-            <p className="font-heading text-3xl md:text-5xl uppercase tracking-wider text-foreground mb-6 leading-[1.6]">
+            <p className="font-heading text-3xl md:text-5xl uppercase tracking-wider text-foreground mb-6 leading-[1.85]">
               Thank Senator{" "}
               <span className="text-primary">Blakespear</span><br />
               for Introducing SB 954<br />
