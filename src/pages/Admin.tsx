@@ -89,7 +89,7 @@ const normalizeAnalytics = (data: any): AnalyticsData => {
     return arr.map((item) => ({
       [keyField]: item[keyField] || "Unknown",
       visitors: item.visitors ?? 0,
-    }));
+    })) as any;
   };
 
   return {
