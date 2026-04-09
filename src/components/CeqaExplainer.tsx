@@ -4,8 +4,8 @@ const CeqaExplainer = () => (
       <div className="space-y-6 text-muted-foreground leading-relaxed text-left">
         
         <p className="text-primary text-xl md:text-2xl font-semibold text-center">
-          Polluting facilities can now be built near homes and schools—<br />
-          with little warning and fewer safeguards.
+          Polluting facilities can now be built near homes and schools<br />
+          — with little warning and fewer safeguards.
         </p>
         <p>
           The <strong className="text-primary">California Environmental Quality Act (CEQA)</strong> protects your{" "}
