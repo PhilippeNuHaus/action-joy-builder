@@ -28,9 +28,7 @@ const HeroSection = () => {
                 <span>Catherine Blakespear for</span>
                 <span>Protecting <span className="text-gold-gradient">Our Community</span></span>
                 <span>from Toxic Pollution</span>
-                <span>by Enacting the SB 954 Public</span>
-                <span>Health and Environment</span>
-                <span>Safeguards</span>
+                <span>by Enacting SB 954</span>
               </h1>
 
               <div className="flex justify-center">
