@@ -80,16 +80,16 @@ const formatDuration = (seconds: number): string => {
 const normalizeAnalytics = (data: any): AnalyticsData => {
   const visitors = data?.visitors ?? 0;
   const pageviews = data?.pageviews ?? 0;
-  const viewsPerVisit = visitors > 0 ? pageviews / visitors : 0;
+  const viewsPerVisit = data?.views_per_visit ?? (visitors > 0 ? pageviews / visitors : 0);
   const visitDuration = data?.visit_duration ?? data?.visitDuration ?? 0;
   const bounceRate = data?.bounce_rate ?? data?.bounceRate ?? 0;
 
-  const mapArray = (arr: any[], keyField: string, valueField: string, labelField: string) => {
+  const mapBreakdown = (arr: any[], keyField: string) => {
     if (!Array.isArray(arr)) return [];
     return arr.map((item) => ({
-      [labelField]: item[keyField] || "Unknown",
-      visitors: item[valueField] ?? item.visitors ?? 0,
-    })) as any[];
+      [keyField]: item[keyField] || "Unknown",
+      visitors: item.visitors ?? 0,
+    })) as any;
   };
 
   return {
@@ -98,10 +98,10 @@ const normalizeAnalytics = (data: any): AnalyticsData => {
     viewsPerVisit: Math.round(viewsPerVisit * 100) / 100,
     visitDuration,
     bounceRate: Math.round(bounceRate),
-    topPages: mapArray(data?.top_pages ?? data?.topPages ?? [], "page", "visitors", "page"),
-    topSources: mapArray(data?.top_sources ?? data?.topSources ?? [], "source", "visitors", "source"),
-    topDevices: mapArray(data?.top_devices ?? data?.topDevices ?? [], "device", "visitors", "device"),
-    topCountries: mapArray(data?.top_countries ?? data?.topCountries ?? [], "country", "visitors", "country"),
+    topPages: mapBreakdown(data?.top_pages ?? [], "page"),
+    topSources: mapBreakdown(data?.top_sources ?? [], "source"),
+    topDevices: mapBreakdown(data?.top_devices ?? [], "device"),
+    topCountries: mapBreakdown(data?.top_countries ?? [], "country"),
   };
 };
 
