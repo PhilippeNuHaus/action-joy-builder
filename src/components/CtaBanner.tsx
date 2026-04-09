@@ -34,7 +34,7 @@ const CtaBanner = () => {
             <div className="flex justify-center">
               <button
                 onClick={() => setDialogOpen(true)}
-                className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-8 py-3 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow"
+                className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-10 py-4 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow max-w-[400px] w-full"
               >
                 Click to Quickly Send a Thank You<br />to Senator Blakespear <ArrowRight size={16} />
               </button>
