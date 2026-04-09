@@ -29,7 +29,8 @@ const HeroSection = () => {
                 <span>Protecting <span className="text-gold-gradient">Our Community</span></span>
                 <span>from Toxic Pollution</span>
                 <span>by Enacting the SB 954 Public</span>
-                <span>Health and Environment Safeguards</span>
+                <span>Health and Environment</span>
+                <span>Safeguards</span>
               </h1>
 
               <div className="flex justify-center">
