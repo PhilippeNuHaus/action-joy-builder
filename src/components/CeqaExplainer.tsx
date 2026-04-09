@@ -3,7 +3,7 @@ const CeqaExplainer = () => (
     <div className="container max-w-3xl">
       <div className="space-y-6 text-muted-foreground leading-relaxed text-left">
         
-        <p className="text-primary text-lg md:text-xl font-semibold text-left">
+        <p className="text-primary text-lg md:text-xl font-heading font-semibold text-left">
           Polluting facilities can now be built near homes and schools<br />
           — with little warning and fewer safeguards.
         </p>
