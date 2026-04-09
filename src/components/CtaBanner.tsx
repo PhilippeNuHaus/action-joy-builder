@@ -15,9 +15,10 @@ const CtaBanner = () => {
             </h2>
 
             <p className="font-heading text-3xl md:text-5xl uppercase tracking-wider text-foreground mb-6">
-              Thank Senator<br />
-              <span className="text-primary">Blakespear</span>{" "}
-              for Leading the Fight to…
+              Thank Senator{" "}
+              <span className="text-primary">Blakespear</span><br />
+              for Introducing SB 954<br />
+              and Leading the Fight to…
             </p>
 
             <div className="space-y-3 mb-8 text-left max-w-md mx-auto">
