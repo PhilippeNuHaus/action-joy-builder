@@ -10,17 +10,17 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { toast } from "sonner";
 import { Send, Loader2 } from "lucide-react";
 
-const DEFAULT_MESSAGE = `Dear Senator Blakespear:
+const DEFAULT_MESSAGE = `Dear Senator Blakespear,
 
-Thank you for authoring SB 954 and your work to protect and restore our right to know under the California Environmental Quality Act (CEQA).
+I was very disappointed to learn that the State Legislature exempted "advanced manufacturing" projects from the California Environmental Quality Act (CEQA). This ill-advised exemption will lead to avoidable harm to our air and water quality, our communities, our coast, and our natural areas. Thank you for leading the effort by introducing SB 954 to repeal or limit the scope of this dangerous exemption.
 
-I was shocked to learn the Legislature last year exempted a wide variety of polluting industrial projects from CEQA's critical public health and environmental protection requirements. That exemption will result in more contamination of our air and water, more greenhouse gas emissions, more damage to critical wildlife habitat, and more exposure to cancer-causing chemicals.
+CEQA is California's central law that provides the public with the right to know about the harms that industrial projects can impose on communities and our environment. It is designed to require that potential harms be disclosed before industrial projects are approved and that any significant harm be prevented or lessened. CEQA is common sense. Exempting industrial projects from this law directly threatens our health and the safety of our air and water.
 
-The so-called "advanced manufacturing" projects include industries that use, and at times emit, dangerous chemicals like cyanide, PFAs, arsenic, hexavalent chromium, lead, and many others. It just doesn't make sense to exempt these types of projects from California's foundational law protecting public health and the environment.
+I strongly encourage you to secure the strongest public health and environmental protections in your legislation to address the advanced manufacturing exemption.
 
-I greatly appreciate your leadership on this urgent public health issue. Please continue the effort to limit any exemptions to only truly clean industries sited in locations that don't threaten our air, water, natural and coastal lands, or our communities. The Legislature made a serious mistake when it adopted the advanced manufacturing exemption to CEQA.
+Thanks again for your leadership on this urgent issue.
 
-Thank you for working to correct this mistake.`;
+Sincerely,`;
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
