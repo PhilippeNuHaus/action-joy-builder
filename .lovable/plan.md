@@ -1,17 +1,10 @@
 
 
-## Plan: Install Google Tag Manager (GTM) Pixel
+## Plan: Update Default Letter Text
 
-You're right — this is Google Tag Manager, not Meta. Here's the plan:
+**One file to change:** `src/components/SenatorContactForm.tsx`
 
-**File:** `index.html`
+Replace the `DEFAULT_MESSAGE` constant with the new letter text. The sender's name already appears via the form's firstName/lastName fields — no changes needed there.
 
-**Two changes:**
-
-1. Add the GTM `<script>` block right after `<meta charset="UTF-8">` in `<head>`
-2. Add the GTM `<noscript><iframe>` fallback right after the opening `<body>` tag
-
-**GTM Container ID:** `GTM-M847RVN5`
-
-No other files need to change.
+The new default message will end with `Sincerely,` followed by a blank line, and the user's name will continue to be captured separately by the form fields and included in the email as it already is.
 
