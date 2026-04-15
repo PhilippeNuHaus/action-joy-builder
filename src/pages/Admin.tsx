@@ -405,7 +405,8 @@ const Admin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {stats.submissions
+                  {[...stats.submissions]
+                    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
                     .slice((submissionPage - 1) * ROWS_PER_PAGE, submissionPage * ROWS_PER_PAGE)
                     .map((submission, index) => (
                     <tr key={index} className="border-b border-[#1e2d3a]/50">
