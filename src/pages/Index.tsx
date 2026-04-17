@@ -1,5 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import AlliesStrip from "@/components/AlliesStrip";
 import HeroSection from "@/components/HeroSection";
 import CeqaExplainer from "@/components/CeqaExplainer";
 import WhyItMatters from "@/components/WhyItMatters";
@@ -11,6 +12,7 @@ const Index = () => (
   <div className="min-h-screen flex flex-col">
     <SiteHeader />
     <main className="flex-1">
+      <AlliesStrip />
       <HeroSection />
       <div className="caution-stripe h-3" />
       <CeqaExplainer />
