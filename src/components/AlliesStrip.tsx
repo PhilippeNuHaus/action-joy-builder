@@ -5,7 +5,7 @@ import pclLogo from "@/assets/allies/pcl.png";
 // NOTE: Allies list is in progress — confirm before launch.
 type Ally = { name: string; logo?: string; logoClassName?: string };
 
-const DEFAULT_LOGO_CLASS = "h-20 md:h-24 w-auto object-contain";
+const DEFAULT_LOGO_CLASS = "h-[68px] md:h-[82px] w-auto object-contain";
 
 const ALLIES: Ally[] = [
   { name: "Planning and Conservation League", logo: pclLogo },
