@@ -16,7 +16,7 @@ const ALLIES: Ally[] = [
 const AlliesStrip = () => (
   <section
     aria-label="Coalition allies"
-    className="bg-secondary border-t-2 border-b-2 border-primary"
+    className="bg-secondary border-t-2 border-primary"
   >
     <div className="container mx-auto px-4 py-5">
       <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center">
