@@ -5,7 +5,7 @@ import pclLogo from "@/assets/allies/pcl.png";
 // NOTE: Allies list is in progress — confirm before launch.
 type Ally = { name: string; logo?: string; logoClassName?: string };
 
-const DEFAULT_LOGO_CLASS = "h-10 md:h-12 w-auto object-contain";
+const DEFAULT_LOGO_CLASS = "h-20 md:h-24 w-auto object-contain";
 
 const ALLIES: Ally[] = [
   { name: "Planning and Conservation League", logo: pclLogo },
@@ -18,7 +18,7 @@ const AlliesStrip = () => (
     aria-label="Coalition allies"
     className="bg-secondary border-t-2 border-b-2 border-primary"
   >
-    <div className="container mx-auto px-4 py-3">
+    <div className="container mx-auto px-4 py-5">
       <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center">
         <span className="font-heading font-semibold uppercase tracking-widest text-primary text-sm md:text-base">
           Join

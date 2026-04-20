@@ -12,8 +12,8 @@ const Index = () => (
   <div className="min-h-screen flex flex-col">
     <SiteHeader />
     <main className="flex-1">
-      <AlliesStrip />
       <HeroSection />
+      <AlliesStrip />
       <div className="caution-stripe h-3" />
       <CeqaExplainer />
       <div className="caution-stripe h-3" />
