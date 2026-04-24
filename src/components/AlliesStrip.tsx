@@ -10,7 +10,7 @@ const DEFAULT_LOGO_CLASS = "h-[68px] md:h-[82px] w-auto object-contain";
 
 const ALLIES: Ally[] = [
   { name: "Planning and Conservation League", logo: pclLogo },
-  { name: "Sierra Club", logo: sierraClubLogo },
+  { name: "Sierra Club", logo: sierraClubLogo, logoClassName: "h-[78px] md:h-[94px] w-auto object-contain" },
   { name: "Clean Water Action", logo: cleanWaterActionLogo },
   { name: "Environment California", logo: environmentCaliforniaLogo },
 ];
