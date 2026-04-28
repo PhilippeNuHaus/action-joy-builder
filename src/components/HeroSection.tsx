@@ -29,9 +29,9 @@ const HeroSection = () => {
             <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.8rem] font-bold uppercase mb-10 flex flex-col items-center gap-4">
               <span>Thank State Senator</span>
               <span>Catherine Blakespear for</span>
-              <span>Protecting <span className="text-gold-gradient">Our Community</span></span>
+              <span><span className="text-gold-gradient">Protecting</span> <span className="text-gold-gradient">Our Community</span></span>
               <span>from Toxic Pollution</span>
-              <span>by Introducing SB 954</span>
+              <span><span className="text-gold-gradient">by Introducing SB 954</span></span>
             </h1>
 
             {/* Mobile only: scroll to form (desktop sees the sticky sidebar form) */}
