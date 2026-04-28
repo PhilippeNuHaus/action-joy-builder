@@ -7,28 +7,22 @@ const SiteHeader = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const triggerFormPulse = () => {
-    setTimeout(() => window.dispatchEvent(new Event("pulse-form")), 400);
-  };
-
-  const scrollToFormSection = () => {
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-    const el = isDesktop
-      ? document.getElementById("contact-form-desktop-anchor") || document.getElementById("contact-form-desktop")
-      : document.getElementById("contact-form") || document.getElementById("contact-form-desktop");
-
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
-    triggerFormPulse();
-  };
-
   const goToForm = async () => {
     if (location.pathname !== "/") {
       await navigate("/");
       setTimeout(() => {
-        scrollToFormSection();
+        const el =
+          document.getElementById("contact-form") ||
+          document.getElementById("contact-form-desktop");
+        el?.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => window.dispatchEvent(new Event("pulse-form")), 400);
       }, 100);
     } else {
-      scrollToFormSection();
+      const el =
+        document.getElementById("contact-form") ||
+        document.getElementById("contact-form-desktop");
+      el?.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => window.dispatchEvent(new Event("pulse-form")), 400);
     }
   };
 
