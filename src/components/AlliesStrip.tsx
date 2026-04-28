@@ -43,7 +43,7 @@ const AlliesStrip = () => (
               </span>
             )}
             {i < ALLIES.length - 1 && (
-              <span className="text-primary/60" aria-hidden="true">
+              <span className="text-primary/60 hidden md:inline" aria-hidden="true">
                 •
               </span>
             )}
