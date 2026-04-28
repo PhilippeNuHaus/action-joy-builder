@@ -7,11 +7,11 @@ import sierraClubLogo from "@/assets/allies/sierra-club.png";
 // NOTE: Allies list is in progress — confirm before launch.
 type Ally = { name: string; logo?: string; logoClassName?: string };
 
-const DEFAULT_LOGO_CLASS = "h-[68px] md:h-[82px] w-auto object-contain";
+const DEFAULT_LOGO_CLASS = "h-[54px] md:h-[66px] w-auto object-contain";
 
 const ALLIES: Ally[] = [
   { name: "Planning and Conservation League", logo: pclLogo },
-  { name: "Sierra Club", logo: sierraClubLogo, logoClassName: "h-[78px] md:h-[94px] w-auto object-contain" },
+  { name: "Sierra Club", logo: sierraClubLogo, logoClassName: "h-[62px] md:h-[75px] w-auto object-contain" },
   { name: "Clean Water Action", logo: cleanWaterActionLogo },
   { name: "Environment California", logo: environmentCaliforniaLogo },
 ];
