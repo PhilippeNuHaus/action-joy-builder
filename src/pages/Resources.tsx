@@ -19,6 +19,14 @@ export interface Resource {
 
 const resources: Resource[] = [
   {
+    title: "CA Voter Views of CEQA Exemptions for Advanced Manufacturing",
+    category: "Polling",
+    description:
+      "FM3 Research statewide survey (March 2026) of 600 likely California voters: 72% approve of CEQA and 64% disapprove of exempting advanced manufacturing from environmental review and disclosure.",
+    pdfUrl: "/resources/ca-voter-views-ceqa-poll.pdf",
+    thumbUrl: caVoterPollThumb,
+  },
+  {
     title: "120+ Orgs: Support in Concept for SB 954",
     category: "Advocacy",
     description:
