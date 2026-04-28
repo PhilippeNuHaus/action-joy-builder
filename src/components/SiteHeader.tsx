@@ -9,11 +9,14 @@ const SiteHeader = () => {
 
   const scrollToForm = () => {
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-    const el = isDesktop
-      ? document.getElementById("contact-form-desktop-anchor") || document.getElementById("contact-form-desktop")
-      : document.getElementById("contact-form") || document.getElementById("contact-form-desktop");
+    if (isDesktop) {
+      const desktopScroll = document.getElementById("contact-form-desktop-scroll");
+      desktopScroll?.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const el = document.getElementById("contact-form") || document.getElementById("contact-form-desktop");
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
     setTimeout(() => window.dispatchEvent(new Event("pulse-form")), 400);
   };
 
