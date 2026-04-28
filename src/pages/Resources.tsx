@@ -7,6 +7,7 @@ import advocacyThumb from "@/assets/advocacy-letter-thumb.jpg";
 import factsThumb from "@/assets/myths-facts-thumb.jpg";
 import sb954Thumb from "@/assets/sb954-support-thumb.jpg";
 import laborNgoThumb from "@/assets/labor-ngo-cleanup-thumb.jpg";
+import caVoterPollThumb from "@/assets/ca-voter-poll-thumb.jpg";
 
 export interface Resource {
   title: string;
@@ -40,6 +41,14 @@ const resources: Resource[] = [
       "A coalition letter urging lawmakers to restore CEQA protections and close the 'advanced manufacturing' loophole that threatens California communities.",
     pdfUrl: "/resources/advocacy-letter.pdf",
     thumbUrl: advocacyThumb,
+  },
+  {
+    title: "CA Voter Views of CEQA Exemptions for Advanced Manufacturing",
+    category: "Polling",
+    description:
+      "FM3 Research statewide survey (March 2026) of 600 likely California voters: 72% approve of CEQA and 64% disapprove of exempting advanced manufacturing from environmental review and disclosure.",
+    pdfUrl: "/resources/ca-voter-views-ceqa-poll.pdf",
+    thumbUrl: caVoterPollThumb,
   },
   {
     title: "SB 131 Myths vs. Facts",
