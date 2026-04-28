@@ -1,17 +1,10 @@
-1. Update `src/components/HeroSection.tsx` so the hero heading has a dedicated iPhone/mobile version instead of relying on wrapped text inside 5 spans.
-2. Render the mobile heading as 7 explicit lines, matching the visual lines in your screenshot:
-   - Thank State Senator
-   - Catherine Blakespear
-   - For
-   - Protecting Our
-   - Community
-   - From Toxic Pollution
-   - By Introducing SB 954
-3. Apply one consistent mobile-only line spacing value across all 7 lines (`leading-[1.5]` / equivalent uniform vertical rhythm) and remove the current mixed combo of parent `leading`, child `leading`, and `gap-*` that caused uneven spacing.
-4. Keep the existing tablet/desktop heading layout unchanged by separating the mobile heading from the `md+` heading.
-5. Preserve all current colors, copy, button layout, map visibility, and desktop/iPad spacing exactly as-is.
+1. Add a dedicated desktop form anchor at the top of the right-side message column in `src/pages/Index.tsx`, positioned at the true start of the “Send Your Message” section.
+2. Update `goToForm` in `src/components/SiteHeader.tsx` so the desktop header “Send Message” button scrolls to that desktop anchor instead of only targeting the current container.
+3. Keep the existing pulse/zoom behavior, but trigger it after the desktop scroll starts so the user lands at the beginning of the section and still sees the emphasis effect.
+4. Leave mobile behavior unchanged.
 
 Technical details
-- The current issue happens because some “lines” are actually wrapped text inside a single span, while others are separate flex children spaced by `gap-4`. That creates different vertical distances.
-- The fix is to stop letting iPhone lines wrap unpredictably and instead define each mobile line explicitly so every line uses the same spacing rule.
-- Desktop and iPad will stay on the existing structure so nothing outside iPhone/mobile changes.
+- Right now the header button scrolls to `#contact-form` or `#contact-form-desktop`, then fires the `pulse-form` event.
+- On desktop, `#contact-form-desktop` wraps a sticky panel, so scrolling to that container does not reliably align the viewport to the visible start of the “Send Your Message” section.
+- The fix is to give desktop a specific scroll target near the top of the sticky form area and use that for desktop clicks, while preserving the existing smooth scroll and pulse animation.
+- Scope: desktop header “Send Message” behavior only; no content, layout, or mobile CTA changes.
