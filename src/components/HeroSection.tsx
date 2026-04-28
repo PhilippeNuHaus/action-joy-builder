@@ -47,16 +47,7 @@ const HeroSection = () => {
             <div className="flex justify-center lg:hidden">
               <button
                 onClick={scrollToForm}
-                className="md:hidden relative bg-primary text-primary-foreground font-heading text-[0.8rem] uppercase tracking-[0.08em] px-6 py-7 rounded-sm hover:bg-gold-dark transition-colors animate-pulse-glow w-full max-w-[302px] min-h-[108px] text-center leading-[1.35]"
-              >
-                <span className="block pr-7">Click to Quickly Send</span>
-                <span className="block pr-7">a Thank You to</span>
-                <span className="block pr-7">Senator Blakespear</span>
-                <ArrowRight size={14} className="absolute right-6 top-1/2 -translate-y-1/2" />
-              </button>
-              <button
-                onClick={scrollToForm}
-                className="hidden md:flex bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-gold-dark transition-colors items-center justify-center gap-2 animate-pulse-glow max-w-[400px] w-full"
+                className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow max-w-[400px] w-full"
               >
                 Click to Quickly Send a Thank You to<br />Senator Blakespear <ArrowRight size={14} />
               </button>
