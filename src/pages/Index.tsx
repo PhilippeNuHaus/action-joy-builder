@@ -63,7 +63,6 @@ const Index = () => {
             <CtaBanner />
           </div>
           <div className="hidden lg:block border-l border-border" id="contact-form-desktop">
-            <div id="contact-form-desktop-anchor" className="absolute top-0" aria-hidden="true" />
             <div className={`sticky top-20 p-6 pt-2 max-h-[calc(100vh-5rem)] overflow-y-auto ${pulseClass}`}>
               <h2 className="font-heading text-lg uppercase tracking-wider text-foreground mb-4 text-center">
                 Send Your Message to <TypewriterGlow text="Senator Blakespear" />
