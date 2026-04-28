@@ -38,7 +38,7 @@ const HeroSection = () => {
             <h1 className="hidden md:flex font-heading md:text-4xl lg:text-[2.8rem] font-bold uppercase mb-7 flex-col items-center gap-4 lg:gap-[1.15rem] leading-normal">
               <span>Thank State Senator</span>
               <span>Catherine Blakespear for</span>
-              <span><span className="text-gold-gradient">Protecting</span> <span className="text-gold-gradient">Our Community</span></span>
+              <span className="text-gold-gradient">Protecting Our Community</span>
               <span>from Toxic Pollution</span>
               <span><span className="text-gold-gradient">by Introducing SB 954</span></span>
             </h1>
