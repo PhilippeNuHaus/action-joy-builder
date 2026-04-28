@@ -39,7 +39,7 @@ const CtaBanner = () => {
               onClick={scrollToForm}
               className="relative bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-10 py-4 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow max-w-[400px] w-full"
             >
-              <span className="flex flex-col items-center leading-tight md:hidden">
+              <span className="flex flex-col items-center leading-[1.5] md:hidden">
                 <span>Click to Quickly Send</span>
                 <span>A Thank You To</span>
                 <span>Senator Blakespear</span>
