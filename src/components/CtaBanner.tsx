@@ -37,9 +37,18 @@ const CtaBanner = () => {
           <div className="flex justify-center">
             <button
               onClick={scrollToForm}
-              className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-10 py-4 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow max-w-[400px] w-full"
+              className="relative bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-10 py-4 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow max-w-[400px] w-full"
             >
-              Click to Quickly Send a Thank You<br />to Senator Blakespear <ArrowRight size={16} />
+              <span className="flex flex-col items-center leading-tight md:hidden">
+                <span>Click to Quickly Send</span>
+                <span>A Thank You To</span>
+                <span>Senator Blakespear</span>
+              </span>
+              <ArrowRight size={16} className="absolute right-10 top-1/2 -translate-y-1/2 md:hidden" />
+              <span className="hidden md:inline">
+                Click to Quickly Send a Thank You<br />to Senator Blakespear
+              </span>
+              <ArrowRight size={16} className="hidden md:block" />
             </button>
           </div>
         </div>
