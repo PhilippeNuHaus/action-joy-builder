@@ -77,11 +77,32 @@ Deno.serve(async (req) => {
     }
 
     if (action === "upsert_cost") {
-      const { channel, amount_spent, amount_sent, sent_at } = await (async () => ({
-        channel: (typeof arguments !== "undefined" ? null : null), // placeholder
-      }))().catch(() => ({})) as any;
-      // Re-parse from request
-      return new Response(JSON.stringify({ error: "unreachable" }), { status: 500, headers: corsHeaders });
+      const channel = String(body.channel || "").trim().toLowerCase();
+      const amount_spent = Number(body.amount_spent);
+      const amount_sent = parseInt(String(body.amount_sent), 10);
+      if (!channel || !/^[a-z0-9-]+$/.test(channel) || !Number.isFinite(amount_spent) || amount_spent < 0 || !Number.isFinite(amount_sent) || amount_sent < 0) {
+        return new Response(JSON.stringify({ error: "Invalid input" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      const sent_at = body.sent_at ?? undefined;
+      const upsertPayload: Record<string, unknown> = { channel, amount_spent, amount_sent, updated_at: new Date().toISOString() };
+      if (sent_at !== undefined) upsertPayload.sent_at = sent_at || null;
+      const { error } = await supabase.from("channel_costs").upsert(upsertPayload, { onConflict: "channel" });
+      if (error) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      return new Response(JSON.stringify({ valid: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
+    if (action === "delete_cost") {
+      const channel = String(body.channel || "").trim().toLowerCase();
+      if (!channel) {
+        return new Response(JSON.stringify({ error: "channel required" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      const { error } = await supabase.from("channel_costs").delete().eq("channel", channel);
+      if (error) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      return new Response(JSON.stringify({ valid: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
     // Geocode action — called separately to avoid timeout
