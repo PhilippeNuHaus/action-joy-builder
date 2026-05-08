@@ -28,7 +28,8 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { password, action } = await req.json();
+    const body = await req.json();
+    const { password, action } = body;
     const expected = Deno.env.get("ADMIN_DASHBOARD_PASSWORD");
 
     if (!expected || password !== expected) {
@@ -41,6 +42,68 @@ Deno.serve(async (req) => {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, serviceKey);
+
+    // Costs actions
+    if (action === "get_costs") {
+      const [costsRes, clicksRes, lettersRes] = await Promise.all([
+        supabase.from("channel_costs").select("channel, amount_spent, amount_sent, sent_at"),
+        supabase.rpc("get_clicks_by_source"),
+        supabase.rpc("get_letters_by_source"),
+      ]);
+      const clicksMap = new Map<string, number>();
+      for (const r of (clicksRes.data || []) as any[]) clicksMap.set(r.channel, Number(r.count));
+      const lettersMap = new Map<string, number>();
+      for (const r of (lettersRes.data || []) as any[]) lettersMap.set(r.channel, Number(r.count));
+      const channels = new Set<string>();
+      for (const r of (costsRes.data || []) as any[]) channels.add(r.channel);
+      for (const k of clicksMap.keys()) channels.add(k);
+      for (const k of lettersMap.keys()) channels.add(k);
+      const costMap = new Map<string, any>();
+      for (const r of (costsRes.data || []) as any[]) costMap.set(r.channel, r);
+      const rows = Array.from(channels).map((channel) => {
+        const c = costMap.get(channel);
+        return {
+          channel,
+          amount_spent: c ? Number(c.amount_spent) : 0,
+          amount_sent: c ? Number(c.amount_sent) : 0,
+          sent_at: c?.sent_at ?? null,
+          clicks: clicksMap.get(channel) || 0,
+          letters: lettersMap.get(channel) || 0,
+        };
+      });
+      return new Response(JSON.stringify({ valid: true, rows }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (action === "upsert_cost") {
+      const channel = String(body.channel || "").trim().toLowerCase();
+      const amount_spent = Number(body.amount_spent);
+      const amount_sent = parseInt(String(body.amount_sent), 10);
+      if (!channel || !/^[a-z0-9-]+$/.test(channel) || !Number.isFinite(amount_spent) || amount_spent < 0 || !Number.isFinite(amount_sent) || amount_sent < 0) {
+        return new Response(JSON.stringify({ error: "Invalid input" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      const sent_at = body.sent_at ?? undefined;
+      const upsertPayload: Record<string, unknown> = { channel, amount_spent, amount_sent, updated_at: new Date().toISOString() };
+      if (sent_at !== undefined) upsertPayload.sent_at = sent_at || null;
+      const { error } = await supabase.from("channel_costs").upsert(upsertPayload, { onConflict: "channel" });
+      if (error) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      return new Response(JSON.stringify({ valid: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
+    if (action === "delete_cost") {
+      const channel = String(body.channel || "").trim().toLowerCase();
+      if (!channel) {
+        return new Response(JSON.stringify({ error: "channel required" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      const { error } = await supabase.from("channel_costs").delete().eq("channel", channel);
+      if (error) {
+        return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      return new Response(JSON.stringify({ valid: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
 
     // Geocode action — called separately to avoid timeout
     if (action === "geocode") {
