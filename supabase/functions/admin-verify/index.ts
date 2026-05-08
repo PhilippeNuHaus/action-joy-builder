@@ -42,6 +42,47 @@ Deno.serve(async (req) => {
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, serviceKey);
 
+    // Costs actions
+    if (action === "get_costs") {
+      const [costsRes, clicksRes, lettersRes] = await Promise.all([
+        supabase.from("channel_costs").select("channel, amount_spent, amount_sent, sent_at"),
+        supabase.rpc("get_clicks_by_source"),
+        supabase.rpc("get_letters_by_source"),
+      ]);
+      const clicksMap = new Map<string, number>();
+      for (const r of (clicksRes.data || []) as any[]) clicksMap.set(r.channel, Number(r.count));
+      const lettersMap = new Map<string, number>();
+      for (const r of (lettersRes.data || []) as any[]) lettersMap.set(r.channel, Number(r.count));
+      const channels = new Set<string>();
+      for (const r of (costsRes.data || []) as any[]) channels.add(r.channel);
+      for (const k of clicksMap.keys()) channels.add(k);
+      for (const k of lettersMap.keys()) channels.add(k);
+      const costMap = new Map<string, any>();
+      for (const r of (costsRes.data || []) as any[]) costMap.set(r.channel, r);
+      const rows = Array.from(channels).map((channel) => {
+        const c = costMap.get(channel);
+        return {
+          channel,
+          amount_spent: c ? Number(c.amount_spent) : 0,
+          amount_sent: c ? Number(c.amount_sent) : 0,
+          sent_at: c?.sent_at ?? null,
+          clicks: clicksMap.get(channel) || 0,
+          letters: lettersMap.get(channel) || 0,
+        };
+      });
+      return new Response(JSON.stringify({ valid: true, rows }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (action === "upsert_cost") {
+      const { channel, amount_spent, amount_sent, sent_at } = await (async () => ({
+        channel: (typeof arguments !== "undefined" ? null : null), // placeholder
+      }))().catch(() => ({})) as any;
+      // Re-parse from request
+      return new Response(JSON.stringify({ error: "unreachable" }), { status: 500, headers: corsHeaders });
+    }
+
     // Geocode action — called separately to avoid timeout
     if (action === "geocode") {
       const { data: subs } = await supabase
