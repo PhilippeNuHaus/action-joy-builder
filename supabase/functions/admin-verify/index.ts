@@ -28,7 +28,8 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { password, action } = await req.json();
+    const body = await req.json();
+    const { password, action } = body;
     const expected = Deno.env.get("ADMIN_DASHBOARD_PASSWORD");
 
     if (!expected || password !== expected) {
