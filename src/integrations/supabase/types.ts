@@ -47,6 +47,33 @@ export type Database = {
         }
         Relationships: []
       }
+      channel_costs: {
+        Row: {
+          amount_sent: number
+          amount_spent: number
+          channel: string
+          notes: string | null
+          sent_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount_sent?: number
+          amount_spent?: number
+          channel: string
+          notes?: string | null
+          sent_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount_sent?: number
+          amount_spent?: number
+          channel?: string
+          notes?: string | null
+          sent_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           address: string | null
@@ -206,6 +233,20 @@ export type Database = {
       enqueue_email: {
         Args: { payload: Json; queue_name: string }
         Returns: number
+      }
+      get_clicks_by_source: {
+        Args: never
+        Returns: {
+          channel: string
+          count: number
+        }[]
+      }
+      get_letters_by_source: {
+        Args: never
+        Returns: {
+          channel: string
+          count: number
+        }[]
       }
       move_to_dlq: {
         Args: {
