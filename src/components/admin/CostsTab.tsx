@@ -324,7 +324,7 @@ export const CostsTab = ({ password }: { password: string }) => {
             Enter the <strong>Spend</strong> and <strong>Sent</strong> (universe size) per channel code.
             Clicks, letters, and all per-unit costs update automatically. Click a row's cell to edit; changes save when you click away.
           </p>
-          <Table>
+          <Table className="text-sm [&_th]:px-2 [&_td]:px-2 [&_th]:text-xs [&_th]:whitespace-nowrap">
             <TableHeader>
               <TableRow>
                 <TableHead>Channel</TableHead>
