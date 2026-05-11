@@ -198,7 +198,7 @@ export const CostsTab = ({ password }: { password: string }) => {
         <TableCell className={indent ? "pl-10 text-sm text-muted-foreground" : "font-medium"}>
           {row.channel}
         </TableCell>
-        <TableCell>
+        <TableCell className="px-1">
           <Input
             type="date"
             value={sentAtVal}
@@ -206,10 +206,10 @@ export const CostsTab = ({ password }: { password: string }) => {
               setEdits((p) => ({ ...p, [row.channel]: { ...p[row.channel], sent_at: e.target.value } }))
             }
             onBlur={() => handleBlur(row, "sent_at")}
-            className="h-8 w-36"
+            className="h-8 w-32 text-xs px-1"
           />
         </TableCell>
-        <TableCell>
+        <TableCell className="px-1">
           <Input
             type="number"
             step="0.01"
@@ -218,10 +218,10 @@ export const CostsTab = ({ password }: { password: string }) => {
             placeholder="0.00"
             onChange={(e) => setEdits((p) => ({ ...p, [row.channel]: { ...p[row.channel], spent: e.target.value } }))}
             onBlur={() => handleBlur(row, "spent")}
-            className="h-8 w-24 text-right"
+            className="h-8 w-20 text-right text-xs px-1"
           />
         </TableCell>
-        <TableCell>
+        <TableCell className="px-1">
           <Input
             type="number"
             step="1"
@@ -230,7 +230,7 @@ export const CostsTab = ({ password }: { password: string }) => {
             placeholder="0"
             onChange={(e) => setEdits((p) => ({ ...p, [row.channel]: { ...p[row.channel], sent: e.target.value } }))}
             onBlur={() => handleBlur(row, "sent")}
-            className="h-8 w-28 text-right"
+            className="h-8 w-20 text-right text-xs px-1"
           />
         </TableCell>
         <TableCell className="text-right">{fmtNum(row.clicks)}</TableCell>
@@ -324,7 +324,7 @@ export const CostsTab = ({ password }: { password: string }) => {
             Enter the <strong>Spend</strong> and <strong>Sent</strong> (universe size) per channel code.
             Clicks, letters, and all per-unit costs update automatically. Click a row's cell to edit; changes save when you click away.
           </p>
-          <Table>
+          <Table className="text-sm [&_th]:px-2 [&_td]:px-2 [&_th]:text-xs [&_th]:whitespace-nowrap">
             <TableHeader>
               <TableRow>
                 <TableHead>Channel</TableHead>
