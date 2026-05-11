@@ -1,63 +1,33 @@
 ## Goal
 
-Mirror the Cabaldon Costs tab in the Right to Know admin, trim the Stats grid, drop the Analytics tab, and pre-seed channel cost rows from the screenshots provided.
+Got it — only two SMS channels exist: the original untracked `sms` (sum of Text 1 + Text 2 + Text 3 from the first three screenshots) and the new tracked `sms-1` (screenshot 4, May 8). Reconcile the seeded rows accordingly.
 
-## 1. Database (migration)
+## Computed totals
 
-Create the `channel_costs` table + two SECURITY DEFINER aggregator RPCs, mirroring Cabaldon. Adapted to this project's column names (this project uses `source` instead of `channel` on `campaign_visits` and `contact_submissions`, but the cost table keeps `channel` as the generic key):
+**`sms` (untracked legacy, sum of screenshots 1–3):**
+- Sent: 4,922 + 9,847 + 19,701 = **34,470**
+- Spend: $172.27 + $344.65 + $689.54 = **$1,206.46**
+- Date: leave blank (spans 3 sends)
 
-- `public.channel_costs(channel text PK, amount_spent numeric(10,2), amount_sent int, sent_at date, notes text, updated_at timestamptz)` with RLS allowing service role only.
-- `public.get_clicks_by_source()` → `(channel text, count bigint)` reading from `campaign_visits.source`.
-- `public.get_letters_by_source()` → `(channel text, count bigint)` reading from `contact_submissions.source`.
+**`sms-1` (screenshot 4, Blakespear (SMS-1) - 10k May 8):**
+- Sent: **9,109**
+- Spend: **$318.82**
+- Date: **2026-05-08**
 
-Then seed rows from the screenshots (only what is concretely known):
+## Changes (data only — no schema or code changes)
 
-- `sms-2` — 2026-04-02, $344.72 spent, 9,847 sent (Blakespear Text 2 - 10k from Scale to Win).
-- `sms-1` — 2026-03-30, sent 5,000 (cost left blank).
-- `sms-3` — 2026-04-03, sent 20,000 (cost left blank).
-- `email` — sent 35,380 (date 2026-04-14 from spreadsheet, cost blank).
+Update `channel_costs`:
 
-(All other amounts left empty for the user to fill in.)
+1. **Delete** `channel = 'sms-2'`
+2. **Delete** `channel = 'sms-3'`
+3. **Upsert `sms`** → `amount_sent = 34470`, `amount_spent = 1206.46`, `sent_at = null`
+4. **Upsert `sms-1`** → `amount_sent = 9109`, `amount_spent = 318.82`, `sent_at = '2026-05-08'`
+5. **Leave `email`** as-is (35,380 sent / $353.80)
 
-## 2. Edge function `admin-verify`
+## Result in the Costs tab
 
-Add three new actions, all gated by the existing password check:
+SMS group will show two rows:
+- `sms` — 34,470 sent, $1,206.46
+- `sms-1` — 9,109 sent, $318.82, May 8
 
-- `get_costs` — selects all rows from `channel_costs`, calls both RPCs, merges into `{ channel, amount_spent, amount_sent, sent_at, clicks, letters }[]`.
-- `upsert_cost` — `{ channel, amount_spent, amount_sent, sent_at? }` → upsert into `channel_costs`.
-- `delete_cost` — `{ channel }` → delete row.
-
-Existing `get_stats` (default) and `geocode` actions stay untouched.
-
-## 3. Frontend — `src/components/admin/CostsTab.tsx` (new)
-
-Direct port of Cabaldon's `CostsTab.tsx`:
-
-- 4 summary cards: Total Spend, Cost / Click, Cost / Letter, Conversion Rate.
-- Grouped table with SMS / Email collapsible buckets, columns: Channel, Date Sent, Spend, Sent, Clicks, Letters, $/Click, $/Letter, $/Recipient, Conv. Rate.
-- Inline editable Spend / Sent / Date inputs (save on blur).
-- "Add a channel code" form at the bottom.
-- Calls `supabase.functions.invoke("admin-verify", { body: { password, action: "get_costs" | "upsert_cost" | ... } })`.
-
-Styled with the project's existing dark navy/gold tokens to match the rest of the admin (the Cabaldon version uses generic shadcn Card classes, so it adopts the theme automatically).
-
-## 4. Frontend — `src/pages/Admin.tsx` edits
-
-- **Remove** the "Emails Delivered" stat card (and stop displaying `totalSenatorEmails`).
-- **Remove** the Analytics tab: `TabsTrigger value="analytics"`, the entire `<TabsContent value="analytics">` block, the `analytics`/`analyticsLoading`/`analyticsRange`/`analyticsFetched` state, `fetchAnalytics`, `handleRangeChange`, and the related logic inside `handleTabChange` and `handleRefresh`.
-- **Add** Costs tab: new `TabsTrigger value="costs"` (DollarSign icon) and `<TabsContent value="costs"><CostsTab password={savedPassword} /></TabsContent>`.
-- Stats grid drops from 4 cards to 3 (`Letters Sent`, `Link Clicks`, `Channels Tracked`).
-
-## Files touched
-
-```
-NEW  supabase/migrations/<ts>_costs_tab.sql
-EDIT supabase/functions/admin-verify/index.ts
-NEW  src/components/admin/CostsTab.tsx
-EDIT src/pages/Admin.tsx
-```
-
-## Notes / open items
-
-- Screenshots only give complete data for one row (sms-2 / Apr 2). Other rows seeded with sent counts only — costs/sent left blank for the user to fill in inline.
-- The spreadsheet's "Direct" / "text" / "email" letter channel columns aren't seeded as cost rows — those are letter counts, which the RPC already aggregates from `contact_submissions.source`.
+Email group unchanged. Going forward, every new tracked blast will be added explicitly as `sms-2`, `sms-3`, etc.
