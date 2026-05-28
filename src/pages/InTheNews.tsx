@@ -6,6 +6,11 @@ import { ExternalLink, X, Star } from "lucide-react";
 import { useState } from "react";
 import calmattersImg from "@/assets/calmatters-article.png";
 import capitolWeeklyImg from "@/assets/capitol-weekly-article.png";
+import politicoImg from "@/assets/politico-california-climate.jpg";
+
+type ArticleBlock =
+  | string
+  | { type: "highlight"; heading?: string; paragraphs: string[] };
 
 interface NewsArticle {
   title: string;
@@ -15,11 +20,37 @@ interface NewsArticle {
   summary: string;
   url: string;
   imageUrl: string;
-  body: string[];
+  body: ArticleBlock[];
   featured?: boolean;
 }
 
 const articles: NewsArticle[] = [
+  {
+    title: "The climate primaries cometh",
+    source: "POLITICO — California Climate",
+    date: "May 26, 2026",
+    author: "Alex Nieves, Camille von Kaenel and Noah Baustin",
+    summary:
+      "As California's June primary nears, Sen. Catherine Blakespear points to the weekend evacuation near an Orange County aerospace plant as a \"clear connection\" to her SB 954 push to restore environmental guardrails on advanced manufacturing.",
+    url: "https://www.politico.com/newsletters/california-climate/2026/05/26/the-climate-primaries-cometh-00937438",
+    imageUrl: politicoImg,
+    featured: true,
+    body: [
+      "POLITICO's California Climate newsletter surveys the energy and environmental fights shaping next week's June 2 primary — from oil-industry spending in statehouse races to a landmark data-center moratorium on the ballot in Monterey Park. Tucked into the day's \"What's Breaking\" section is a direct update on Sen. Catherine Blakespear's SB 954.",
+      {
+        type: "highlight",
+        heading: "SB 954 Spotlight",
+        paragraphs: [
+          "THERE'S NOTHING LIKE AN EMERGENCY: A California Democrat is pointing to the evacuation of tens of thousands of people near an Orange County aerospace plant over the weekend as a warning against easing environmental rules.",
+          "Sen. Catherine Blakespear told POLITICO on Tuesday that she sees a \"clear connection\" between the incident — sparked by fears of a chemical explosion at the Garden Grove facility — and her bill, SB 954.",
+          "The bill would reinstate some guardrails for advanced manufacturing facilities after lawmakers scaled them back last year. Under Blakespear's proposal, future projects, including new aerospace manufacturing plants, could still skip some environmental review steps, but they would have to be located away from homes, schools and other sensitive sites, and meet certain labor and environmental standards.",
+          "Several environmental groups support the measure but the California Chamber of Commerce, the Bay Area Council and manufacturing groups, which argue it would undercut an exemption meant to help build more industrial projects in the state, oppose it.",
+          "\"We don't want there to [have to] be an explosion for people to say, oh wait, maybe we shouldn't have given an exemption … and then have people injured and evacuating, and potentially even dying, because we didn't protect our community,\" Blakespear said.",
+        ],
+      },
+      "The Senate is expected to vote on SB 954 this week. Read the full newsletter on POLITICO for the rest of the day's California climate coverage.",
+    ],
+  },
   {
     title: "Voters oppose advanced manufacturing CEQA exemptions",
     source: "Capitol Weekly",
@@ -29,7 +60,6 @@ const articles: NewsArticle[] = [
       "A new statewide poll finds 64% of voters would hold it against lawmakers who approved exemptions for polluting industries near homes and schools.",
     url: "https://capitolweekly.net/voters-oppose-advanced-manufacturing-ceqa-exemptions/",
     imageUrl: capitolWeeklyImg,
-    featured: true,
     body: [
       "As a pediatrician, I see the consequences of industrial pollution affecting children's health every day: the asthma that keeps a child home from school, the developmental delays that follow early lead exposure, the elevated cancer risk that trails a childhood spent near a petrochemical facility. These outcomes are not inevitable; they are the predictable result of policy choices. Last year, the California Legislature voted to exempt dozens of categories of industrial facilities from the environmental review process that exists to prevent exactly those harms, and a striking new poll suggests they badly misjudged how the public would feel about it.",
       "When lawmakers passed Senate Bill 131, exempting more than 75 categories of industrial facilities from California's landmark environmental review law, perhaps they assumed voters either weren't paying attention or didn't care. Voters were additionally concerned about the cost to taxpayers when contamination goes unaddressed, and California has a $750 million lesson in what that looks like. The remediation of the Exide battery recycling plant in L.A. County landed almost entirely on the public.",
@@ -314,15 +344,40 @@ const InTheNews = () => {
               </h2>
 
               <div className="prose prose-lg max-w-none text-foreground/90">
-                {selectedArticle.body.map((paragraph, i) => (
-                  <p
-                    key={i}
-                    className="mb-4 leading-relaxed text-muted-foreground"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
+                {selectedArticle.body.map((block, i) => {
+                  if (typeof block === "string") {
+                    return (
+                      <p
+                        key={i}
+                        className="mb-4 leading-relaxed text-muted-foreground"
+                      >
+                        {block}
+                      </p>
+                    );
+                  }
+                  return (
+                    <aside
+                      key={i}
+                      className="my-6 border-l-4 border-primary bg-primary/5 rounded-r-lg p-5 md:p-6"
+                    >
+                      {block.heading && (
+                        <h3 className="font-heading text-xs uppercase tracking-widest text-primary mb-3 mt-0">
+                          {block.heading}
+                        </h3>
+                      )}
+                      {block.paragraphs.map((p, j) => (
+                        <p
+                          key={j}
+                          className="mb-3 last:mb-0 leading-relaxed text-foreground/90"
+                        >
+                          {p}
+                        </p>
+                      ))}
+                    </aside>
+                  );
+                })}
               </div>
+
 
               <div className="mt-8 pt-6 border-t border-border flex items-center justify-between">
                 <a
