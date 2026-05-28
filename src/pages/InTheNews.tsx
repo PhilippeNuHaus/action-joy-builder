@@ -6,6 +6,11 @@ import { ExternalLink, X, Star } from "lucide-react";
 import { useState } from "react";
 import calmattersImg from "@/assets/calmatters-article.png";
 import capitolWeeklyImg from "@/assets/capitol-weekly-article.png";
+import politicoImg from "@/assets/politico-california-climate.jpg";
+
+type ArticleBlock =
+  | string
+  | { type: "highlight"; heading?: string; paragraphs: string[] };
 
 interface NewsArticle {
   title: string;
@@ -15,11 +20,37 @@ interface NewsArticle {
   summary: string;
   url: string;
   imageUrl: string;
-  body: string[];
+  body: ArticleBlock[];
   featured?: boolean;
 }
 
 const articles: NewsArticle[] = [
+  {
+    title: "The climate primaries cometh",
+    source: "POLITICO — California Climate",
+    date: "May 26, 2026",
+    author: "Alex Nieves, Camille von Kaenel and Noah Baustin",
+    summary:
+      "As California's June primary nears, Sen. Catherine Blakespear points to the weekend evacuation near an Orange County aerospace plant as a \"clear connection\" to her SB 954 push to restore environmental guardrails on advanced manufacturing.",
+    url: "https://www.politico.com/newsletters/california-climate/2026/05/26/the-climate-primaries-cometh-00937438",
+    imageUrl: politicoImg,
+    featured: true,
+    body: [
+      "POLITICO's California Climate newsletter surveys the energy and environmental fights shaping next week's June 2 primary — from oil-industry spending in statehouse races to a landmark data-center moratorium on the ballot in Monterey Park. Tucked into the day's \"What's Breaking\" section is a direct update on Sen. Catherine Blakespear's SB 954.",
+      {
+        type: "highlight",
+        heading: "SB 954 Spotlight",
+        paragraphs: [
+          "THERE'S NOTHING LIKE AN EMERGENCY: A California Democrat is pointing to the evacuation of tens of thousands of people near an Orange County aerospace plant over the weekend as a warning against easing environmental rules.",
+          "Sen. Catherine Blakespear told POLITICO on Tuesday that she sees a \"clear connection\" between the incident — sparked by fears of a chemical explosion at the Garden Grove facility — and her bill, SB 954.",
+          "The bill would reinstate some guardrails for advanced manufacturing facilities after lawmakers scaled them back last year. Under Blakespear's proposal, future projects, including new aerospace manufacturing plants, could still skip some environmental review steps, but they would have to be located away from homes, schools and other sensitive sites, and meet certain labor and environmental standards.",
+          "Several environmental groups support the measure but the California Chamber of Commerce, the Bay Area Council and manufacturing groups, which argue it would undercut an exemption meant to help build more industrial projects in the state, oppose it.",
+          "\"We don't want there to [have to] be an explosion for people to say, oh wait, maybe we shouldn't have given an exemption … and then have people injured and evacuating, and potentially even dying, because we didn't protect our community,\" Blakespear said.",
+        ],
+      },
+      "The Senate is expected to vote on SB 954 this week. Read the full newsletter on POLITICO for the rest of the day's California climate coverage.",
+    ],
+  },
   {
     title: "Voters oppose advanced manufacturing CEQA exemptions",
     source: "Capitol Weekly",
