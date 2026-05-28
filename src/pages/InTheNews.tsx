@@ -344,15 +344,40 @@ const InTheNews = () => {
               </h2>
 
               <div className="prose prose-lg max-w-none text-foreground/90">
-                {selectedArticle.body.map((paragraph, i) => (
-                  <p
-                    key={i}
-                    className="mb-4 leading-relaxed text-muted-foreground"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
+                {selectedArticle.body.map((block, i) => {
+                  if (typeof block === "string") {
+                    return (
+                      <p
+                        key={i}
+                        className="mb-4 leading-relaxed text-muted-foreground"
+                      >
+                        {block}
+                      </p>
+                    );
+                  }
+                  return (
+                    <aside
+                      key={i}
+                      className="my-6 border-l-4 border-primary bg-primary/5 rounded-r-lg p-5 md:p-6"
+                    >
+                      {block.heading && (
+                        <h3 className="font-heading text-xs uppercase tracking-widest text-primary mb-3 mt-0">
+                          {block.heading}
+                        </h3>
+                      )}
+                      {block.paragraphs.map((p, j) => (
+                        <p
+                          key={j}
+                          className="mb-3 last:mb-0 leading-relaxed text-foreground/90"
+                        >
+                          {p}
+                        </p>
+                      ))}
+                    </aside>
+                  );
+                })}
               </div>
+
 
               <div className="mt-8 pt-6 border-t border-border flex items-center justify-between">
                 <a
