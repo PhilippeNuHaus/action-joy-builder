@@ -60,7 +60,6 @@ const articles: NewsArticle[] = [
       "A new statewide poll finds 64% of voters would hold it against lawmakers who approved exemptions for polluting industries near homes and schools.",
     url: "https://capitolweekly.net/voters-oppose-advanced-manufacturing-ceqa-exemptions/",
     imageUrl: capitolWeeklyImg,
-    featured: true,
     body: [
       "As a pediatrician, I see the consequences of industrial pollution affecting children's health every day: the asthma that keeps a child home from school, the developmental delays that follow early lead exposure, the elevated cancer risk that trails a childhood spent near a petrochemical facility. These outcomes are not inevitable; they are the predictable result of policy choices. Last year, the California Legislature voted to exempt dozens of categories of industrial facilities from the environmental review process that exists to prevent exactly those harms, and a striking new poll suggests they badly misjudged how the public would feel about it.",
       "When lawmakers passed Senate Bill 131, exempting more than 75 categories of industrial facilities from California's landmark environmental review law, perhaps they assumed voters either weren't paying attention or didn't care. Voters were additionally concerned about the cost to taxpayers when contamination goes unaddressed, and California has a $750 million lesson in what that looks like. The remediation of the Exide battery recycling plant in L.A. County landed almost entirely on the public.",
