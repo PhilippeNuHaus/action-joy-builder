@@ -2,7 +2,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, X, Star } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 import { useState } from "react";
 import calmattersImg from "@/assets/calmatters-article.png";
 import capitolWeeklyImg from "@/assets/capitol-weekly-article.png";
@@ -23,7 +23,6 @@ interface NewsArticle {
   url: string;
   imageUrl: string;
   body: ArticleBlock[];
-  featured?: boolean;
   sourceLogoUrl?: string;
 }
 
@@ -37,7 +36,6 @@ const articles: NewsArticle[] = [
       "As California's June primary nears, Sen. Catherine Blakespear points to the weekend evacuation near an Orange County aerospace plant as a \"clear connection\" to her SB 954 push to restore environmental guardrails on advanced manufacturing.",
     url: "https://www.politico.com/newsletters/california-climate/2026/05/26/the-climate-primaries-cometh-00937438",
     imageUrl: politicoImg,
-    featured: true,
     body: [
       "POLITICO's California Climate newsletter surveys the energy and environmental fights shaping next week's June 2 primary — from oil-industry spending in statehouse races to a landmark data-center moratorium on the ballot in Monterey Park. Tucked into the day's \"What's Breaking\" section is a direct update on Sen. Catherine Blakespear's SB 954.",
       {
@@ -133,51 +131,6 @@ const articles: NewsArticle[] = [
   },
 ];
 
-const FeaturedArticleCard = ({
-  article,
-  onClick,
-}: {
-  article: NewsArticle;
-  onClick: () => void;
-}) => (
-  <button onClick={onClick} className="group block w-full text-left">
-    <Card className="transition-shadow hover:shadow-xl border-primary/30 overflow-hidden ring-1 ring-primary/20">
-      {article.imageUrl && (
-        <div className="w-full h-56 md:h-72 overflow-hidden relative">
-          <img
-            src={article.imageUrl}
-            alt={article.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-          <div className="absolute top-4 left-4">
-            <Badge className="bg-primary text-primary-foreground font-heading uppercase tracking-wider text-xs px-3 py-1 gap-1.5">
-              <Star size={12} className="fill-current" />
-              Featured Article
-            </Badge>
-          </div>
-        </div>
-      )}
-      <CardContent className="p-6 md:p-8 bg-gradient-to-b from-primary/5 to-transparent">
-        <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
-          <span className="font-semibold text-primary">{article.source}</span>
-          <span>•</span>
-          <span>{article.date}</span>
-          <span>•</span>
-          <span>Opinion by {article.author}</span>
-        </div>
-        <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
-          {article.title}
-        </h2>
-        <p className="mt-3 text-muted-foreground leading-relaxed text-base">
-          {article.summary}
-        </p>
-        <div className="mt-5 flex items-center gap-1.5 text-primary font-heading text-sm uppercase tracking-wider">
-          Read Full Article
-        </div>
-      </CardContent>
-    </Card>
-  </button>
-);
 
 const ArticleCard = ({
   article,
@@ -222,9 +175,6 @@ const InTheNews = () => {
     null
   );
 
-  const featuredArticle = articles.find((a) => a.featured);
-  const otherArticles = articles.filter((a) => !a.featured);
-
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
@@ -251,16 +201,7 @@ const InTheNews = () => {
           <div className="flex flex-col md:flex-row gap-10 max-w-6xl mx-auto">
             {/* Articles */}
             <div className="flex-1 space-y-8">
-              {/* Featured article always on top */}
-              {featuredArticle && (
-                <FeaturedArticleCard
-                  article={featuredArticle}
-                  onClick={() => setSelectedArticle(featuredArticle)}
-                />
-              )}
-
-              {/* Other articles */}
-              {otherArticles.map((article, i) => (
+              {articles.map((article, i) => (
                 <ArticleCard
                   key={i}
                   article={article}
@@ -282,9 +223,7 @@ const InTheNews = () => {
                       onClick={() => setSelectedArticle(article)}
                       className="block w-full text-left group"
                     >
-                      <div
-                        className={`flex gap-3 items-start p-3 rounded-md hover:bg-secondary transition-colors ${article.featured ? "border border-primary/20 bg-primary/5" : ""}`}
-                      >
+                      <div className="flex gap-3 items-start p-3 rounded-md hover:bg-secondary transition-colors">
                         {article.imageUrl && (
                           <img
                             src={article.imageUrl}
@@ -293,14 +232,6 @@ const InTheNews = () => {
                           />
                         )}
                         <div className="min-w-0">
-                          {article.featured && (
-                            <Badge
-                              variant="default"
-                              className="text-[10px] px-1.5 py-0 mb-1"
-                            >
-                              Featured
-                            </Badge>
-                          )}
                           <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-snug line-clamp-2">
                             {article.title}
                           </p>
@@ -345,14 +276,6 @@ const InTheNews = () => {
                   alt={selectedArticle.title}
                   className="w-full h-full object-cover"
                 />
-                {selectedArticle.featured && (
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-primary text-primary-foreground font-heading uppercase tracking-wider text-xs px-3 py-1 gap-1.5">
-                      <Star size={12} className="fill-current" />
-                      Featured Article
-                    </Badge>
-                  </div>
-                )}
               </div>
             )}
 
