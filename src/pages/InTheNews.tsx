@@ -276,7 +276,7 @@ const InTheNews = () => {
                   alt={selectedArticle.title}
                   className="w-full h-full object-cover"
                 />
-}
+              </div>
               </div>
             )}
 
