@@ -7,8 +7,7 @@ import { useState } from "react";
 import calmattersImg from "@/assets/calmatters-article.png";
 import capitolWeeklyImg from "@/assets/capitol-weekly-article.png";
 import politicoImg from "@/assets/politico-california-climate.jpg";
-import ocRegisterImg from "@/assets/ocregister-garden-grove.jpg";
-import ocRegisterLogo from "@/assets/oc-register-logo.png";
+import ocRegisterLogo from "@/assets/oc-register-logo.png.asset.json";
 
 type ArticleBlock =
   | string
@@ -61,8 +60,7 @@ const articles: NewsArticle[] = [
     summary:
       "After a weekend chemical scare evacuated 50,000 people near the GKN Aerospace plant, hundreds of residents packed Garden Grove's council chambers demanding answers about why a hazardous industrial use was allowed so close to homes and schools.",
     url: "https://www.ocregister.com/2026/05/26/community-frustrations-concerns-about-lack-of-preparation-aired-at-contentious-garden-grove-meeting/",
-    imageUrl: ocRegisterImg,
-    sourceLogoUrl: ocRegisterLogo,
+    imageUrl: ocRegisterLogo.url,
     body: [
       "Having endured a turbulent weekend of evacuations prompted by a chemical scare, hundreds of Garden Grove residents packed the City's Council Chambers Tuesday night, May 26, to make clear their mounting outrage and concerns and to demand answers from elected officials and the company at the center of it all. The meeting turned contentious and ended with angry community members gathered outside.",
       "As residents and businesses looked ahead to the long Memorial Day weekend, an overheating chemical storage tank at GKN Aerospace in West Garden Grove containing methyl methacrylate instead triggered evacuation orders Friday for some 50,000 people as emergency crews sought to thwart a chemical reaction officials warned could prompt either a catastrophic blast or thousands of gallons of hazardous material spilling. While the emergency response quelled the threat of a violent explosion as of Monday night, 16,000 residents, largely from the city of Stanton, were still unable to return home until all evacuation orders were lifted Tuesday evening.",
