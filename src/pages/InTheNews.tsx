@@ -19,7 +19,7 @@ interface NewsArticle {
   date: string;
   author: string;
   summary: string;
-  url: string;
+  url?: string;
   imageUrl: string;
   body: ArticleBlock[];
   sourceLogoUrl?: string;
