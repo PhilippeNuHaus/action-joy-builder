@@ -7,6 +7,8 @@ import { useState } from "react";
 import calmattersImg from "@/assets/calmatters-article.png";
 import capitolWeeklyImg from "@/assets/capitol-weekly-article.png";
 import politicoImg from "@/assets/politico-california-climate.jpg";
+import ocRegisterImg from "@/assets/ocregister-garden-grove.jpg";
+import ocRegisterLogo from "@/assets/oc-register-logo.png";
 
 type ArticleBlock =
   | string
@@ -22,6 +24,7 @@ interface NewsArticle {
   imageUrl: string;
   body: ArticleBlock[];
   featured?: boolean;
+  sourceLogoUrl?: string;
 }
 
 const articles: NewsArticle[] = [
