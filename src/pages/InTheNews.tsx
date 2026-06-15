@@ -59,7 +59,6 @@ const articles: NewsArticle[] = [
     author: "Victoria Le and Claire Wang",
     summary:
       "After a weekend chemical scare evacuated 50,000 people near the GKN Aerospace plant, hundreds of residents packed Garden Grove's council chambers demanding answers about why a hazardous industrial use was allowed so close to homes and schools.",
-    url: "https://www.ocregister.com/2026/05/26/community-frustrations-concerns-about-lack-of-preparation-aired-at-contentious-garden-grove-meeting/",
     imageUrl: ocRegisterLogo.url,
     body: [
       "Having endured a turbulent weekend of evacuations prompted by a chemical scare, hundreds of Garden Grove residents packed the City's Council Chambers Tuesday night, May 26, to make clear their mounting outrage and concerns and to demand answers from elected officials and the company at the center of it all. The meeting turned contentious and ended with angry community members gathered outside.",
