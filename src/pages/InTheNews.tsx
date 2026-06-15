@@ -7,6 +7,8 @@ import { useState } from "react";
 import calmattersImg from "@/assets/calmatters-article.png";
 import capitolWeeklyImg from "@/assets/capitol-weekly-article.png";
 import politicoImg from "@/assets/politico-california-climate.jpg";
+import ocRegisterImg from "@/assets/ocregister-garden-grove.jpg";
+import ocRegisterLogo from "@/assets/oc-register-logo.png";
 
 type ArticleBlock =
   | string
@@ -22,6 +24,7 @@ interface NewsArticle {
   imageUrl: string;
   body: ArticleBlock[];
   featured?: boolean;
+  sourceLogoUrl?: string;
 }
 
 const articles: NewsArticle[] = [
@@ -49,6 +52,32 @@ const articles: NewsArticle[] = [
         ],
       },
       "The Senate is expected to vote on SB 954 this week. Read the full newsletter on POLITICO for the rest of the day's California climate coverage.",
+    ],
+  },
+  {
+    title:
+      "Community frustrations, concerns about lack of preparation aired at contentious Garden Grove meeting",
+    source: "Orange County Register",
+    date: "May 26, 2026",
+    author: "Victoria Le and Claire Wang",
+    summary:
+      "After a weekend chemical scare evacuated 50,000 people near the GKN Aerospace plant, hundreds of residents packed Garden Grove's council chambers demanding answers about why a hazardous industrial use was allowed so close to homes and schools.",
+    url: "https://www.ocregister.com/2026/05/26/community-frustrations-concerns-about-lack-of-preparation-aired-at-contentious-garden-grove-meeting/",
+    imageUrl: ocRegisterImg,
+    sourceLogoUrl: ocRegisterLogo,
+    body: [
+      "Having endured a turbulent weekend of evacuations prompted by a chemical scare, hundreds of Garden Grove residents packed the City's Council Chambers Tuesday night, May 26, to make clear their mounting outrage and concerns and to demand answers from elected officials and the company at the center of it all. The meeting turned contentious and ended with angry community members gathered outside.",
+      "As residents and businesses looked ahead to the long Memorial Day weekend, an overheating chemical storage tank at GKN Aerospace in West Garden Grove containing methyl methacrylate instead triggered evacuation orders Friday for some 50,000 people as emergency crews sought to thwart a chemical reaction officials warned could prompt either a catastrophic blast or thousands of gallons of hazardous material spilling. While the emergency response quelled the threat of a violent explosion as of Monday night, 16,000 residents, largely from the city of Stanton, were still unable to return home until all evacuation orders were lifted Tuesday evening.",
+      "\"We know it's a stressful and deeply disruptive experience,\" Mayor Stephanie Klopfenstein said during Tuesday's meeting. \"Some families had to leave their homes with very little notice. Some businesses had to close. Employees lost work hours. Parents had to explain to their children why they couldn't go home. Many people have been anxious, angry and uncertain about what comes next.\"",
+      "Throughout the weekend, displaced residents and community leaders expressed outrage, some joining lawsuits against GKN Aerospace and pressing their elected officials to act, some saying there were \"more questions than answers\" regarding the incident. Tuesday night, community members demanded accountability over the handling of the evacuations and why the industrial use with stored hazardous chemicals was allowed so close to homes and schools.",
+      "\"I was mentally prepared for natural disasters, but never for a military-industrial chemical leak. I never thought that something so dangerous is less than 2 miles away from me,\" evacuee Carrie Lynn told council members. \"Are there other companies in our area with similar dangers in our community?\" retired GGUSD Principal Sandi Ishii asked.",
+      "Community members also raised concerns about the sheltering of those displaced, said communication was confusing, and that some experienced price gouging. \"We're seeing that the city, county and state have embarrassingly failed to meet the needs of those evacuated, to the community as a whole,\" Garden Grove resident Nathan Tran said, citing crowded shelters, too few beds, the cost of travel, and hotels \"eating at the pockets of already struggling, working families.\"",
+      "Tensions escalated in the city chambers as the meeting went on, with councilmembers calling multiple recesses and eventually clearing the chambers after shouting matches ignited. While the council remained inside to finish the meeting, including approving a local emergency declaration, police were outside where a small mob gathered, yelling obscenities at the officers.",
+      "Speakers raged at GKN Aerospace, with some questioning why representatives of the company weren't at the meeting. There were calls for the city to prohibit its continued operation in Garden Grove. \"It's been very devastating,\" evacuee Rodrigo Garay said. \"I ended up sleeping in my car the first day.\" Still, Garay left the evacuation shelter at Goldenwest College to press his elected representatives: \"There should be zero tolerance for GKN. From the local government all the way to the federal government, when this investigation happens, which it will happen, we want to make sure that there is no immunity (for GKN) and that they are held accountable.\"",
+      "GKN Aerospace did not immediately respond to requests Tuesday night for comment, but in a previous statement the UK-based company had said: \"We are acutely aware of the uncertainty this incident is causing and sincerely apologise for the ongoing disruption to the local community.\"",
+      "Cities are just starting to get a handle on the costs associated with the crisis. As of Monday, May 25, the city of Garden Grove \"reported approximately $728,000 in incident-related costs to OCFA,\" city spokesperson Jonathan Garcia said. The figure does not include the costs of supplies, materials, vehicle-related expenses or the 1,250 gallons of water per minute that were being sprayed onto the overheating tank for five days before officials removed the hose. As for which agency would inherit the bill for the approximate 9 million gallons of water, Garcia said, \"That's one of the unknowns. We just don't know at this point.\"",
+      "Earlier in the afternoon, Rep. Derek Tran, whose district includes the evacuated neighborhoods, held a community meeting and resource fair at Cal State Fullerton, reiterating his call for state and federal investigation and accountability. \"I know many of you are frustrated and angry, and I share those feelings wholeheartedly,\" Tran said. \"You all deserve answers for how it all happened. Accountability matters.\"",
+      "OCFA Interim Fire Chief TJ McGovern urged residents still in the remaining evacuation zone to stay cautious, explaining that though the threat of a larger-scale explosion had been eliminated, the risk of fire and a potential spill remained. \"I know it's a challenge for all of you to be displaced … but we cannot allow you to go home if there's still a fire risk out there,\" McGovern said.",
     ],
   },
   {
@@ -329,6 +358,16 @@ const InTheNews = () => {
 
             {/* Article content */}
             <div className="p-6 md:p-10">
+              {selectedArticle.sourceLogoUrl && (
+                <div className="mb-6 pb-6 border-b border-border flex justify-center">
+                  <img
+                    src={selectedArticle.sourceLogoUrl}
+                    alt={`${selectedArticle.source} logo`}
+                    loading="lazy"
+                    className="h-10 md:h-12 w-auto object-contain"
+                  />
+                </div>
+              )}
               <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
                 <span className="font-semibold text-primary">
                   {selectedArticle.source}
