@@ -339,14 +339,16 @@ const InTheNews = () => {
 
 
               <div className="mt-8 pt-6 border-t border-border flex items-center justify-between">
-                <a
-                  href={selectedArticle.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-primary font-heading text-sm uppercase tracking-wider hover:underline"
-                >
-                  Read on {selectedArticle.source} <ExternalLink size={14} />
-                </a>
+                {selectedArticle.url && (
+                  <a
+                    href={selectedArticle.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary font-heading text-sm uppercase tracking-wider hover:underline"
+                  >
+                    Read on {selectedArticle.source} <ExternalLink size={14} />
+                  </a>
+                )}
                 <button
                   onClick={() => setSelectedArticle(null)}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
