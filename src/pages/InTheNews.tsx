@@ -358,6 +358,16 @@ const InTheNews = () => {
 
             {/* Article content */}
             <div className="p-6 md:p-10">
+              {selectedArticle.sourceLogoUrl && (
+                <div className="mb-6 pb-6 border-b border-border flex justify-center">
+                  <img
+                    src={selectedArticle.sourceLogoUrl}
+                    alt={`${selectedArticle.source} logo`}
+                    loading="lazy"
+                    className="h-10 md:h-12 w-auto object-contain"
+                  />
+                </div>
+              )}
               <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
                 <span className="font-semibold text-primary">
                   {selectedArticle.source}
