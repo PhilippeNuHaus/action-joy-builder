@@ -8,10 +8,12 @@ import calmattersImg from "@/assets/calmatters-article.png";
 import capitolWeeklyImg from "@/assets/capitol-weekly-article.png";
 import politicoImg from "@/assets/politico-california-climate.jpg";
 import ocRegisterLogo from "@/assets/oc-register-logo.png.asset.json";
+import ocRegisterGknAerial from "@/assets/ocregister-gkn-aerial.jpg.asset.json";
 
 type ArticleBlock =
   | string
-  | { type: "highlight"; heading?: string; paragraphs: string[] };
+  | { type: "highlight"; heading?: string; paragraphs: string[] }
+  | { type: "image"; src: string; caption?: string };
 
 interface NewsArticle {
   title: string;
@@ -26,6 +28,41 @@ interface NewsArticle {
 }
 
 const articles: NewsArticle[] = [
+  {
+    title:
+      "Nearly 2 million Californians live within 3 miles of a plant like GKN in Garden Grove",
+    source: "Orange County Register",
+    date: "May 29, 2026",
+    author: "Jason Henry, Tony Saavedra and Victoria Le",
+    summary:
+      "The aerospace plant crisis could be a 'wake-up call' for companies using and storing methyl methacrylate and other toxic chemicals, an expert says. Nearly 2 million Californians live within 3 miles of a chemical plant using the compound involved in the Garden Grove tank crisis.",
+    imageUrl: ocRegisterLogo.url,
+    body: [
+      {
+        type: "image",
+        src: ocRegisterGknAerial.url,
+        caption:
+          "A pressurized tank made for methyl methacrylate at GKN Aerospace shows damage on Wednesday, May 27, 2026, in Garden Grove. Roughly 2 million people in California live within three miles of a plant that heavily uses methyl methacrylate, according to data from the U.S. EPA. (Photo by Jeff Gritchen, Orange County Register/SCNG)",
+      },
+      "Nearly 2 million Californians live within 3 miles of a chemical plant using methyl methacrylate, the compound involved in the Garden Grove tank crisis over Memorial Day weekend, according to the U.S. EPA's Toxics Release Inventory, the federal system tracking hazardous waste.",
+      "A majority of those residents, or 1.6 million, are right here in Southern California, with roughly 117,000 living even closer, within a mile of such a facility, in Los Angeles, Orange and Riverside counties, records show.",
+      "A malfunctioning storage tank at GKN Aerospace in Garden Grove cast a national spotlight on the intersection of these industrial plants and residential neighborhoods. The close proximity of the plant to homes and schools led to widespread outrage and now dozens of lawsuits after residents were displaced for days.",
+      "First responders rushed to GKN on Thursday, May 21, after a pressurized storage tank containing 7,000 gallons of methyl methacrylate — a chemical used in acrylic plastics manufacturing — began careening toward either a dangerous leak or an even more dangerous explosion. Evacuation orders forced 50,000 people in Garden Grove and neighboring cities into shelters and hotels through Memorial Day weekend until Tuesday night, when it finally became clear the risks of an explosion had been seemingly averted, thanks in part to a crack in the tank.",
+      "Fourteen facilities in California used methyl methacrylate, or MMA, heavily enough to make it onto the Toxics Release Inventory list. They collectively produced 333,518 pounds of MMA waste in 2024, the most recent year reported.",
+      "Such plants are predominantly located in communities of color, with an average of 77% of the residents within a mile identifying as such, according to census data.",
+      "In Southern California, those companies include Performance Materials Corp. in Camarillo; Engineered Polymer Solutions Inc. in Commerce; GKN Aerospace in Garden Grove; Plaskolite West LLC in Compton; Arkema Coating Resins Plant in Torrance; IPS Corp. in Gardena; Interplastic Corp. in Hawthorne; Sechrist Industries Inc. in Anaheim; and AOC LLC in Perris.",
+      "GKN topped the list that year, generating 131,779 pounds by itself, nearly double what it reported in 2023. That was the largest increase in the plant's more than 30-year history, records show. The company typically sends the MMA waste off to a facility in Arizona, where it is burned to generate heat and energy.",
+      "The second highest waste generator that year, Tesla's plant in Fremont, produced 115,136 pounds of MMA waste, by comparison. About 2,200 people live within a mile of Tesla's Fremont facility, about 10 times less than those within a mile of GKN, according to the EPA's data.",
+      "MMA is a widely used chemical that can self-react to form a type of plastic. This reaction, however, produces heat, which can be controlled through adding chemical inhibitors or utilizing release valves, chemists say. Experts said while these types of chemical reactions happen 'more often' than people might think, safety systems usually prevent such situations from spiraling out of control in the same way it did at GKN.",
+      "A failure in the chemical storage tank's cooling system led officials to believe a 'boiling liquid expanding vapor explosion,' or BLEVE, could occur that would have likely caused massive damage and released a toxic — and highly flammable — chemical plume into the air. In the short term, MMA causes respiratory and skin irritation, but little is known about the longterm effects of the substance on humans, officials have said.",
+      "Michael Kleinman, an environmental toxicity professor at UC Irvine, said it appears that valves to introduce the inhibitor or safely bleed MMA from the tank were inoperable in the Garden Grove crisis. 'This event could … be a wake-up call for companies using and storing MMA, or many of the hundreds of other toxic chemicals that feed our industries, to carefully review their safety and emergency measures,' Kleinman said.",
+      "However, a look at records maintained by the South Coast Air Quality Management District show that some plants that use MMA have checkered pasts for keeping up with regulations. A 2007 inventory at GKN's Garden Grove plant showed that a maximum 200,000 pounds of MMA was stored at the plant, outside at the southeast corner of the property. About 244,692 people live within 3 miles of GKN.",
+      "In 2014, GKN was put on notice by the Garden Grove Fire Department for failing to submit a hazardous materials business plan. The company was penalized $2,550 by the state Department of Industrial Relations in 2018, and following an on-site inspection in November 2020, the South Coast AQMD cited GKN for failing to maintain required emission records for volatile organic compounds and operating new equipment without obtaining a permit. GKN paid more than $900,000 as part of a settlement with AQMD in 2021.",
+      "Plaskolite West in Compton has been cited five times by the AQMD since 2003, including once for an MMA leak in March 2022 that generated hundreds of odor complaints from nearby residents. Interplastic Corp. in Hawthorne has received eight notices of violations from the AQMD in the last two decades and had the most residents in proximity, with 348,635 within 3 miles. A September 2025 notice declared the facility a public nuisance and alleged the company was operating without a valid permit.",
+      "At the same time that the GKN situation was unraveling, the rupture of a chemical tank containing a different chemical mixture killed 11 people at a paper mill in Washington state. The two situations sparked renewed calls for stronger regulations around chemical plants and refineries. Last year, the EPA proposed repealing a 2024 rule that tightened safeguards designed to prevent explosions and chemical releases.",
+      "'With chemical emergencies and fatal disasters continuing to happen like clockwork around the country and disaster prevention measures available, it should be obvious to anyone concerned about the safety of millions of families and children in harm's way that now is not the time to go backward on safeguards from toxic chemical incidents,' advocates said. The Coalition to Prevent Chemical Disasters maps and tracks every chemical disaster reported by the media on its website.",
+    ],
+  },
   {
     title: "The climate primaries cometh",
     source: "POLITICO — California Climate",
@@ -312,6 +349,22 @@ const InTheNews = () => {
                       >
                         {block}
                       </p>
+                    );
+                  }
+                  if (block.type === "image") {
+                    return (
+                      <figure key={i} className="my-6">
+                        <img
+                          src={block.src}
+                          alt={block.caption || ""}
+                          className="w-full h-auto rounded-lg"
+                        />
+                        {block.caption && (
+                          <figcaption className="mt-2 text-xs text-muted-foreground italic leading-relaxed">
+                            {block.caption}
+                          </figcaption>
+                        )}
+                      </figure>
                     );
                   }
                   return (
