@@ -7,17 +7,18 @@ The files you upload live in `build/`. The images live in `build/listing-images/
 
 ---
 
-## Part A — Shop-level (skip if your shop already exists)
+## Part A — Shop-level
 
-`Shop Manager → Settings`
+Your shop is **MenchyUSA**, which already exists — so most of the usual setup is done.
+Three things still worth checking before you list:
 
 | Step | What to do |
 |---|---|
-| A1 | Set shop language, country and **currency**. Currency cannot be changed later without hassle — pick the one your buyers use. |
-| A2 | Shop name. Something that works past this one product: `NuHaus Strength`, `Sober Strength Co`, or similar. Not the product name. |
-| A3 | Add your bank details and billing card (`Finances → Payment settings`). Etsy will not let you publish without these. |
-| A4 | `Settings → Policies` — set a **digital items** policy. Say clearly that instant downloads are non-refundable, and that you will fix any file problem on request. |
-| A5 | Shop icon and banner. Use `01-main.png` cropped square as a placeholder icon if you have nothing else. |
+| A1 | `Settings → Policies` — confirm you have a **digital items** policy. If the shop has only ever sold physical goods, this will be missing. State that instant downloads are non-refundable and that you will fix any file problem on request. Without it, your first refund request has no policy behind it. |
+| A2 | `Shop Manager → Listings → Sections` — create a section for this product (e.g. `Fitness Programs`). Sections are how one shop carries more than one kind of product without the storefront reading as random. |
+| A3 | Confirm `Finances → Payment settings` is current. Already done if the shop has taken orders. |
+
+**One thing to decide first — see the note at the bottom of this file about shop fit.**
 
 ---
 
@@ -160,6 +161,24 @@ doing before you spend anything on promotion.
 | Day 30 | If conversion is holding, test the alternate title from `ETSY-LISTING.md` section 1. Change one variable at a time. |
 
 ---
+
+## Before you start — does this belong in MenchyUSA?
+
+I could not load your shop to see what it currently sells, so this is a question rather than
+advice.
+
+Etsy weighs shop-level signals when it decides who to show a listing to. A shop whose
+existing listings sit in a different category gives the algorithm a weaker read on a new
+one, and browse traffic arriving for your other products will not convert on this.
+
+- **If MenchyUSA already sells fitness, wellness, planners or digital downloads** — list it
+  here. Put it in its own section (A2) and carry on.
+- **If MenchyUSA sells something unrelated** — listing here still works and costs $0.20, so
+  it is a perfectly reasonable way to test demand. But if it sells, move it to a dedicated
+  shop rather than growing a split-identity storefront. Sober fitness is a niche where
+  buyers look at who they are buying from.
+
+Either way, do not let this stall the launch. Test it here first.
 
 ## What I could not do for you
 
