@@ -12,18 +12,26 @@ src/
   program.html            The 30-page program. Source of truth for the main PDF.
   start-here.html         2-page download/print instructions sheet.
   make_tracker.py         Generates the .xlsx tracker (openpyxl).
-  make_listing_images.py  Generates 2000x2000 Etsy listing images.
-build/                    Generated. The three files you upload to Etsy, plus images.
-ETSY-LISTING.md           Title, tags, description, pricing, shot list, settings.
+  make_listing_images.py  Generates the designed listing images (slides 01-05).
+  make_preview_images.py  Generates listing images composited from real page renders
+                          (slides 06-08) — the flat-lay and the page features.
+build/                    Generated. The three files you upload to Etsy.
+build/listing-images/     Generated. Eight 2000x2000 images, upload in filename order.
+ETSY-LISTING.md           Title, tags, description, pricing rationale, shot list.
+ETSY-SETUP-CHECKLIST.md   Field-by-field walkthrough in Etsy's own form order.
 build.sh                  Rebuilds the PDFs and the tracker.
 ```
 
 ## Building
 
 ```bash
-./build.sh                          # program PDF + start-here PDF + tracker
-python3 src/make_listing_images.py  # listing images (separate; slower)
+./build.sh                           # program PDF + start-here PDF + tracker
+python3 src/make_listing_images.py   # designed slides 01-05
+python3 src/make_preview_images.py   # composited slides 06-08
 ```
+
+`make_preview_images.py` re-renders the whole program and slices it into page images, so
+the flat-lay and page features can never drift out of sync with the actual document.
 
 Requirements: Python 3 with `openpyxl` and `pillow`, and a Chromium binary. The scripts
 default to the Playwright Chromium at `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`;

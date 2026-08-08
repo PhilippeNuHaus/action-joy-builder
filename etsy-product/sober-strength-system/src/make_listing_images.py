@@ -143,6 +143,38 @@ SLIDES = {
       <p style="font-size:21px;color:#9AA2AE;margin-top:6px">Check-in system, trigger window, substitution ladder</p></div></div>
   </div>
 </div>""",
+
+    # 5 — the tracker, mirroring the real sheet's columns and colour rules.
+    "05-tracker": """
+<div class="s" style="background:#fff">
+  <div class="eyebrow" style="color:#C2410C">Included — editable spreadsheet</div>
+  <div class="bar"></div>
+  <h2 style="font-size:56px">It does the<br>counting for you</h2>
+  <div style="margin-top:38px;border:2px solid #D8DAE0">
+    <div style="display:flex;background:#12161C;color:#fff" class="sans">
+      <div style="flex:1.1;padding:13px 14px;font-size:16px;letter-spacing:.09em">DATE</div>
+      <div style="flex:.8;padding:13px 14px;font-size:16px;letter-spacing:.09em">DAY</div>
+      <div style="flex:1;padding:13px 14px;font-size:16px;letter-spacing:.09em">SLEEP</div>
+      <div style="flex:1.1;padding:13px 14px;font-size:16px;letter-spacing:.09em">CRAVING</div>
+      <div style="flex:1;padding:13px 14px;font-size:16px;letter-spacing:.09em">STATUS</div>
+    </div>
+    <div style="display:flex;border-top:1px solid #D8DAE0" class="sans"><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Mar 4</div><div style="flex:.8;padding:15px 14px;font-size:19px;color:#3D4552">31</div><div style="flex:1;padding:15px 14px;font-size:19px;color:#3D4552">Good</div><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Quiet</div><div style="flex:1;padding:15px 14px;font-size:19px;font-weight:bold;background:#DCFCE7;color:#15803D">GREEN</div></div><div style="display:flex;border-top:1px solid #D8DAE0" class="sans"><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Mar 5</div><div style="flex:.8;padding:15px 14px;font-size:19px;color:#3D4552">32</div><div style="flex:1;padding:15px 14px;font-size:19px;color:#3D4552">Broken</div><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Quiet</div><div style="flex:1;padding:15px 14px;font-size:19px;font-weight:bold;background:#FEF3C7;color:#B45309">AMBER</div></div><div style="display:flex;border-top:1px solid #D8DAE0" class="sans"><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Mar 6</div><div style="flex:.8;padding:15px 14px;font-size:19px;color:#3D4552">33</div><div style="flex:1;padding:15px 14px;font-size:19px;color:#3D4552">Barely</div><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Loud</div><div style="flex:1;padding:15px 14px;font-size:19px;font-weight:bold;background:#FEE2E2;color:#B91C1C">RED</div></div><div style="display:flex;border-top:1px solid #D8DAE0" class="sans"><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Mar 7</div><div style="flex:.8;padding:15px 14px;font-size:19px;color:#3D4552">34</div><div style="flex:1;padding:15px 14px;font-size:19px;color:#3D4552">Good</div><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Quiet</div><div style="flex:1;padding:15px 14px;font-size:19px;font-weight:bold;background:#DCFCE7;color:#15803D">GREEN</div></div><div style="display:flex;border-top:1px solid #D8DAE0" class="sans"><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Mar 8</div><div style="flex:.8;padding:15px 14px;font-size:19px;color:#3D4552">35</div><div style="flex:1;padding:15px 14px;font-size:19px;color:#3D4552">Good</div><div style="flex:1.1;padding:15px 14px;font-size:19px;color:#3D4552">Noticeable</div><div style="flex:1;padding:15px 14px;font-size:19px;font-weight:bold;background:#FEF3C7;color:#B45309">AMBER</div></div>
+  </div>
+  <div style="display:flex;gap:14px;margin-top:auto">
+    <div style="flex:1;background:#F4F4F5;padding:20px 18px">
+      <div class="sans" style="font-size:38px;font-weight:bold;color:#C2410C">47</div>
+      <div class="sans" style="font-size:16px;color:#3D4552;margin-top:4px">SOBER DAYS</div></div>
+    <div style="flex:1;background:#F4F4F5;padding:20px 18px">
+      <div class="sans" style="font-size:38px;font-weight:bold;color:#C2410C">22</div>
+      <div class="sans" style="font-size:16px;color:#3D4552;margin-top:4px">SESSIONS DONE</div></div>
+    <div style="flex:1;background:#F4F4F5;padding:20px 18px">
+      <div class="sans" style="font-size:38px;font-weight:bold;color:#C2410C">68%</div>
+      <div class="sans" style="font-size:16px;color:#3D4552;margin-top:4px">GREEN DAYS</div></div>
+    <div style="flex:1;background:#F4F4F5;padding:20px 18px">
+      <div class="sans" style="font-size:38px;font-weight:bold;color:#C2410C">185</div>
+      <div class="sans" style="font-size:16px;color:#3D4552;margin-top:4px">BEST SQUAT 1RM</div></div>
+  </div>
+</div>""",
 }
 
 
