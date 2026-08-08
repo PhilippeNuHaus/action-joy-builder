@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Sober Strength System</title>
+<style>
+  @page { size: 8.5in 11in; margin: 0; }
+
+  :root{
+    --ink:#12161C;
+    --ink-soft:#3D4552;
+    --muted:#6B7280;
+    --accent:#C2410C;
+    --accent-deep:#7C2D12;
+    --green:#15803D;
+    --amber:#B45309;
+    --red:#B91C1C;
+    --panel:#F4F4F5;
+    --line:#D8DAE0;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    font-family:"Bitstream Charter","Liberation Serif",Georgia,serif;
+    color:var(--ink);
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .page{
+    width:8.5in; height:11in;
+    padding:0.72in 0.78in 0.6in;
+    position:relative;
+    page-break-after:always;
+    overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .page:last-child{ page-break-after:auto; }
+
+  h1,h2,h3,h4,.sans,.eyebrow,table,.num{
+    font-family:"Liberation Sans","DejaVu Sans",Arial,sans-serif;
+  }
+
+  .eyebrow{
+    font-size:8.5pt; font-weight:bold; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--accent);
+  }
+  .eyebrow.dim{ color:var(--muted); }
+
+  h2{
+    font-size:27pt; font-weight:bold; line-height:1.04;
+    letter-spacing:-.015em; text-transform:uppercase;
+    margin:.06in 0 .1in;
+  }
+  h2.sm{ font-size:22pt; color:var(--ink); letter-spacing:-.01em; }
+
+  h3{
+    font-size:12pt; font-weight:bold; text-transform:uppercase;
+    letter-spacing:.06em; margin:.2in 0 .07in;
+  }
+
+  .rule{ height:3px; background:var(--accent); width:1.1in; margin:.02in 0 .16in; }
+  .rule.wide{ width:100%; height:1px; background:var(--line); margin:.14in 0; }
+
+  p{ font-size:10.5pt; line-height:1.5; margin-bottom:.1in; color:var(--ink-soft); }
+  p.lead{ font-size:12pt; line-height:1.45; color:var(--ink); }
+  strong{ color:var(--ink); }
+
+  ul,ol{ margin:0 0 .1in .2in; }
+  li{ font-size:10.5pt; line-height:1.5; color:var(--ink-soft); margin-bottom:.045in; }
+
+  .foot{
+    margin-top:auto; padding-top:.12in; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between;
+    font-family:"Liberation Sans",Arial,sans-serif;
+    font-size:7.5pt; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+  }
+
+  /* ---------- cover ---------- */
+  .cover{ background:var(--ink); color:#fff; padding:0; }
+  .cover-inner{ padding:1.1in .95in .8in; height:100%; display:flex; flex-direction:column; }
+  .cover h1{
+    font-size:59pt; font-weight:bold; line-height:.92;
+    letter-spacing:-.03em; text-transform:uppercase; color:#fff;
+  }
+  .cover h1 em{ font-style:normal; color:var(--accent); }
+  .cover .sub{
+    font-family:"Bitstream Charter",Georgia,serif;
+    font-size:14pt; line-height:1.4; color:#C9CDD6; max-width:5in; margin-top:.26in;
+  }
+  .cover-bar{ height:5px; background:var(--accent); width:2.2in; margin:.34in 0; }
+  .cover-meta{ margin-top:auto; display:flex; gap:.5in; border-top:1px solid #2C333F; padding-top:.22in; }
+  .cover-meta div{ font-family:"Liberation Sans",Arial,sans-serif; }
+  .cover-meta .k{ font-size:7.5pt; letter-spacing:.16em; text-transform:uppercase; color:#7A828F; }
+  .cover-meta .v{ font-size:11pt; font-weight:bold; color:#fff; margin-top:.05in; white-space:nowrap; }
+
+  .phasestrip{ display:flex; gap:2px; margin-top:.3in; }
+  .phasestrip div{
+    flex:1; padding:.14in .12in; background:#1C222B;
+    font-family:"Liberation Sans",Arial,sans-serif;
+  }
+  .phasestrip .pn{ font-size:7pt; letter-spacing:.14em; color:var(--accent); text-transform:uppercase; }
+  .phasestrip .pt{ font-size:10pt; font-weight:bold; color:#fff; margin-top:.04in; }
+  .phasestrip .pw{ font-size:7.5pt; color:#8A929E; margin-top:.02in; }
+
+  /* ---------- panels ---------- */
+  .panel{ background:var(--panel); border-left:4px solid var(--accent); padding:.2in .24in; margin:.14in 0; }
+  .panel h4{ font-size:9pt; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); margin-bottom:.08in; }
+  .panel p:last-child{ margin-bottom:0; }
+
+  .warn{ background:#FEF3F2; border:1.5px solid #F1B4AE; border-left:5px solid var(--red); padding:.22in .26in; margin:.14in 0; }
+  .warn h4{ font-size:10pt; text-transform:uppercase; letter-spacing:.1em; color:var(--red); margin-bottom:.09in; }
+  .warn p{ font-size:10pt; color:#4A2320; }
+
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:.22in; }
+  .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:.14in; }
+
+  .stat{ border:1px solid var(--line); padding:.16in .16in; }
+  .stat .n{ font-family:"Liberation Sans",Arial,sans-serif; font-size:23pt; font-weight:bold; color:var(--accent); line-height:1; }
+  .stat .l{ font-size:8.5pt; line-height:1.35; color:var(--ink-soft); margin-top:.07in; }
+
+  /* ---------- tables ---------- */
+  table{ width:100%; border-collapse:collapse; margin:.1in 0 .04in; }
+  th{
+    font-size:7.5pt; font-weight:bold; letter-spacing:.1em; text-transform:uppercase;
+    text-align:left; color:#fff; background:var(--ink); padding:.075in .09in;
+  }
+  td{ font-size:9.5pt; padding:.075in .09in; border-bottom:1px solid var(--line); color:var(--ink-soft); }
+  td.ex{ font-weight:bold; color:var(--ink); font-family:"Liberation Sans",Arial,sans-serif; font-size:9pt; }
+  tr:nth-child(even) td{ background:#FAFAFB; }
+  .tnum{ text-align:center; white-space:nowrap; }
+  table.log td{ height:.235in; }
+  table.log th, table.log td{ border-right:1px solid var(--line); }
+  table.log th:last-child, table.log td:last-child{ border-right:0; }
+  .blank{ background:#fff !important; }
+
+  .gar{ display:grid; grid-template-columns:repeat(3,1fr); gap:.13in; margin:.12in 0; }
+  .gar > div{ padding:.16in .15in; border-top:5px solid; background:var(--panel); }
+  .gar .g{ border-color:var(--green); }
+  .gar .a{ border-color:var(--amber); }
+  .gar .r{ border-color:var(--red); }
+  .gar h5{ font-family:"Liberation Sans",Arial,sans-serif; font-size:10pt; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.06in; }
+  .gar .g h5{ color:var(--green); }
+  .gar .a h5{ color:var(--amber); }
+  .gar .r h5{ color:var(--red); }
+  .gar p{ font-size:9pt; line-height:1.4; margin:0; }
+
+  .ladder{ counter-reset:t; }
+  .ladder .step{ display:flex; gap:.18in; padding:.13in 0; border-bottom:1px solid var(--line); }
+  .ladder .step:last-child{ border-bottom:0; }
+  .tier{
+    font-family:"Liberation Sans",Arial,sans-serif; font-size:8pt; font-weight:bold;
+    letter-spacing:.08em; color:#fff; background:var(--accent);
+    padding:.05in .1in; height:fit-content; white-space:nowrap;
+  }
+  .step p{ margin:0; font-size:10pt; }
+  .step .t{ font-family:"Liberation Sans",Arial,sans-serif; font-weight:bold; font-size:10pt; color:var(--ink); margin-bottom:.03in; }
+
+  .toc td{ font-size:10pt; padding:.068in .04in; }
+  .panel.tight{ padding:.15in .2in; margin:.1in 0; }
+  .toc .pg{ text-align:right; font-family:"Liberation Sans",Arial,sans-serif; font-weight:bold; color:var(--accent); width:.6in; }
+
+  .quote{ font-size:13pt; line-height:1.42; color:var(--ink); font-style:italic; border-left:4px solid var(--accent); padding-left:.22in; margin:.18in 0; }
+
+  .sig{ font-size:8.5pt; color:var(--muted); line-height:1.45; }
+  .sm{ font-size:8.5pt; color:var(--muted); line-height:1.45; }
+</style>
+</head>
+<body>
+
+<!-- ============ 1. COVER ============ -->
+<div class="page cover">
+  <div class="cover-inner">
+    <div class="eyebrow" style="color:#8A929E">12-Week Strength Program &nbsp;·&nbsp; Alcohol-Free</div>
+    <div class="cover-bar"></div>
+    <h1>The<br>Sober<br><em>Strength</em><br>System</h1>
+    <p class="sub">A lifting program built around the first 90 days without alcohol — periodized to the recovery your body is actually doing, not the recovery a normal program assumes.</p>
+    <div class="phasestrip">
+      <div><div class="pn">Phase 01</div><div class="pt">The Anchor</div><div class="pw">Weeks 1–4</div></div>
+      <div><div class="pn">Phase 02</div><div class="pt">The Build</div><div class="pw">Weeks 5–8</div></div>
+      <div><div class="pn">Phase 03</div><div class="pt">The Claim</div><div class="pw">Weeks 9–12</div></div>
+    </div>
+    <div class="cover-meta">
+      <div><div class="k">Format</div><div class="v">Printable PDF</div></div>
+      <div><div class="k">Sessions</div><div class="v">3–4 / week</div></div>
+      <div><div class="k">Level</div><div class="v">Beginner+</div></div>
+      <div><div class="k">Equipment</div><div class="v">Gym or home</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 2. SAFETY ============ -->
+<div class="page">
+  <div class="eyebrow">Read this first</div>
+  <h2 class="sm">Before You Begin</h2>
+  <div class="rule"></div>
+
+  <div class="warn">
+    <h4>Stopping alcohol can be medically dangerous</h4>
+    <p>If you drink heavily or daily, quitting suddenly without medical supervision can cause seizures, hallucinations, and delirium tremens, which can be fatal. <strong>Do not use a training program as a substitute for medical detox.</strong> Talk to a doctor, an addiction specialist, or call a helpline before you stop drinking. In the US, SAMHSA's National Helpline is <strong>1-800-662-4357</strong>, free and confidential, 24/7.</p>
+  </div>
+
+  <p>This program is written for someone who is <strong>already past acute withdrawal</strong> — either because they have been cleared by a clinician, are working with a treatment program, or were not physically dependent. It is a training plan, not a treatment plan.</p>
+
+  <h3>What this document is not</h3>
+  <ul>
+    <li>It is <strong>not medical advice</strong> and does not replace care from a doctor, therapist, or addiction professional.</li>
+    <li>It is <strong>not a recovery program</strong>. It does not replace mutual-aid groups, counselling, or medication-assisted treatment. It is designed to sit alongside them.</li>
+    <li>It is <strong>not a diagnosis tool</strong>. If drinking is harming your life, please speak to a professional.</li>
+  </ul>
+
+  <h3>Physical readiness</h3>
+  <p>Get medical clearance before starting any resistance training program, especially if you have liver disease, heart conditions, high blood pressure, a history of seizures, are pregnant, or are taking medication that affects heart rate, balance, or blood pressure. Stop immediately and seek help if you experience chest pain, dizziness, fainting, or unusual shortness of breath.</p>
+
+  <div class="panel">
+    <h4>The honest version</h4>
+    <p>Lifting will not keep you sober by itself. Nothing in a PDF will. What good training does is give the hardest hours of your day a shape, give your body a reason to recover, and put something on the calendar that you can win. That is a real and useful thing. It is not the whole thing.</p>
+  </div>
+
+  <div class="foot"><span>The Sober Strength System</span><span>02</span></div>
+</div>
+
+<!-- ============ 3. CONTENTS ============ -->
+<div class="page">
+  <div class="eyebrow">Contents</div>
+  <h2 class="sm">What's Inside</h2>
+  <div class="rule"></div>
+
+  <table class="toc">
+    <tr><td><strong>Part One — The Method</strong></td><td class="pg"></td></tr>
+    <tr><td>Why your training was never the problem</td><td class="pg">04</td></tr>
+    <tr><td>The 90-day recovery curve</td><td class="pg">05</td></tr>
+    <tr><td>How this program is built</td><td class="pg">06</td></tr>
+    <tr><td>The Green / Amber / Red check-in</td><td class="pg">07</td></tr>
+    <tr><td>Training the trigger window</td><td class="pg">08</td></tr>
+    <tr><td>The Substitution Ladder</td><td class="pg">09</td></tr>
+    <tr><td>Equipment, setup, and warm-up</td><td class="pg">10</td></tr>
+
+    <tr><td style="padding-top:.2in"><strong>Part Two — Phase 01: The Anchor · Weeks 1–4</strong></td><td class="pg"></td></tr>
+    <tr><td>Phase brief and weekly schedule</td><td class="pg">11</td></tr>
+    <tr><td>Session A · Session B · Session C</td><td class="pg">12</td></tr>
+    <tr><td>Phase 01 training log</td><td class="pg">15</td></tr>
+
+    <tr><td style="padding-top:.2in"><strong>Part Three — Phase 02: The Build · Weeks 5–8</strong></td><td class="pg"></td></tr>
+    <tr><td>Phase brief and weekly schedule</td><td class="pg">16</td></tr>
+    <tr><td>Upper A · Lower A · Upper B · Lower B</td><td class="pg">17</td></tr>
+    <tr><td>Phase 02 training log</td><td class="pg">21</td></tr>
+
+    <tr><td style="padding-top:.2in"><strong>Part Four — Phase 03: The Claim · Weeks 9–12</strong></td><td class="pg"></td></tr>
+    <tr><td>Phase brief and weekly schedule</td><td class="pg">22</td></tr>
+    <tr><td>Upper A · Lower A · Upper B · Lower B</td><td class="pg">23</td></tr>
+    <tr><td>Week 12 test week</td><td class="pg">27</td></tr>
+
+    <tr><td style="padding-top:.2in"><strong>Part Five — Support</strong></td><td class="pg"></td></tr>
+    <tr><td>Eating for a body in early recovery</td><td class="pg">28</td></tr>
+    <tr><td>Exercise substitution index</td><td class="pg">29</td></tr>
+    <tr><td>Day 91 and the road after</td><td class="pg">30</td></tr>
+  </table>
+
+  <div class="foot"><span>The Sober Strength System</span><span>03</span></div>
+</div>
+
+<!-- ============ 4. THE SCIENCE ============ -->
+<div class="page">
+  <div class="eyebrow">Part One — The Method</div>
+  <h2>Why Your Training Was Never the Problem</h2>
+  <div class="rule"></div>
+
+  <p class="lead">You have probably trained before while drinking. You may have trained hard. And the results never quite matched the work. That was not a discipline failure. There was a physiological ceiling on top of everything you did.</p>
+
+  <div class="grid3" style="margin:.2in 0">
+    <div class="stat"><div class="n">24–38%</div><div class="l">Reduction in muscle protein synthesis measured when alcohol is consumed after training, even with optimal protein intake.</div></div>
+    <div class="stat"><div class="n">REM</div><div class="l">Sleep architecture is suppressed by alcohol. Deep and REM sleep are when the bulk of recovery adaptation happens.</div></div>
+    <div class="stat"><div class="n">~30d</div><div class="l">Typical point at which sleep quality is reported to substantially recover after stopping.</div></div>
+  </div>
+
+  <h3>The three levers alcohol was pulling</h3>
+  <p><strong>1. Protein synthesis.</strong> Resistance training creates the signal to build muscle. Alcohol blunts the response to that signal. Studies measuring myofibrillar protein synthesis after training found meaningful suppression even when protein was fed correctly. You were making the signal and then muting it.</p>
+  <p><strong>2. Sleep.</strong> Alcohol is sedating, which is not the same as restorative. It gets you unconscious and then fragments the back half of the night, cutting into exactly the sleep stages that support recovery and hormonal function.</p>
+  <p><strong>3. Recovery debt.</strong> Training damage plus alcohol processing plus poor sleep compounds. You showed up to the next session already behind, so you either trained fatigued or you skipped.</p>
+
+  <div class="panel">
+    <h4>What this means for the next 12 weeks</h4>
+    <p>You are about to train with the ceiling removed. That is genuinely exciting and it is also the reason this program starts <em>easier</em> than you want it to. In weeks 1 to 4 your recovery capacity is not yet restored — the alcohol is gone, but the sleep debt, the fatigue, and the nervous system disruption are still being paid down. Train for the body you have in week 2, and you get to keep training in week 10.</p>
+  </div>
+
+  <p class="sm" style="margin-top:.14in">Figures above summarise published research on alcohol and post-exercise muscle protein synthesis and on typical early-sobriety recovery timelines. Individual response varies substantially. Sources are listed on page 30.</p>
+
+  <div class="foot"><span>Part One — The Method</span><span>04</span></div>
+</div>
+
+<!-- ============ 5. RECOVERY CURVE ============ -->
+<div class="page">
+  <div class="eyebrow">Part One — The Method</div>
+  <h2>The 90-Day Recovery Curve</h2>
+  <div class="rule"></div>
+
+  <p class="lead">Your capacity to recover from training is not flat across these 90 days. It follows a rough, well-documented arc. Every phase of this program is matched to a segment of it.</p>
+
+  <svg viewBox="0 0 720 250" width="100%" style="margin:.16in 0">
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#B91C1C"/>
+        <stop offset="45%" stop-color="#B45309"/>
+        <stop offset="100%" stop-color="#15803D"/>
+      </linearGradient>
+    </defs>
+    <!-- axes -->
+    <line x1="52" y1="205" x2="700" y2="205" stroke="#12161C" stroke-width="1.5"/>
+    <line x1="52" y1="20" x2="52" y2="205" stroke="#12161C" stroke-width="1.5"/>
+    <!-- phase bands -->
+    <rect x="52" y="20" width="216" height="185" fill="#B91C1C" opacity="0.05"/>
+    <rect x="268" y="20" width="216" height="185" fill="#B45309" opacity="0.05"/>
+    <rect x="484" y="20" width="216" height="185" fill="#15803D" opacity="0.05"/>
+    <!-- curve: low then rising -->
+    <path d="M52,175 C110,192 150,190 200,170 C250,150 268,140 320,112 C380,82 420,70 484,58 C560,44 640,36 700,32"
+          fill="none" stroke="url(#g1)" stroke-width="5" stroke-linecap="round"/>
+    <!-- dips for PAWS -->
+    <circle cx="200" cy="170" r="4.5" fill="#B91C1C"/>
+    <circle cx="352" cy="98" r="4.5" fill="#B45309"/>
+    <!-- labels -->
+    <text x="46" y="30" font-family="Liberation Sans" font-size="10" fill="#6B7280" text-anchor="end">High</text>
+    <text x="46" y="200" font-family="Liberation Sans" font-size="10" fill="#6B7280" text-anchor="end">Low</text>
+    <text x="14" y="130" font-family="Liberation Sans" font-size="10.5" fill="#12161C" font-weight="bold" text-anchor="middle" transform="rotate(-90 14 130)">Recovery capacity</text>
+    <text x="160" y="226" font-family="Liberation Sans" font-size="10.5" fill="#12161C" text-anchor="middle" font-weight="bold">Days 1–28</text>
+    <text x="376" y="226" font-family="Liberation Sans" font-size="10.5" fill="#12161C" text-anchor="middle" font-weight="bold">Days 29–56</text>
+    <text x="592" y="226" font-family="Liberation Sans" font-size="10.5" fill="#12161C" text-anchor="middle" font-weight="bold">Days 57–90</text>
+    <text x="160" y="242" font-family="Liberation Sans" font-size="9.5" fill="#B91C1C" text-anchor="middle">PHASE 01 · THE ANCHOR</text>
+    <text x="376" y="242" font-family="Liberation Sans" font-size="9.5" fill="#B45309" text-anchor="middle">PHASE 02 · THE BUILD</text>
+    <text x="592" y="242" font-family="Liberation Sans" font-size="9.5" fill="#15803D" text-anchor="middle">PHASE 03 · THE CLAIM</text>
+    <text x="200" y="190" font-family="Liberation Sans" font-size="9.5" fill="#B91C1C" text-anchor="middle">the wall</text>
+    <line x1="200" y1="177" x2="200" y2="183" stroke="#B91C1C" stroke-width="1.2"/>
+    <line x1="352" y1="105" x2="352" y2="118" stroke="#B45309" stroke-width="1.2"/>
+    <text x="352" y="131" font-family="Liberation Sans" font-size="9.5" fill="#B45309" text-anchor="middle">PAWS wave</text>
+  </svg>
+
+  <table>
+    <tr><th style="width:1.15in">Window</th><th>What is happening in your body</th><th style="width:1.9in">What training must do</th></tr>
+    <tr><td class="ex">Days 1–28</td><td>Sleep is fragmented as REM rebounds. Fatigue is often at its worst. Cravings peak early. Appetite and blood sugar are unstable.</td><td>Build the habit. Low volume, never to failure. Frequency over intensity.</td></tr>
+    <tr><td class="ex">Days 29–56</td><td>Sleep quality substantially improves for most people. Energy returns, though post-acute withdrawal waves can still hit without warning.</td><td>Add volume. Introduce real progressive overload with an autoregulation rule.</td></tr>
+    <tr><td class="ex">Days 57–90</td><td>Recovery capacity is broadly restored. Protein synthesis is no longer being suppressed. This is when visible change tends to arrive.</td><td>Add intensity. Train heavier, prove the progress, test at week 12.</td></tr>
+  </table>
+
+  <div class="panel">
+    <h4>The wall around week 3</h4>
+    <p>A very common pattern: the first week or two carries a burst of energy and optimism, then it drops out and you feel worse than when you started. This is expected and it is temporary. It is also precisely when most people abandon a training program. Phase 01 is deliberately easy enough to survive that week.</p>
+  </div>
+
+  <div class="foot"><span>Part One — The Method</span><span>05</span></div>
+</div>
+
+<!-- ============ 6. HOW IT'S BUILT ============ -->
+<div class="page">
+  <div class="eyebrow">Part One — The Method</div>
+  <h2>How This Program Is Built</h2>
+  <div class="rule"></div>
+
+  <p class="lead">Most programs assume your recovery is constant. This one assumes it is climbing, and loads you accordingly.</p>
+
+  <table>
+    <tr><th style="width:1.5in">Phase</th><th class="tnum" style="width:.85in">Days</th><th class="tnum" style="width:.8in">Sessions</th><th class="tnum" style="width:1.05in">Hard sets</th><th class="tnum" style="width:.75in">Effort</th><th>Primary goal</th></tr>
+    <tr><td class="ex">01 · The Anchor</td><td class="tnum">1–28</td><td class="tnum">3 / wk</td><td class="tnum">9–12</td><td class="tnum">RPE 6–7</td><td>Attendance</td></tr>
+    <tr><td class="ex">02 · The Build</td><td class="tnum">29–56</td><td class="tnum">4 / wk</td><td class="tnum">14–18</td><td class="tnum">RPE 7–8</td><td>Volume and muscle</td></tr>
+    <tr><td class="ex">03 · The Claim</td><td class="tnum">57–90</td><td class="tnum">4 / wk</td><td class="tnum">15–18</td><td class="tnum">RPE 8–9</td><td>Strength and proof</td></tr>
+  </table>
+
+  <h3>Reading the effort column</h3>
+  <p>RPE means Rate of Perceived Exertion, scored by how many reps you had left in the tank. <strong>RPE 6</strong> = four reps left. <strong>RPE 7</strong> = three left. <strong>RPE 8</strong> = two left. <strong>RPE 9</strong> = one left. In Phase 01 you should finish every set feeling like you could have done several more. That is the instruction, not a lack of ambition.</p>
+
+  <h3>The four rules</h3>
+  <div class="panel tight">
+    <h4>Rule 1 — The session you complete beats the session you planned</h4>
+    <p>A shortened workout done on a bad day is worth more here than a perfect workout skipped. The streak is the asset.</p>
+  </div>
+  <div class="panel tight">
+    <h4>Rule 2 — Never train to failure in Phase 01</h4>
+    <p>Failure training costs recovery you do not currently have. It also makes the gym feel punishing, and you need it to feel like relief.</p>
+  </div>
+  <div class="panel tight">
+    <h4>Rule 3 — Log the sober day number on every session</h4>
+    <p>Every log page has a Day column. Filling it in is the point. By week 12 the training log and the sobriety record are the same document, and that document is difficult to argue with.</p>
+  </div>
+  <div class="panel tight">
+    <h4>Rule 4 — When in doubt, check in before you decide</h4>
+    <p>The Green / Amber / Red system on the next page decides what you do on hard days, so that a tired brain does not have to.</p>
+  </div>
+
+  <div class="foot"><span>Part One — The Method</span><span>06</span></div>
+</div>
+
+<!-- ============ 7. GAR ============ -->
+<div class="page">
+  <div class="eyebrow">Part One — The Method</div>
+  <h2>The Green / Amber / Red Check-In</h2>
+  <div class="rule"></div>
+
+  <p class="lead">Sixty seconds, every morning, before you look at the day's session. Score two things honestly. The score picks the workout, so you never have to negotiate with yourself in the evening.</p>
+
+  <table>
+    <tr><th style="width:2.1in">Score this</th><th>Ask yourself</th></tr>
+    <tr><td class="ex">Last night's sleep</td><td>Slept fine · Broken or short · Barely slept at all</td></tr>
+    <tr><td class="ex">Craving right now</td><td>Quiet · Noticeable · Loud</td></tr>
+  </table>
+
+  <div class="gar">
+    <div class="g">
+      <h5>Green</h5>
+      <p><strong>Slept fine and craving quiet.</strong></p>
+      <p style="margin-top:.07in">Run the session exactly as written. Chase the prescribed load. This is a normal training day.</p>
+    </div>
+    <div class="a">
+      <h5>Amber</h5>
+      <p><strong>Either sleep was broken or the craving is noticeable.</strong></p>
+      <p style="margin-top:.07in">Run the session, but drop the final set of every exercise and cap all sets at RPE 7. Keep the first exercise as written. Expect about 70% of a normal session.</p>
+    </div>
+    <div class="r">
+      <h5>Red</h5>
+      <p><strong>Barely slept, or the craving is loud.</strong></p>
+      <p style="margin-top:.07in">Do the Red Session below instead. Do not skip and do not push. The ritual is the objective today, not the stimulus.</p>
+    </div>
+  </div>
+
+  <h3>The Red Session · 20 minutes, anywhere</h3>
+  <table>
+    <tr><th style="width:1in">Block</th><th>What you do</th><th class="tnum" style="width:1in">Time</th></tr>
+    <tr><td class="ex">Open</td><td>Walk. Outside if at all possible. No phone, no podcast, nothing in your ears for the first two minutes.</td><td class="tnum">5 min</td></tr>
+    <tr><td class="ex">Work</td><td>Three easy rounds: 10 goblet squats or bodyweight squats · 10 push-ups from floor or wall · 20-second plank · 60-second walk.</td><td class="tnum">10 min</td></tr>
+    <tr><td class="ex">Close</td><td>Walk again, slower. Then write the day number down somewhere you will see it tomorrow.</td><td class="tnum">5 min</td></tr>
+  </table>
+
+  <div class="panel">
+    <h4>A Red day is a completed day</h4>
+    <p>Mark it in the log as done, not as missed. This matters more than it sounds. If Red days count as failures, you will start lying on the check-in to avoid them, and the whole system stops working.</p>
+  </div>
+
+  <div class="foot"><span>Part One — The Method</span><span>07</span></div>
+</div>
+
+<!-- ============ 8. TRIGGER WINDOW ============ -->
+<div class="page">
+  <div class="eyebrow">Part One — The Method</div>
+  <h2>Training the Trigger Window</h2>
+  <div class="rule"></div>
+
+  <p class="lead">For most drinkers the danger is not spread evenly across the day. It clusters. Work ends, the house goes quiet, the evening opens up, and there is a shaped hole where a drink used to go. This program schedules training into that hole on purpose.</p>
+
+  <h3>Find your window</h3>
+  <p>Think back over the last month of drinking and answer plainly: what time did the first drink usually happen? For most people it lands somewhere between <strong>5:00pm and 8:00pm</strong>, on the transition from working to not working. Write yours here:</p>
+
+  <div style="border:1.5px solid var(--ink); padding:.2in .24in; margin:.14in 0; display:flex; gap:.4in; align-items:center">
+    <div class="sans" style="font-size:9pt; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)">My trigger window</div>
+    <div style="flex:1; border-bottom:1.5px solid var(--ink); height:.3in"></div>
+    <div class="sans" style="font-size:10pt; color:var(--muted)">to</div>
+    <div style="flex:1; border-bottom:1.5px solid var(--ink); height:.3in"></div>
+  </div>
+
+  <h3>Place the sessions</h3>
+  <ul>
+    <li><strong>First choice:</strong> train inside the window. Start the session within thirty minutes of when the first drink used to happen. You are not just training, you are occupying the slot.</li>
+    <li><strong>Second choice:</strong> train immediately before it, so that the window opens with you already showered, fed, and physically tired.</li>
+    <li><strong>Morning trainers:</strong> if the gym has to be at 6am, that is fine — but you still need something in the evening window. Use Tier 1 or Tier 2 of the Substitution Ladder on the next page as a nightly anchor.</li>
+  </ul>
+
+  <div class="panel">
+    <h4>Why the gym bag goes in the car the night before</h4>
+    <p>Every decision you have to make at 5:45pm is a decision that can go the other way. Pack the bag, book the class, set the alarm, tell someone you are going. Front-load every choice into a moment when you are not being asked to want it.</p>
+  </div>
+
+  <div class="quote">The evening does not need to be filled with something impressive. It needs to be filled with something scheduled.</div>
+
+  <div class="foot"><span>Part One — The Method</span><span>08</span></div>
+</div>
+
+<!-- ============ 9. SUBSTITUTION LADDER ============ -->
+<div class="page">
+  <div class="eyebrow">Part One — The Method</div>
+  <h2>The Substitution Ladder</h2>
+  <div class="rule"></div>
+
+  <p class="lead">For the moments when the craving arrives and training is not available — you are away, it is late, you have nothing with you. Work down the ladder until something fits. The rule is simple: <strong>complete one tier before you make any decision about drinking.</strong></p>
+
+  <div class="ladder">
+    <div class="step">
+      <div class="tier">Tier 1<br>10 min</div>
+      <div>
+        <div class="t">The Red Session, short form</div>
+        <p>Three rounds of 10 squats, 10 push-ups, 20-second plank. No equipment, no space required, no clothes to change into. Finish slightly out of breath.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="tier">Tier 2<br>5 min</div>
+      <div>
+        <div class="t">Fifty and fifty</div>
+        <p>Fifty bodyweight squats and fifty push-ups, broken into as many sets as you need, in whatever you are wearing. Count out loud if you are alone. The counting occupies the part of your mind that is doing the negotiating.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="tier">Tier 3<br>2 min</div>
+      <div>
+        <div class="t">Cold, breath, contact</div>
+        <p>Sixty seconds of cold water on your face, wrists, or a full cold shower. Then twenty slow breaths with a longer exhale than inhale. Then send one message to one person with your sober day number in it. You do not have to explain why.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="tier">Tier 4<br>30 sec</div>
+      <div>
+        <div class="t">The door</div>
+        <p>Write your day number on the back of your hand. Put shoes on. Walk out of the front door and once around the block, or once around the building, or to the end of the corridor and back. Then reassess.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn" style="margin-top:.18in">
+    <h4>The ladder is a bridge, not a treatment</h4>
+    <p>These are tools for getting through a moment. They are not a substitute for a sponsor, a therapist, a meeting, or a crisis line. If the craving is overwhelming or you are in danger, contact your support network or call SAMHSA's National Helpline on <strong>1-800-662-4357</strong> (US, free, 24/7). Put the numbers you would actually call in your phone today, before you need them.</p>
+  </div>
+
+  <div class="foot"><span>Part One — The Method</span><span>09</span></div>
+</div>
+
+<!-- ============ 10. EQUIPMENT & WARMUP ============ -->
+<div class="page">
+  <div class="eyebrow">Part One — The Method</div>
+  <h2 class="sm">Equipment, Setup, and Warm-Up</h2>
+  <div class="rule"></div>
+
+  <h3>What you need</h3>
+  <table>
+    <tr><th style="width:1.6in">Setting</th><th>What the program assumes</th></tr>
+    <tr><td class="ex">Full gym</td><td>Barbell, dumbbells, cable stack, leg press or hack squat, lat pulldown, benches. Everything runs as written.</td></tr>
+    <tr><td class="ex">Home, equipped</td><td>Adjustable dumbbells, a bench, and a pull-up bar or resistance bands. Use the substitution index on page 29.</td></tr>
+    <tr><td class="ex">Home, minimal</td><td>One pair of moderate dumbbells or a kettlebell, plus bands. Run every session, using substitutions, at higher reps.</td></tr>
+  </table>
+
+  <h3>The warm-up · 6 minutes, every session</h3>
+  <table>
+    <tr><th style="width:2.2in">Movement</th><th class="tnum" style="width:1.1in">Prescription</th><th>Note</th></tr>
+    <tr><td class="ex">Easy cardio</td><td class="tnum">3 min</td><td>Bike, row, treadmill, or brisk walk. Enough to warm up, not enough to tire you.</td></tr>
+    <tr><td class="ex">Leg swings, front and side</td><td class="tnum">10 each way</td><td>Hold something. Controlled, not ballistic.</td></tr>
+    <tr><td class="ex">Band pull-apart or arm circles</td><td class="tnum">15</td><td>Wakes up the upper back before pressing.</td></tr>
+    <tr><td class="ex">Bodyweight squat</td><td class="tnum">10</td><td>Slow, full depth if available to you.</td></tr>
+    <tr><td class="ex">Ramp-up sets</td><td class="tnum">2 sets</td><td>On the first exercise only: one set at roughly half the working weight, one at about 75%.</td></tr>
+  </table>
+
+  <h3>Rest between sets</h3>
+  <p><strong>Phase 01:</strong> 60 to 90 seconds. <strong>Phase 02:</strong> 90 seconds on isolation, 2 minutes on compounds. <strong>Phase 03:</strong> 2 to 3 minutes on the heavy first exercise, 90 seconds elsewhere. If you are watching the clock and it is making the session stressful, stop watching the clock and rest until your breathing is normal.</p>
+
+  <div class="panel">
+    <h4>How to add weight</h4>
+    <p>When you hit the top of the prescribed rep range on every set of an exercise at the prescribed RPE, add weight next time. Smallest increment available: 5lb / 2.5kg on upper body, 10lb / 5kg on lower body. If you do not hit the top of the range, repeat the same weight. That is the whole progression model. It does not need to be more complicated than that.</p>
+  </div>
+
+  <div class="foot"><span>Part One — The Method</span><span>10</span></div>
+</div>
+
+<!-- ============ 11. PHASE 1 BRIEF ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 01 · Weeks 1–4</div>
+  <h2>The Anchor</h2>
+  <div class="rule"></div>
+
+  <p class="lead">Days 1 to 28. The goal of this phase is not muscle. It is attendance. Twelve sessions completed in four weeks, at an effort level low enough that a bad night's sleep cannot take one away from you.</p>
+
+  <div class="grid3" style="margin:.16in 0">
+    <div class="stat"><div class="n">3×</div><div class="l">Full-body sessions per week, roughly 45 minutes each</div></div>
+    <div class="stat"><div class="n">9–12</div><div class="l">Hard sets per session — deliberately low</div></div>
+    <div class="stat"><div class="n">RPE 6–7</div><div class="l">Always leave three or four reps in reserve</div></div>
+  </div>
+
+  <h3>Weekly schedule</h3>
+  <table>
+    <tr><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+    <tr>
+      <td class="ex">Session A</td><td>Walk 20 min</td><td class="ex">Session B</td><td>Walk 20 min</td><td class="ex">Session C</td><td>Rest or walk</td><td>Rest</td>
+    </tr>
+  </table>
+  <p class="sm">Shift the days to fit your life, but keep at least one day between sessions, and put each session inside or just before your trigger window.</p>
+
+  <h3>The walks are part of the program</h3>
+  <p>Twenty minutes of easy walking on off days is not filler. It supports sleep, it burns off restless evening energy, and it gives the non-training days a shape too. Outside is better than a treadmill. Alone is fine.</p>
+
+  <div class="panel">
+    <h4>What success looks like at day 28</h4>
+    <p>You have completed ten or more of the twelve sessions, including at least one Red Session that you counted as a win. You are lifting weights that feel comfortably manageable. You have not missed two sessions in a row. You may not look any different yet. That is not what this phase was for.</p>
+  </div>
+
+  <div class="warn">
+    <h4>If you relapse during this phase</h4>
+    <p>Go to the next scheduled session. Not the perfect one, not after a fresh start on Monday — the next one on the calendar. Reset the day counter in the log and keep the training streak running. The training does not have to start over just because the count did.</p>
+  </div>
+
+  <div class="foot"><span>Phase 01 · The Anchor</span><span>11</span></div>
+</div>
+
+<!-- ============ 12. P1 SESSION A ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 01 · Weeks 1–4</div>
+  <h2 class="sm">Session A · Full Body</h2>
+  <div class="rule"></div>
+  <p>Complete the 6-minute warm-up first. Rest 60 to 90 seconds between sets. Every set finishes with three or four reps still in the tank.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.1in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Goblet Squat</td><td class="tnum">3</td><td class="tnum">8–10</td><td class="tnum">6–7</td><td>Elbows inside knees, chest tall, sit between the hips.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Dumbbell Bench Press</td><td class="tnum">3</td><td class="tnum">8–10</td><td class="tnum">6–7</td><td>Shoulder blades pinned to the bench, wrists stacked.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">One-Arm Dumbbell Row</td><td class="tnum">3</td><td class="tnum">10 / side</td><td class="tnum">6–7</td><td>Pull to the hip, not the armpit. Pause one second.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Dumbbell Romanian Deadlift</td><td class="tnum">3</td><td class="tnum">10–12</td><td class="tnum">6</td><td>Push hips back, soft knees, stop when hamstrings pull.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Plank</td><td class="tnum">3</td><td class="tnum">30 sec</td><td class="tnum">—</td><td>Ribs down, glutes on. Stop when the hips sag.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 1</th><th class="tnum">Wk 2</th><th class="tnum">Wk 3</th><th class="tnum">Wk 4</th></tr>
+    <tr><td class="ex">Goblet Squat</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">DB Bench Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">One-Arm Row</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">DB Romanian Deadlift</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Plank</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day #</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Check-in G / A / R</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 01 · The Anchor</span><span>12</span></div>
+</div>
+
+<!-- ============ 13. P1 SESSION B ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 01 · Weeks 1–4</div>
+  <h2 class="sm">Session B · Full Body</h2>
+  <div class="rule"></div>
+  <p>Complete the 6-minute warm-up first. Rest 60 to 90 seconds between sets. Same instruction as Session A: leave reps in the tank.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.1in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Dumbbell Romanian Deadlift</td><td class="tnum">3</td><td class="tnum">8–10</td><td class="tnum">6–7</td><td>Hinge, do not squat. Bar stays close to the legs.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Lat Pulldown <span style="font-weight:normal">or</span> Assisted Pull-Up</td><td class="tnum">3</td><td class="tnum">8–10</td><td class="tnum">6–7</td><td>Lead with the elbows, finish with the chest up.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Seated Dumbbell Shoulder Press</td><td class="tnum">3</td><td class="tnum">10–12</td><td class="tnum">6–7</td><td>Do not lean back. Stop just short of lockout.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Split Squat</td><td class="tnum">3</td><td class="tnum">8 / side</td><td class="tnum">6</td><td>Back knee to the floor, front shin near vertical.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Dead Bug</td><td class="tnum">3</td><td class="tnum">8 / side</td><td class="tnum">—</td><td>Lower back stays flat on the floor the whole time.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 1</th><th class="tnum">Wk 2</th><th class="tnum">Wk 3</th><th class="tnum">Wk 4</th></tr>
+    <tr><td class="ex">DB Romanian Deadlift</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Lat Pulldown / Pull-Up</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">DB Shoulder Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Split Squat</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Dead Bug</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day #</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Check-in G / A / R</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 01 · The Anchor</span><span>13</span></div>
+</div>
+
+<!-- ============ 14. P1 SESSION C ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 01 · Weeks 1–4</div>
+  <h2 class="sm">Session C · Full Body</h2>
+  <div class="rule"></div>
+  <p>The lightest of the three. Higher reps, easier loads. If a week has to lose a session, lose this one — but try not to.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.1in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Leg Press <span style="font-weight:normal">or</span> Goblet Squat</td><td class="tnum">3</td><td class="tnum">12–15</td><td class="tnum">6–7</td><td>Control the lowering. Do not let the lower back round.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Incline Dumbbell Press</td><td class="tnum">3</td><td class="tnum">10–12</td><td class="tnum">6–7</td><td>Bench at 30 degrees, no higher.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Seated Cable Row</td><td class="tnum">3</td><td class="tnum">12–15</td><td class="tnum">6–7</td><td>Chest stays up, no rocking for extra reps.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Dumbbell Curl</td><td class="tnum">2</td><td class="tnum">12</td><td class="tnum">7</td><td>Elbows pinned to the ribs.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Triceps Pushdown</td><td class="tnum">2</td><td class="tnum">12–15</td><td class="tnum">7</td><td>Upper arm does not move.</td></tr>
+    <tr><td class="tnum">6</td><td class="ex">Farmer's Carry</td><td class="tnum">3</td><td class="tnum">30 sec</td><td class="tnum">—</td><td>Tall posture, shoulders down, breathe.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 1</th><th class="tnum">Wk 2</th><th class="tnum">Wk 3</th><th class="tnum">Wk 4</th></tr>
+    <tr><td class="ex">Leg Press / Goblet Squat</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Incline DB Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Seated Cable Row</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">DB Curl</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Triceps Pushdown</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Farmer's Carry</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day #</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 01 · The Anchor</span><span>14</span></div>
+</div>
+
+<!-- ============ 15. P1 MASTER LOG ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 01 · Weeks 1–4</div>
+  <h2 class="sm">Phase 01 Attendance Board</h2>
+  <div class="rule"></div>
+  <p class="lead">One mark per session. This page is the whole point of Phase 01 — twelve marks in four weeks. Print it and put it where you will see it.</p>
+
+  <table class="log" style="margin-top:.16in">
+    <tr>
+      <th style="width:.75in">Week</th>
+      <th class="tnum">Session A</th><th class="tnum">Session B</th><th class="tnum">Session C</th>
+      <th class="tnum" style="width:1in">Walks done</th>
+      <th class="tnum" style="width:1.05in">Sober days</th>
+      <th class="tnum" style="width:1.1in">Best moment</th>
+    </tr>
+    <tr><td class="ex">Week 1</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Week 2</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Week 3</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Week 4</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <h3>End of phase review</h3>
+  <table class="log">
+    <tr><th style="width:3.2in">Question</th><th>Your answer</th></tr>
+    <tr><td class="ex">Sessions completed out of 12</td><td class="blank"></td></tr>
+    <tr><td class="ex">How many were Red Sessions?</td><td class="blank"></td></tr>
+    <tr><td class="ex">Which day of the week was hardest?</td><td class="blank"></td></tr>
+    <tr><td class="ex">Is sleep better, worse, or the same as day 1?</td><td class="blank"></td></tr>
+    <tr><td class="ex">One thing to change for Phase 02</td><td class="blank"></td></tr>
+  </table>
+
+  <div class="panel">
+    <h4>Moving on</h4>
+    <p>Go to Phase 02 if you completed at least eight of the twelve sessions. If you completed fewer, run Phase 01 again for another four weeks. There is no penalty for this and it is not a setback — the phase is doing its job either way, and Phase 02 will still be there.</p>
+  </div>
+
+  <div class="foot"><span>Phase 01 · The Anchor</span><span>15</span></div>
+</div>
+
+<!-- ============ 16. PHASE 2 BRIEF ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 02 · Weeks 5–8</div>
+  <h2>The Build</h2>
+  <div class="rule"></div>
+
+  <p class="lead">Days 29 to 56. Sleep is usually improving now, and with it your ability to actually recover from work. Volume goes up, a fourth session is added, and progressive overload becomes the organising idea.</p>
+
+  <div class="grid3" style="margin:.16in 0">
+    <div class="stat"><div class="n">4×</div><div class="l">Upper / lower split, roughly 55 minutes per session</div></div>
+    <div class="stat"><div class="n">14–18</div><div class="l">Hard sets per session, up from 9–12</div></div>
+    <div class="stat"><div class="n">RPE 7–8</div><div class="l">Two or three reps left on working sets</div></div>
+  </div>
+
+  <h3>Weekly schedule</h3>
+  <table>
+    <tr><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+    <tr><td class="ex">Upper A</td><td class="ex">Lower A</td><td>Walk</td><td class="ex">Upper B</td><td class="ex">Lower B</td><td>Walk or rest</td><td>Rest</td></tr>
+  </table>
+
+  <h3>The PAWS protocol</h3>
+  <p>Post-acute withdrawal does not arrive on schedule. You can have a good fortnight and then get flattened for three or four days by low mood, broken sleep, and cravings that feel like week one again. This is documented, common, and temporary. It is also the single most likely reason a Phase 02 lifter stops training.</p>
+
+  <div class="panel">
+    <h4>When a PAWS wave hits</h4>
+    <p><strong>Do not deload the whole phase. Deload the week.</strong> For as long as the wave lasts, run every session at Amber rules: drop the last set of every exercise, cap everything at RPE 7, keep the first exercise as written. If two consecutive days score Red on the morning check-in, take the rest of that week at Red Sessions only, then pick the program back up exactly where you left it. Do not restart the phase and do not try to make up the missed volume.</p>
+  </div>
+
+  <div class="warn">
+    <h4>What success looks like at day 56</h4>
+    <p>You have added weight to at least three of the main lifts since week 5. You survived at least one bad week without stopping. You are sleeping better than you were on day 1. Clothes may be starting to fit differently. Fourteen or more of the sixteen sessions are done.</p>
+  </div>
+
+  <div class="foot"><span>Phase 02 · The Build</span><span>16</span></div>
+</div>
+
+<!-- ============ 17. P2 UPPER A ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 02 · Weeks 5–8</div>
+  <h2 class="sm">Upper A · Strength Emphasis</h2>
+  <div class="rule"></div>
+  <p>Rest 2 minutes on exercises 1 and 2, 90 seconds on the rest. Ramp-up sets on exercise 1 only.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.05in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Barbell <span style="font-weight:normal">or</span> DB Bench Press</td><td class="tnum">4</td><td class="tnum">6</td><td class="tnum">7–8</td><td>Elbows about 45 degrees from the ribs. Touch and go, no bounce.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Pull-Up <span style="font-weight:normal">or</span> Lat Pulldown</td><td class="tnum">4</td><td class="tnum">6–8</td><td class="tnum">7–8</td><td>Full hang at the bottom, chin over or chest to bar.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Seated Dumbbell Shoulder Press</td><td class="tnum">3</td><td class="tnum">8–10</td><td class="tnum">7–8</td><td>Brace the abs so the ribs do not flare.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Chest-Supported Row</td><td class="tnum">3</td><td class="tnum">10–12</td><td class="tnum">7–8</td><td>Squeeze for one second at the top of every rep.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Dumbbell Curl</td><td class="tnum">3</td><td class="tnum">10–12</td><td class="tnum">8</td><td>Slow on the way down, three seconds.</td></tr>
+    <tr><td class="tnum">6</td><td class="ex">Triceps Pushdown</td><td class="tnum">3</td><td class="tnum">12–15</td><td class="tnum">8</td><td>Full lockout, control the return.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 5</th><th class="tnum">Wk 6</th><th class="tnum">Wk 7</th><th class="tnum">Wk 8</th></tr>
+    <tr><td class="ex">Bench Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Pull-Up / Pulldown</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">DB Shoulder Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Chest-Supported Row</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">DB Curl</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Triceps Pushdown</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day # / Check-in</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 02 · The Build</span><span>17</span></div>
+</div>
+
+<!-- ============ 18. P2 LOWER A ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 02 · Weeks 5–8</div>
+  <h2 class="sm">Lower A · Strength Emphasis</h2>
+  <div class="rule"></div>
+  <p>Rest 2 minutes on exercises 1 and 2. If squats are new to you, use the goblet squat and add weight slowly.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.05in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Back Squat <span style="font-weight:normal">or</span> Goblet Squat</td><td class="tnum">4</td><td class="tnum">6</td><td class="tnum">7–8</td><td>Brace before you unrack. Depth you can control.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Romanian Deadlift</td><td class="tnum">3</td><td class="tnum">8</td><td class="tnum">7–8</td><td>Hips back, spine neutral, stop at the stretch.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Leg Press</td><td class="tnum">3</td><td class="tnum">12</td><td class="tnum">7–8</td><td>Do not let the lower back lift off the pad.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Seated <span style="font-weight:normal">or</span> Lying Leg Curl</td><td class="tnum">3</td><td class="tnum">12</td><td class="tnum">8</td><td>Two-second lower on every rep.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Standing Calf Raise</td><td class="tnum">3</td><td class="tnum">15</td><td class="tnum">8</td><td>Full stretch at the bottom, pause at the top.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 5</th><th class="tnum">Wk 6</th><th class="tnum">Wk 7</th><th class="tnum">Wk 8</th></tr>
+    <tr><td class="ex">Squat</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Romanian Deadlift</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Leg Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Leg Curl</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Standing Calf Raise</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day # / Check-in</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="panel">
+    <h4>Legs and evening energy</h4>
+    <p>Lower body sessions are the most physically tiring in the program, which makes them the most useful ones to place inside the trigger window. If you can only put two sessions in that slot, make them Lower A and Lower B.</p>
+  </div>
+
+  <div class="foot"><span>Phase 02 · The Build</span><span>18</span></div>
+</div>
+
+<!-- ============ 19. P2 UPPER B ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 02 · Weeks 5–8</div>
+  <h2 class="sm">Upper B · Hypertrophy Emphasis</h2>
+  <div class="rule"></div>
+  <p>Lighter loads, higher reps, shorter rests. Rest 90 seconds throughout. Chase the pump and the rep count, not the weight on the bar.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.05in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Incline Dumbbell Press</td><td class="tnum">4</td><td class="tnum">10</td><td class="tnum">7–8</td><td>Stretch at the bottom, do not smash the dumbbells together.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Chest-Supported Row</td><td class="tnum">4</td><td class="tnum">10</td><td class="tnum">7–8</td><td>Pull with the elbows, pause at the chest.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Lateral Raise</td><td class="tnum">3</td><td class="tnum">15</td><td class="tnum">8</td><td>Light. Lead with the elbow, stop at shoulder height.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Lat Pulldown</td><td class="tnum">3</td><td class="tnum">12</td><td class="tnum">8</td><td>Chest to the bar, no swinging.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Cable Fly <span style="font-weight:normal">or</span> Pec Deck</td><td class="tnum">3</td><td class="tnum">15</td><td class="tnum">8</td><td>Slight elbow bend, hold the squeeze.</td></tr>
+    <tr><td class="tnum">6</td><td class="ex">Face Pull</td><td class="tnum">3</td><td class="tnum">15</td><td class="tnum">8</td><td>Pull to the forehead, thumbs back.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 5</th><th class="tnum">Wk 6</th><th class="tnum">Wk 7</th><th class="tnum">Wk 8</th></tr>
+    <tr><td class="ex">Incline DB Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Chest-Supported Row</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Lateral Raise</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Lat Pulldown</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Cable Fly</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Face Pull</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day # / Check-in</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 02 · The Build</span><span>19</span></div>
+</div>
+
+<!-- ============ 20. P2 LOWER B ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 02 · Weeks 5–8</div>
+  <h2 class="sm">Lower B · Hypertrophy Emphasis</h2>
+  <div class="rule"></div>
+  <p>If deadlifts are new to you, use the trap bar or skip to Bulgarian split squats and add a set. Form before load, always.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.05in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Trap-Bar <span style="font-weight:normal">or</span> Conventional Deadlift</td><td class="tnum">3</td><td class="tnum">5</td><td class="tnum">7–8</td><td>Take the slack out of the bar before you pull. Reset every rep.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Bulgarian Split Squat</td><td class="tnum">3</td><td class="tnum">10 / side</td><td class="tnum">7–8</td><td>Front foot far enough forward that the knee stays behind the toes.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Leg Extension</td><td class="tnum">3</td><td class="tnum">15</td><td class="tnum">8</td><td>Pause one second at the top of every rep.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Hip Thrust <span style="font-weight:normal">or</span> Glute Bridge</td><td class="tnum">3</td><td class="tnum">12</td><td class="tnum">8</td><td>Chin tucked, ribs down, squeeze at the top.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Cable Crunch <span style="font-weight:normal">or</span> Ab Wheel</td><td class="tnum">3</td><td class="tnum">12</td><td class="tnum">8</td><td>Curl the spine, do not just hinge at the hips.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 5</th><th class="tnum">Wk 6</th><th class="tnum">Wk 7</th><th class="tnum">Wk 8</th></tr>
+    <tr><td class="ex">Deadlift</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Bulgarian Split Squat</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Leg Extension</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Hip Thrust</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Cable Crunch / Ab Wheel</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day # / Check-in</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 02 · The Build</span><span>20</span></div>
+</div>
+
+<!-- ============ 21. P2 REVIEW ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 02 · Weeks 5–8</div>
+  <h2 class="sm">Phase 02 Attendance Board</h2>
+  <div class="rule"></div>
+
+  <table class="log" style="margin-top:.14in">
+    <tr>
+      <th style="width:.72in">Week</th>
+      <th class="tnum">Upper A</th><th class="tnum">Lower A</th><th class="tnum">Upper B</th><th class="tnum">Lower B</th>
+      <th class="tnum" style="width:.95in">Sober days</th>
+      <th class="tnum" style="width:1.05in">G / A / R count</th>
+    </tr>
+    <tr><td class="ex">Week 5</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Week 6</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Week 7</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Week 8</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <h3>Progress markers · fill in at day 56</h3>
+  <table class="log">
+    <tr><th style="width:2.6in">Marker</th><th class="tnum">Day 1</th><th class="tnum">Day 28</th><th class="tnum">Day 56</th></tr>
+    <tr><td class="ex">Bodyweight (optional)</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Bench or DB press top set</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Squat top set</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Pull-ups or pulldown top set</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Hours slept, typical night</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Energy at 6pm, 1 to 10</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="panel">
+    <h4>On the scale</h4>
+    <p>Bodyweight is listed as optional on purpose. Appetite is unstable in early sobriety, many people gain a little weight when they stop drinking, and a number on a scale is a poor and occasionally destabilising measure of what is happening here. If weighing yourself is unhelpful for you, skip that row entirely and use the strength rows. They are the better signal anyway.</p>
+  </div>
+
+  <div class="foot"><span>Phase 02 · The Build</span><span>21</span></div>
+</div>
+
+<!-- ============ 22. PHASE 3 BRIEF ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 03 · Weeks 9–12</div>
+  <h2>The Claim</h2>
+  <div class="rule"></div>
+
+  <p class="lead">Days 57 to 90. Recovery capacity is broadly restored, the suppression on protein synthesis is gone, and you have eight weeks of consistent training underneath you. This is the phase where the work starts paying visibly, and the phase that ends with proof.</p>
+
+  <div class="grid3" style="margin:.16in 0">
+    <div class="stat"><div class="n">4×</div><div class="l">Upper / lower split, roughly 60 minutes per session</div></div>
+    <div class="stat"><div class="n">RPE 8–9</div><div class="l">One or two reps left on the heavy top sets</div></div>
+    <div class="stat"><div class="n">Wk 12</div><div class="l">Test week — record the numbers you started from</div></div>
+  </div>
+
+  <h3>Weekly schedule</h3>
+  <table>
+    <tr><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+    <tr><td class="ex">Upper A</td><td class="ex">Lower A</td><td>Walk</td><td class="ex">Upper B</td><td class="ex">Lower B</td><td>Walk or rest</td><td>Rest</td></tr>
+  </table>
+
+  <h3>What changes in this phase</h3>
+  <ul>
+    <li><strong>Heavier top sets.</strong> The first exercise of each session now runs in the 3 to 6 rep range at RPE 8, with longer rests of 2 to 3 minutes.</li>
+    <li><strong>Back-off sets.</strong> After the heavy top sets you drop roughly 15% and do a higher-rep set. This keeps the muscle-building volume while letting you train heavy.</li>
+    <li><strong>The check-in still governs.</strong> Green, Amber and Red do not stop applying because you feel good. Ninety days in, an Amber day is still an Amber day.</li>
+  </ul>
+
+  <div class="panel">
+    <h4>A note on the ninety-day mark</h4>
+    <p>Day 90 gets a lot of cultural weight, and some people find the days just after it strangely flat — the milestone arrives, nothing dramatic happens, and the structure that got you there suddenly has no obvious next target. Page 30 deals with this directly. Read it before you get to day 88, not after.</p>
+  </div>
+
+  <div class="foot"><span>Phase 03 · The Claim</span><span>22</span></div>
+</div>
+
+<!-- ============ 23. P3 UPPER A ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 03 · Weeks 9–12</div>
+  <h2 class="sm">Upper A · Heavy Press</h2>
+  <div class="rule"></div>
+  <p>Rest 3 minutes after the top sets on exercise 1, 2 minutes on exercise 2, 90 seconds thereafter.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.05in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Bench Press <span style="font-weight:normal">— top sets</span></td><td class="tnum">4</td><td class="tnum">5</td><td class="tnum">8</td><td>Ramp up over three warm-up sets. Spotter or safety pins.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Bench Press <span style="font-weight:normal">— back-off</span></td><td class="tnum">1</td><td class="tnum">10–12</td><td class="tnum">8</td><td>Drop about 15% from the top set weight.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Weighted <span style="font-weight:normal">or</span> Assisted Pull-Up</td><td class="tnum">4</td><td class="tnum">6</td><td class="tnum">8</td><td>Add weight once you can do 8 clean bodyweight reps.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Overhead Press</td><td class="tnum">3</td><td class="tnum">8</td><td class="tnum">8</td><td>Glutes and abs tight. Head through at the top.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Chest-Supported Row</td><td class="tnum">3</td><td class="tnum">10</td><td class="tnum">8</td><td>Strict. No body English.</td></tr>
+    <tr><td class="tnum">6</td><td class="ex">Curl + Pushdown superset</td><td class="tnum">3</td><td class="tnum">12 each</td><td class="tnum">9</td><td>Back to back, 60 seconds rest after both.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 9</th><th class="tnum">Wk 10</th><th class="tnum">Wk 11</th><th class="tnum">Wk 12</th></tr>
+    <tr><td class="ex">Bench — top set</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Bench — back-off</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Pull-Up</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Overhead Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Chest-Supported Row</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day # / Check-in</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 03 · The Claim</span><span>23</span></div>
+</div>
+
+<!-- ============ 24. P3 LOWER A ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 03 · Weeks 9–12</div>
+  <h2 class="sm">Lower A · Heavy Squat</h2>
+  <div class="rule"></div>
+  <p>Rest 3 minutes after top sets. Use safety pins or a rack you trust. Never train a heavy squat to failure alone.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.05in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Back Squat <span style="font-weight:normal">— top sets</span></td><td class="tnum">4</td><td class="tnum">5</td><td class="tnum">8</td><td>Big breath, brace, then descend. Same depth every rep.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Back Squat <span style="font-weight:normal">— back-off</span></td><td class="tnum">1</td><td class="tnum">10</td><td class="tnum">8</td><td>Drop about 15%. This one will be unpleasant.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Romanian Deadlift</td><td class="tnum">3</td><td class="tnum">6–8</td><td class="tnum">8</td><td>Heavier than Phase 02. Keep the bar on the legs.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Leg Press</td><td class="tnum">3</td><td class="tnum">10</td><td class="tnum">8</td><td>Controlled, deep as your hips allow.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Leg Curl</td><td class="tnum">3</td><td class="tnum">12</td><td class="tnum">9</td><td>Last set to two reps short of failure.</td></tr>
+    <tr><td class="tnum">6</td><td class="ex">Standing Calf Raise</td><td class="tnum">4</td><td class="tnum">12–15</td><td class="tnum">9</td><td>Pause at the top and the bottom.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 9</th><th class="tnum">Wk 10</th><th class="tnum">Wk 11</th><th class="tnum">Wk 12</th></tr>
+    <tr><td class="ex">Squat — top set</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Squat — back-off</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Romanian Deadlift</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Leg Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Leg Curl</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day # / Check-in</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 03 · The Claim</span><span>24</span></div>
+</div>
+
+<!-- ============ 25. P3 UPPER B ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 03 · Weeks 9–12</div>
+  <h2 class="sm">Upper B · Volume</h2>
+  <div class="rule"></div>
+  <p>Rest 90 seconds throughout. This is the session that adds size. Take the last set of each isolation exercise close to failure.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.05in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Incline Dumbbell Press</td><td class="tnum">4</td><td class="tnum">8</td><td class="tnum">8</td><td>Heavier than Phase 02. Full range.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Pull-Up <span style="font-weight:normal">or</span> Lat Pulldown</td><td class="tnum">4</td><td class="tnum">8</td><td class="tnum">8</td><td>Add weight or reps every week if you can.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Seated Dumbbell Press</td><td class="tnum">3</td><td class="tnum">10</td><td class="tnum">8</td><td>Stop one rep short of grinding.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Lateral Raise</td><td class="tnum">4</td><td class="tnum">12–15</td><td class="tnum">9</td><td>Last set: partial reps once full reps stop.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Cable Row</td><td class="tnum">4</td><td class="tnum">10</td><td class="tnum">8</td><td>One-second squeeze every rep.</td></tr>
+    <tr><td class="tnum">6</td><td class="ex">Face Pull</td><td class="tnum">3</td><td class="tnum">15</td><td class="tnum">9</td><td>High elbows, external rotation at the end.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 9</th><th class="tnum">Wk 10</th><th class="tnum">Wk 11</th><th class="tnum">Wk 12</th></tr>
+    <tr><td class="ex">Incline DB Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Pull-Up / Pulldown</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Seated DB Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Lateral Raise</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Cable Row</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day # / Check-in</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 03 · The Claim</span><span>25</span></div>
+</div>
+
+<!-- ============ 26. P3 LOWER B ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 03 · Weeks 9–12</div>
+  <h2 class="sm">Lower B · Heavy Pull</h2>
+  <div class="rule"></div>
+  <p>The heaviest session in the program. Warm up thoroughly. If your lower back is not fresh, run this at Amber rules regardless of what the morning check-in said.</p>
+
+  <table>
+    <tr><th style="width:.35in">#</th><th>Exercise</th><th class="tnum" style="width:.6in">Sets</th><th class="tnum" style="width:.7in">Reps</th><th class="tnum" style="width:.65in">RPE</th><th style="width:2.05in">Coaching cue</th></tr>
+    <tr><td class="tnum">1</td><td class="ex">Deadlift <span style="font-weight:normal">— top sets</span></td><td class="tnum">3</td><td class="tnum">3</td><td class="tnum">8</td><td>Reset between every rep. Stop the set the moment the back rounds.</td></tr>
+    <tr><td class="tnum">2</td><td class="ex">Front Squat <span style="font-weight:normal">or</span> Hack Squat</td><td class="tnum">3</td><td class="tnum">8</td><td class="tnum">8</td><td>Elbows high on front squats, or use the machine.</td></tr>
+    <tr><td class="tnum">3</td><td class="ex">Bulgarian Split Squat</td><td class="tnum">3</td><td class="tnum">10 / side</td><td class="tnum">8</td><td>Slow down, do not rush the reps.</td></tr>
+    <tr><td class="tnum">4</td><td class="ex">Seated Leg Curl</td><td class="tnum">4</td><td class="tnum">12</td><td class="tnum">9</td><td>Hamstrings take a beating from deadlifts — earn these.</td></tr>
+    <tr><td class="tnum">5</td><td class="ex">Hip Thrust</td><td class="tnum">3</td><td class="tnum">10</td><td class="tnum">8</td><td>Pause two seconds at lockout.</td></tr>
+    <tr><td class="tnum">6</td><td class="ex">Ab Wheel <span style="font-weight:normal">or</span> Cable Crunch</td><td class="tnum">3</td><td class="tnum">10–12</td><td class="tnum">9</td><td>Do not let the lower back arch.</td></tr>
+  </table>
+
+  <h3>Log · weight × reps</h3>
+  <table class="log">
+    <tr><th style="width:2.2in">Exercise</th><th class="tnum">Wk 9</th><th class="tnum">Wk 10</th><th class="tnum">Wk 11</th><th class="tnum">Wk 12</th></tr>
+    <tr><td class="ex">Deadlift — top set</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Front / Hack Squat</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Bulgarian Split Squat</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Seated Leg Curl</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Hip Thrust</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sober day # / Check-in</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="foot"><span>Phase 03 · The Claim</span><span>26</span></div>
+</div>
+
+<!-- ============ 27. TEST WEEK ============ -->
+<div class="page">
+  <div class="eyebrow">Phase 03 · Week 12</div>
+  <h2>Test Week</h2>
+  <div class="rule"></div>
+
+  <p class="lead">The last week of the program is not another training week. It is the receipt. Four sessions, each one built around finding a heavy set of three to five reps on one main lift, recorded next to the day number you reached.</p>
+
+  <h3>How to test a lift</h3>
+  <ol>
+    <li>Warm up thoroughly: five to eight reps at roughly 50%, three at 70%, one at 85%.</li>
+    <li>Take a set of five at what you believe is a hard but achievable weight.</li>
+    <li>If it moved well and you had two reps left, add 5 to 10% and take one more set of three.</li>
+    <li>Stop there. Two heavy sets is a test. Four is a competition and you are not in one.</li>
+    <li>Never test a squat, bench, or deadlift alone without safety pins or a spotter.</li>
+  </ol>
+
+  <table style="margin-top:.16in">
+    <tr><th style="width:1in">Day</th><th>Test lift</th><th>Then finish with</th></tr>
+    <tr><td class="ex">Monday</td><td>Bench Press — heavy 5, then heavy 3</td><td>Pull-ups 3×8, curls and pushdowns 3×12</td></tr>
+    <tr><td class="ex">Tuesday</td><td>Back Squat — heavy 5, then heavy 3</td><td>Leg curl 3×12, calves 3×15</td></tr>
+    <tr><td class="ex">Thursday</td><td>Pull-Up or Pulldown — max clean reps</td><td>Incline press 3×10, lateral raise 3×15</td></tr>
+    <tr><td class="ex">Friday</td><td>Deadlift — heavy 3</td><td>Hip thrust 3×10, ab wheel 3×10</td></tr>
+  </table>
+
+  <h3>The receipt</h3>
+  <table class="log">
+    <tr><th style="width:2.3in">Lift</th><th class="tnum">Week 1 working weight</th><th class="tnum">Week 12 test</th><th class="tnum">Change</th></tr>
+    <tr><td class="ex">Bench / DB Press</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Squat</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Deadlift</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex">Pull-Up / Pulldown</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Days alcohol-free</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    <tr><td class="ex" style="color:var(--accent)">Sessions completed of 44</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+  </table>
+
+  <div class="panel">
+    <h4>Write the last row in first</h4>
+    <p>Before you fill in a single lift number, fill in the days. The strength numbers are the interesting part. The day count is the part that made them possible.</p>
+  </div>
+
+  <div class="foot"><span>Phase 03 · The Claim</span><span>27</span></div>
+</div>
+
+<!-- ============ 28. NUTRITION ============ -->
+<div class="page">
+  <div class="eyebrow">Part Five — Support</div>
+  <h2 class="sm">Eating for a Body in Early Recovery</h2>
+  <div class="rule"></div>
+
+  <p class="lead">This is not a diet plan and it deliberately does not include one. Restriction in the first 90 days is a bad trade. Here are the few things that actually matter.</p>
+
+  <h3>The four that matter</h3>
+  <table>
+    <tr><th style="width:1.5in">Priority</th><th>The target</th><th>Why it matters here</th></tr>
+    <tr><td class="ex">Eat enough</td><td>Maintenance calories at minimum through Phase 01 and 02.</td><td>Under-eating raises irritability, worsens sleep, and makes cravings louder. Do not diet and quit drinking in the same month.</td></tr>
+    <tr><td class="ex">Protein</td><td>Roughly 0.7 to 1g per pound of goal bodyweight, spread across three or four meals.</td><td>This is the input that the newly un-suppressed protein synthesis actually uses. It is the highest-leverage nutrition change you can make right now.</td></tr>
+    <tr><td class="ex">Carbohydrate</td><td>Do not cut them, especially around training.</td><td>Blood sugar is already unstable. Low-carb plus early sobriety is a recipe for the 4pm crash that sends people to the fridge or worse.</td></tr>
+    <tr><td class="ex">Fluid and salt</td><td>Drink to thirst plus a bit more. Do not fear salt unless a doctor told you to.</td><td>Hydration and electrolyte balance are often off in the first weeks and it shows up as headaches and fatigue.</td></tr>
+  </table>
+
+  <div class="panel">
+    <h4>About the sugar cravings</h4>
+    <p>Wanting sweets in the first weeks without alcohol is extremely common and it is not a character flaw. Alcohol is a large, fast source of calories and reward, and its removal leaves a gap the body tries to fill quickly. Let it, within reason, for the first four weeks. Fighting sugar and alcohol at the same time means fighting on two fronts with one supply line. Deal with sugar in month four if it still needs dealing with.</p>
+  </div>
+
+  <div class="warn">
+    <h4>One thing worth asking a doctor about</h4>
+    <p>Heavy drinking is associated with deficiencies in several nutrients, including thiamine (vitamin B1), folate, and magnesium. Some of these matter a great deal and thiamine deficiency in particular can be serious. Do not self-prescribe from a supplement aisle — ask a doctor whether bloodwork or supplementation makes sense for you. This is a question for a clinician, not for a training PDF.</p>
+  </div>
+
+  <div class="foot"><span>Part Five — Support</span><span>28</span></div>
+</div>
+
+<!-- ============ 29. SUBSTITUTIONS ============ -->
+<div class="page">
+  <div class="eyebrow">Part Five — Support</div>
+  <h2 class="sm">Exercise Substitution Index</h2>
+  <div class="rule"></div>
+  <p>Every exercise in the program, with a machine option, a dumbbell option, and a no-equipment option. Swap freely — the pattern matters far more than the implement.</p>
+
+  <table>
+    <tr><th style="width:1.75in">Prescribed</th><th style="width:1.75in">Machine / cable</th><th style="width:1.75in">Dumbbell / band</th><th>Bodyweight only</th></tr>
+    <tr><td class="ex">Back Squat</td><td>Hack squat, leg press</td><td>Goblet squat</td><td>Bodyweight squat, high reps</td></tr>
+    <tr><td class="ex">Goblet Squat</td><td>Leg press</td><td>Dumbbell squat</td><td>Bodyweight squat</td></tr>
+    <tr><td class="ex">Deadlift</td><td>Back extension</td><td>Dumbbell RDL</td><td>Single-leg hip hinge</td></tr>
+    <tr><td class="ex">Romanian Deadlift</td><td>Seated leg curl</td><td>Dumbbell RDL</td><td>Nordic curl negative</td></tr>
+    <tr><td class="ex">Split Squat / Bulgarian</td><td>Smith machine lunge</td><td>Dumbbell split squat</td><td>Bodyweight split squat</td></tr>
+    <tr><td class="ex">Leg Press</td><td>Hack squat</td><td>Goblet squat, high reps</td><td>Wall sit, 45 sec</td></tr>
+    <tr><td class="ex">Leg Curl</td><td>Cable leg curl</td><td>Band leg curl</td><td>Nordic curl, glute bridge walkout</td></tr>
+    <tr><td class="ex">Leg Extension</td><td>—</td><td>Band leg extension</td><td>Sissy squat, assisted</td></tr>
+    <tr><td class="ex">Hip Thrust</td><td>Hip thrust machine</td><td>Dumbbell hip thrust</td><td>Glute bridge, single leg</td></tr>
+    <tr><td class="ex">Bench Press</td><td>Chest press machine</td><td>Dumbbell bench press</td><td>Push-up, feet elevated</td></tr>
+    <tr><td class="ex">Incline Press</td><td>Incline machine press</td><td>Incline dumbbell press</td><td>Decline push-up</td></tr>
+    <tr><td class="ex">Overhead Press</td><td>Shoulder press machine</td><td>Dumbbell shoulder press</td><td>Pike push-up</td></tr>
+    <tr><td class="ex">Pull-Up</td><td>Lat pulldown, assisted pull-up</td><td>Band-assisted pull-up</td><td>Inverted row under a table</td></tr>
+    <tr><td class="ex">Chest-Supported Row</td><td>Seated cable row</td><td>Chest-supported DB row</td><td>Inverted row</td></tr>
+    <tr><td class="ex">One-Arm Row</td><td>Seated cable row</td><td>Dumbbell row</td><td>Backpack row</td></tr>
+    <tr><td class="ex">Lateral Raise</td><td>Cable lateral raise</td><td>Dumbbell lateral raise</td><td>Band lateral raise</td></tr>
+    <tr><td class="ex">Face Pull</td><td>Cable face pull</td><td>Band pull-apart</td><td>Prone Y raise</td></tr>
+    <tr><td class="ex">Cable Fly</td><td>Pec deck</td><td>Dumbbell fly</td><td>Wide push-up</td></tr>
+    <tr><td class="ex">Curl</td><td>Cable curl</td><td>Dumbbell curl</td><td>Band curl, towel curl</td></tr>
+    <tr><td class="ex">Triceps Pushdown</td><td>Cable pushdown</td><td>Overhead DB extension</td><td>Close-grip push-up, dip</td></tr>
+    <tr><td class="ex">Calf Raise</td><td>Calf raise machine</td><td>Dumbbell calf raise</td><td>Single-leg calf raise on a step</td></tr>
+    <tr><td class="ex">Cable Crunch</td><td>Ab machine</td><td>Ab wheel</td><td>Dead bug, hollow hold</td></tr>
+  </table>
+
+  <div class="foot"><span>Part Five — Support</span><span>29</span></div>
+</div>
+
+<!-- ============ 30. AFTER ============ -->
+<div class="page">
+  <div class="eyebrow">Part Five — Support</div>
+  <h2 class="sm">Day 91 and the Road After</h2>
+  <div class="rule"></div>
+
+  <p class="lead">The program ends. The thing it was built to support does not. Here is what to do with the week after test week, so that finishing does not feel like stopping.</p>
+
+  <h3>Pick your next twelve weeks before day 90 arrives</h3>
+  <ul>
+    <li><strong>Run it again, heavier.</strong> Start Phase 02 from your test week numbers and repeat Phases 02 and 03. This is the simplest option and it works for a long time.</li>
+    <li><strong>Go to a dedicated strength or hypertrophy program.</strong> You now have twelve weeks of training history and honest numbers. Most intermediate programs will accept you.</li>
+    <li><strong>Add something with other people in it.</strong> A class, a club, a lifting partner, a running group. The training has been solo by design so it could not be derailed by scheduling. That was for the first 90 days, not forever.</li>
+  </ul>
+
+  <div class="panel">
+    <h4>Keep the check-in</h4>
+    <p>Whatever program comes next, keep the Green / Amber / Red morning check-in and keep logging the day number. They cost nothing, they outlast this document, and they are the two habits most worth carrying forward.</p>
+  </div>
+
+  <div class="quote">You did not just get stronger over these twelve weeks. You built a piece of evidence that the evenings can be filled with something else. Keep the evidence somewhere you can find it.</div>
+
+  <div class="rule wide"></div>
+
+  <h3>Sources and further reading</h3>
+  <p class="sig">Parr EB et al. <em>Alcohol Ingestion Impairs Maximal Post-Exercise Rates of Myofibrillar Protein Synthesis following a Single Bout of Concurrent Training.</em> PLOS ONE, 2014. · Barnes MJ. <em>The Effects of Alcohol Consumption on Recovery Following Resistance Exercise: A Systematic Review.</em> Journal of Functional Morphology and Kinesiology, 2019. · SAMHSA National Helpline, 1-800-662-4357. · Early-sobriety symptom timelines summarised from published clinical and treatment-provider guidance; individual experience varies substantially.</p>
+
+  <div class="rule wide"></div>
+
+  <p class="sig"><strong>Disclaimer.</strong> This document is for general educational and informational purposes only. It is not medical advice, not a substitute for professional medical or psychological care, and not a treatment for alcohol use disorder. Consult a qualified healthcare professional before beginning any exercise program or making changes to alcohol consumption. Alcohol withdrawal can be life-threatening and may require medical supervision. The author and publisher accept no liability for any injury, loss, or damage arising from the use of this material. If you are in crisis, contact emergency services or a crisis helpline immediately.</p>
+
+  <div class="foot"><span>The Sober Strength System</span><span>30</span></div>
+</div>
+
+</body>
+</html>
