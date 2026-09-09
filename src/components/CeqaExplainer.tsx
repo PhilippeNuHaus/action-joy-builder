@@ -31,7 +31,7 @@ const CeqaExplainer = () => (
         <p className="font-heading text-2xl md:text-3xl text-foreground leading-snug">
           We must close the{" "}
           <span className="text-primary font-bold">"Toxics Pollution Loophole"</span>{" "}
-          by voting for Senate Bill 954—before it's too late.
+          — Governor Newsom should sign Senate Bill 954 before it's too late.
         </p>
       </div>
     </div>

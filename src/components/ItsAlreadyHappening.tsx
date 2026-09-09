@@ -21,7 +21,7 @@ const QUOTES = [
 ];
 
 const WHAT_SB954_DOES = [
-  "Restores public notice and environmental review for so-called 'advanced manufacturing' facilities.",
+  "Restores environmental review for the most dangerous advanced manufacturing projects.",
   "Protects communities from toxic air emissions, hazardous water discharges, and contaminated land.",
   "Reinstates the right of residents to know what is being built next to their homes and schools.",
   "Closes the loophole that lets industrial polluters skip CEQA's 'look before you leap' safeguards.",
@@ -93,7 +93,7 @@ const ItsHappeningNow = () => {
           A Coalition for the <span className="text-primary">Right to Know</span>
         </h2>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-6 text-sm md:text-base">
-          120+ California organizations urging the Legislature to pass SB 954.
+          120+ California organizations urging Governor Newsom to sign SB 954.
         </p>
 
         <div className="caution-stripe h-4 mb-8" />
