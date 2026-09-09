@@ -26,15 +26,15 @@ const CtaBanner = () => {
           </h2>
 
           <div className="font-heading text-3xl md:text-5xl uppercase tracking-wider text-foreground mb-6 flex flex-col items-center gap-3 md:gap-5">
-            <span>Thank Senator{" "}<span className="text-primary">Blakespear</span></span>
-            <span>for Introducing SB 954</span>
-            <span>and Leading the Fight to…</span>
+            <span>Urge Governor{" "}<span className="text-primary">Newsom</span></span>
+            <span>to Sign SB 954 into Law</span>
+            <span>and Help Us…</span>
           </div>
 
           <div className="space-y-3 mb-8 text-left max-w-md mx-auto">
             <div className="flex items-start gap-3">
               <CheckCircle size={18} className="text-primary mt-0.5 shrink-0" />
-              <span className="text-muted-foreground text-lg">Keep environmental review in place for "advanced manufacturing" projects.</span>
+              <span className="text-muted-foreground text-lg">Close the toxic pollution loophole and restore environmental review for heavy industry.</span>
             </div>
             <div className="flex items-start gap-3">
               <CheckCircle size={18} className="text-primary mt-0.5 shrink-0" />
@@ -49,12 +49,12 @@ const CtaBanner = () => {
             >
               <span className="flex flex-col items-center leading-[1.5] md:hidden">
                 <span>Click to Quickly Send</span>
-                <span>A Thank You To</span>
-                <span>Senator Blakespear</span>
+                <span>A Letter To</span>
+                <span>Governor Newsom</span>
               </span>
               <ArrowRight size={16} className="absolute right-10 top-1/2 -translate-y-1/2 md:hidden" />
               <span className="hidden md:inline">
-                Click to Quickly Send a Thank You<br />to Senator Blakespear
+                Click to Quickly Send a Letter<br />to Governor Newsom
               </span>
               <ArrowRight size={16} className="hidden md:block" />
             </button>

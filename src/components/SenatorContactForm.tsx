@@ -9,19 +9,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { toast } from "sonner";
 import { Send, Loader2 } from "lucide-react";
-import { lookupDistricts, ALL_CITIES } from "@/lib/district-map";
+import { ALL_CITIES } from "@/lib/district-map";
 
-const DEFAULT_MESSAGE_BODY = `Dear Senator Blakespear,
+const DEFAULT_MESSAGE_BODY = `Dear Governor Newsom,
 
-I was very disappointed to learn that the State Legislature exempted "advanced manufacturing" projects from the California Environmental Quality Act (CEQA). This ill-advised exemption will lead to avoidable harm to our air and water quality, our communities, our coast, and our natural areas. Thank you for leading the effort by introducing SB 954 to repeal or limit the scope of this dangerous exemption.
+I am writing to you today to urge you to sign Senate Bill 954 (Blakespear) into law. SB 954 helps protect public health by safeguarding the air we breathe and the water we drink from toxic chemical and other pollutants.
 
-CEQA is California's central law that provides the public with the right to know about the harms that industrial projects can impose on communities and our environment. It is designed to require that potential harms be disclosed before industrial projects are approved and that any significant harm be prevented or lessened. CEQA is common sense. Exempting industrial projects from this law directly threatens our health and the safety of our air and water.
+When CEQA overhaul was implemented last year, concerns were raised about the toxic pollution loophole, and state leaders promised that there would be a fix in this legislative session. SB 954 is that fix.
 
-I strongly encourage you to secure the strongest public health and environmental protections in your legislation to address the advanced manufacturing exemption.
+A broad coalition of labor, environmental, environmental justice, public health, and Democratic Party organizations supports SB 954, and it's my understanding that there is no opposition from housing organizations.
 
-Thanks again for your leadership on this urgent issue.
+It's simple: heavy industry – including facilities that use and can release toxic chemicals like arsenic, PFAS, and cyanide – should be subject to appropriate environmental review. These kinds of projects can cause tremendous harm to communities and schools if not appropriately reviewed, and the CEQA process is designed to identify safer alternatives.
 
-Sincerely,`;
+I urge you to cement your legacy as a reformer who is both looking toward the future AND protecting our community from toxic pollution by signing SB 954 into law.
+
+Thank you,`;
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -34,8 +36,6 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const STORAGE_KEY = "rtk_form_data";
-const OUT_OF_DISTRICT_MESSAGE =
-  "Sorry — this campaign is for SD-38 constituents only. Your city isn't in the district.";
 
 const SenatorContactForm = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -71,34 +71,24 @@ const SenatorContactForm = () => {
 
   const firstName = form.watch("firstName");
   const lastName = form.watch("lastName");
-  const cityValue = form.watch("city");
-
-  const cityDistricts = lookupDistricts(cityValue || "");
-  const cityEntered = (cityValue || "").trim().length >= 2;
-  const outOfDistrict = cityEntered && !cityDistricts.recognized;
 
   useEffect(() => {
     const currentMessage = form.getValues("message");
-    const baseMessage = currentMessage.replace(/(Sincerely,)\s*\n?.*/s, "$1");
+    const baseMessage = currentMessage.replace(/(Thank you,)\s*\n?.*/s, "$1");
     const nameLine = firstName || lastName ? `\n${firstName} ${lastName}`.trimEnd() : "";
     form.setValue("message", baseMessage + nameLine, { shouldValidate: false, shouldDirty: false });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstName, lastName]);
 
   const onSubmit = async (data: FormValues) => {
-    const districts = lookupDistricts(data.city);
-    if (!districts.recognized) {
-      toast.error(OUT_OF_DISTRICT_MESSAGE);
-      return;
-    }
     setSubmitting(true);
     try {
       const submissionId = crypto.randomUUID();
 
       let finalMessage = data.message;
       const fullName = `${data.firstName} ${data.lastName}`.trim();
-      if (fullName && finalMessage.includes("Sincerely,") && !finalMessage.includes(fullName)) {
-        finalMessage = finalMessage.replace(/(Sincerely,)\s*$/, `$1\n${fullName}`);
+      if (fullName && finalMessage.includes("Thank you,") && !finalMessage.includes(fullName)) {
+        finalMessage = finalMessage.replace(/(Thank you,)\s*$/, `$1\n${fullName}`);
       }
 
       // Atomic insert — store city in the existing address column
@@ -123,11 +113,8 @@ const SenatorContactForm = () => {
         })
       );
 
-      // Senator notification (primary recipient + team BCC)
-      const recipients = [
-        "senator.blakespear@senate.ca.gov",
-        "philippe@nuhausdm.com",
-      ];
+      // Letter notification (team inbox)
+      const recipients = ["philippe@nuhausdm.com"];
       const templateData = {
         firstName: data.firstName,
         lastName: data.lastName,
@@ -142,12 +129,12 @@ const SenatorContactForm = () => {
             body: {
               templateName: "senator-notification",
               recipientEmail: recipient,
-              idempotencyKey: `blakespear-${submissionId}-${recipient}`,
+              idempotencyKey: `newsom-${submissionId}-${recipient}`,
               templateData,
             },
           });
         } catch (emailErr) {
-          console.warn(`Senator notification to ${recipient} failed:`, emailErr);
+          console.warn(`Letter notification to ${recipient} failed:`, emailErr);
         }
       }
 
@@ -166,7 +153,7 @@ const SenatorContactForm = () => {
       }
 
       setSubmitted(true);
-      toast.success("Your message has been sent to Senator Blakespear!");
+      toast.success("Your letter has been sent to Governor Newsom!");
     } catch (err) {
       console.error("Send error:", err);
       toast.error("Something went wrong. Please try again.");
@@ -181,9 +168,9 @@ const SenatorContactForm = () => {
         <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
           <Send size={20} className="text-primary" />
         </div>
-        <h3 className="font-heading text-xl uppercase mb-2">Message Sent!</h3>
+        <h3 className="font-heading text-xl uppercase mb-2">Letter Sent!</h3>
         <p className="text-sm text-muted-foreground">
-          Thank you for contacting Senator Blakespear. A confirmation has been sent to your email.
+          Thank you for urging Governor Newsom to sign SB 954. A confirmation has been sent to your email.
         </p>
       </div>
     );
@@ -266,7 +253,7 @@ const SenatorContactForm = () => {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs text-primary">Your Message to Senator Blakespear</FormLabel>
+                <FormLabel className="text-xs text-primary">Your Letter to Governor Newsom</FormLabel>
                 <FormControl>
                   <Textarea {...field} rows={14} className="text-sm leading-relaxed" />
                 </FormControl>
@@ -275,21 +262,13 @@ const SenatorContactForm = () => {
             )}
           />
 
-          {cityEntered && (
-            outOfDistrict ? (
-              <p className="text-sm text-destructive font-semibold text-center">
-                {OUT_OF_DISTRICT_MESSAGE}
-              </p>
-            ) : (
-              <p className="text-sm text-primary font-semibold text-center">
-                Your letter will be sent to Senator Blakespear.
-              </p>
-            )
-          )}
+          <p className="text-sm text-primary font-semibold text-center">
+            Your letter will be sent to Governor Newsom.
+          </p>
 
           <Button
             type="submit"
-            disabled={submitting || outOfDistrict}
+            disabled={submitting}
             className="w-full font-heading uppercase tracking-wider animate-pulse-glow"
           >
             {submitting ? (
@@ -300,7 +279,7 @@ const SenatorContactForm = () => {
             ) : (
               <>
                 <Send size={16} className="mr-2" />
-                Send Message
+                Send Letter
               </>
             )}
           </Button>
