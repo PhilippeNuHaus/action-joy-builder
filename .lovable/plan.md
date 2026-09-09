@@ -29,3 +29,9 @@ Goal: the allies logo strip sits exactly where it does on the SB 954 site (direc
 - `src/pages/Index.tsx`: replace `CampaignUpdate` above the strip with a `GovernorAppeal`-style section rendered after `AlliesStrip` / before the video, matching SB 954's divider order.
 - Rename/replace `src/components/CampaignUpdate.tsx` with `GovernorAppeal.tsx` including the mobile scroll-to-form button.
 - Text edits in `CeqaExplainer.tsx`, `ItsAlreadyHappening.tsx`, `CtaBanner.tsx` (copy only; keep local scroll logic and responsive button markup).
+
+5. **Footer matches SB 954.**
+   - Title becomes "Right to Know – SB 954."
+   - Blurb becomes "Urge Governor Newsom to protect our community from toxic pollution by signing SB 954 into law."
+   - Bottom line reads "Paid for by Planning and Conservation League (Right to Know Campaign). © 2026 Right to Know."
+   - SB 954's footer also has a "Take Action" quick link; this site no longer has that page, so that link is left out.
