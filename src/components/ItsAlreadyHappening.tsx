@@ -3,7 +3,7 @@ import { FileText, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ResourcePdfModal from "@/components/ResourcePdfModal";
 import type { Resource } from "@/pages/Resources";
-import sb954Letter from "@/assets/sb954-letter.pdf.asset.json";
+import sb954Letter from "@/assets/sb954-governor-letter.pdf.asset.json";
 
 const QUOTES = [
   {
