@@ -13,17 +13,15 @@ import { ALL_CITIES } from "@/lib/district-map";
 
 const DEFAULT_MESSAGE_BODY = `Dear Governor Newsom,
 
-I am writing to you today to urge you to sign Senate Bill 954 (Blakespear) into law. SB 954 helps protect public health by safeguarding the air we breathe and the water we drink from toxic chemical and other pollutants.
+Please sign Senate Bill 954 (Blakespear) to protect public health and the quality of our air and drinking water supplies from industrial pollution.
 
-When CEQA overhaul was implemented last year, concerns were raised about the toxic pollution loophole, and state leaders promised that there would be a fix in this legislative session. SB 954 is that fix.
+SB 954 adds common-sense protections to prevent unintended consequences from the advanced manufacturing CEQA exemption that you approved last year. SB 954 significantly reduces the risk the exemption will result in releases of toxic chemicals and other industrial pollutants that impair the health of Californians and the safety of our air and water.
 
-A broad coalition of labor, environmental, environmental justice, public health, and Democratic Party organizations supports SB 954, and it's my understanding that there is no opposition from housing organizations.
+SB 954 confirms that economic and environmental progress go together. It also reduces the likelihood of more sites being contaminated that will cost taxpayers millions of dollars to clean up.
 
-It's simple: heavy industry – including facilities that use and can release toxic chemicals like arsenic, PFAS, and cyanide – should be subject to appropriate environmental review. These kinds of projects can cause tremendous harm to communities and schools if not appropriately reviewed, and the CEQA process is designed to identify safer alternatives.
+To protect public health, air and water quality, and taxpayer dollars, I fully encourage you to sign SB 954.
 
-I urge you to cement your legacy as a reformer who is both looking toward the future AND protecting our community from toxic pollution by signing SB 954 into law.
-
-Thank you,`;
+Sincerely,`;
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
