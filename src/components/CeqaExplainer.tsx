@@ -1,21 +1,20 @@
 const CeqaExplainer = () => (
-  <section className="bg-card py-16">
+  <section className="bg-card pt-10 pb-16">
     <div className="container max-w-3xl">
       <div className="space-y-6 text-muted-foreground leading-relaxed text-left">
-        
         <p className="text-primary text-xl md:text-2xl font-heading font-semibold text-center">
           Polluting facilities can now be built near homes and schools —<br />
           with little warning and fewer safeguards.
         </p>
         <p>
-          The <strong className="text-primary">California Environmental Quality Act (CEQA)</strong> protects your{" "}
-          <strong className="text-foreground uppercase">Right to Know</strong>. It requires industries to disclose environmental and health risks and reduce potential harms before projects are approved.
+          Last year a majority of the CA Legislature voted to pass what's known as the "<strong className="text-primary">Toxics Pollution Loophole</strong>" to the <strong className="text-primary">California Environmental Quality Act (CEQA)</strong> taking away your{" "}
+          <strong className="text-foreground uppercase">Right to Know</strong> protections.
         </p>
         <p>
-          Until last year, when a dangerous loophole just took that protection away.
+          It is no longer required for industries to disclose environmental and health risks and reduce potential harms before projects are approved.
         </p>
         <p>
-          Last year, lawmakers quietly exempted "<strong className="text-primary">advanced manufacturing</strong>" from <strong className="text-primary">CEQA</strong>. It sounds clean—but it's not. The exemption covers 75+ types of heavy industry, including facilities that use and can release toxic chemicals like arsenic, PFAS, and cyanide.
+          This so-called "<strong className="text-primary">advanced manufacturing</strong>" exemption covers 75+ types of heavy industry, including facilities that use and can release toxic chemicals like arsenic, PFAS, and cyanide.
         </p>
         <p>
           Now, these projects can be approved without environmental review under <strong className="text-primary">CEQA</strong>, without transparency, without giving communities a real say, and without mitigation to protect the health of the public.
