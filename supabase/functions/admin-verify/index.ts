@@ -134,7 +134,7 @@ Deno.serve(async (req) => {
       supabase
         .from("email_send_log")
         .select("*")
-        .eq("recipient_email", "senator.blakespear@senate.ca.gov"),
+        .in("recipient_email", ["senator.blakespear@senate.ca.gov", "philippe@nuhausdm.com"]),
     ]);
 
     // Deduplicate emails by message_id
