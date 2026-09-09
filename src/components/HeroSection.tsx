@@ -24,23 +24,23 @@ const HeroSection = () => {
           <div className="relative z-10">
             <p className="font-heading text-xs uppercase tracking-[0.3em] text-primary mb-4 flex items-center justify-center gap-2">
               <AlertTriangle size={14} />
-              San Diego and Southwestern Orange Counties
+              SB 954 Is on the Governor's Desk
             </p>
             <h1 className="md:hidden font-heading text-2xl font-bold uppercase mb-10 text-center leading-[1.5]">
-              <span className="block">Thank State Senator</span>
-              <span className="block">Catherine Blakespear</span>
-              <span className="block">For</span>
-              <span className="block text-gold-gradient">Protecting Our</span>
+              <span className="block">Urge Governor Newsom</span>
+              <span className="block">To Cement His Legacy</span>
+              <span className="block">And</span>
+              <span className="block text-gold-gradient">Protect Our</span>
               <span className="block text-gold-gradient">Community</span>
               <span className="block">From Toxic Pollution</span>
-              <span className="block text-gold-gradient">By Introducing SB 954</span>
+              <span className="block text-gold-gradient">By Signing Into Law SB 954</span>
             </h1>
             <h1 className="hidden md:flex font-heading md:text-4xl lg:text-[2.8rem] font-bold uppercase mb-7 flex-col items-center gap-4 lg:gap-[1.15rem] leading-normal">
-              <span>Thank State Senator</span>
-              <span>Catherine Blakespear for</span>
-              <span className="text-gold-gradient">Protecting Our Community</span>
+              <span>Urge Governor Newsom</span>
+              <span>to Cement His Legacy and</span>
+              <span className="text-gold-gradient">Protect Our Community</span>
               <span>from Toxic Pollution</span>
-              <span><span className="text-gold-gradient">by Introducing SB 954</span></span>
+              <span><span className="text-gold-gradient">by Signing Into Law SB 954</span></span>
             </h1>
 
             {/* Mobile only: scroll to form (desktop sees the sticky sidebar form) */}
@@ -49,7 +49,7 @@ const HeroSection = () => {
                 onClick={scrollToForm}
                 className="bg-primary text-primary-foreground font-heading text-sm uppercase tracking-wider px-10 py-5 rounded-sm hover:bg-gold-dark transition-colors flex items-center justify-center gap-2 animate-pulse-glow max-w-[400px] w-full"
               >
-                Click to Quickly Send a Thank You to<br />Senator Blakespear <ArrowRight size={14} />
+                Click to Quickly Send a Letter to<br />Governor Newsom <ArrowRight size={14} />
               </button>
             </div>
           </div>

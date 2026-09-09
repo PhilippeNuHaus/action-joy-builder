@@ -7,7 +7,7 @@ import type { TemplateEntry } from './registry.ts'
 const SITE_NAME = "Right to Know"
 const SITE_URL = "https://righttoknow-blakespear.org"
 const SHARE_MESSAGE = `A dangerous loophole is allowing polluting industrial projects to bypass environmental review—and put our communities at risk. I just took action to support efforts to fix it. You can too: ${SITE_URL} #SaveCEQA`
-const FACEBOOK_QUOTE = "Protect our communities from toxic pollution. Thank Senator Blakespear for fighting to restore CEQA protections."
+const FACEBOOK_QUOTE = "Protect our communities from toxic pollution. Urge Governor Newsom to sign SB 954 into law."
 
 interface TakeActionConfirmationProps {
   firstName?: string
