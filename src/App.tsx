@@ -11,6 +11,7 @@ import InTheNews from "./pages/InTheNews.tsx";
 import Resources from "./pages/Resources.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import PasswordGate from "./components/PasswordGate.tsx";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +22,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<PasswordGate><Index /></PasswordGate>} />
           <Route path="/whats-near-you" element={<WhatsNearYou />} />
           <Route path="/in-the-news" element={<InTheNews />} />
           <Route path="/resources" element={<Resources />} />
