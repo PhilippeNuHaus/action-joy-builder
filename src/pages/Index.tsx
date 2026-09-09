@@ -4,6 +4,7 @@ import SiteFooter from "@/components/SiteFooter";
 import TypewriterGlow from "@/components/TypewriterGlow";
 import AlliesStrip from "@/components/AlliesStrip";
 import HeroSection from "@/components/HeroSection";
+import CampaignUpdate from "@/components/CampaignUpdate";
 import CeqaExplainer from "@/components/CeqaExplainer";
 import ItsAlreadyHappening from "@/components/ItsAlreadyHappening";
 import AdvancedManufacturing from "@/components/AdvancedManufacturing";
@@ -34,6 +35,7 @@ const Index = () => {
         <div className="lg:grid lg:grid-cols-[1fr_420px] 2xl:grid-cols-[2fr_1fr]">
           <div className="min-w-0">
             <HeroSection />
+            <CampaignUpdate />
             <div className="lg:hidden">
               <AlliesStrip />
             </div>
@@ -41,8 +43,9 @@ const Index = () => {
               <div className="caution-stripe h-3" />
               <div className="container py-7">
                 <h2 className="font-heading text-lg uppercase tracking-wider text-foreground mb-4 text-center">
-                  Send Your Message to <TypewriterGlow text="Senator Blakespear" />
+                  Send Your Message to <TypewriterGlow text="Governor Newsom" />
                 </h2>
+
                 <SenatorContactForm />
                 <div className="mt-5">
                   <OtherWaysToHelp />
@@ -66,8 +69,9 @@ const Index = () => {
             <div id="contact-form-desktop-anchor" className="absolute top-0" aria-hidden="true" />
             <div id="contact-form-desktop-scroll" className={`sticky top-20 p-6 pt-2 max-h-[calc(100vh-5rem)] overflow-y-auto ${pulseClass}`}>
               <h2 className="font-heading text-lg uppercase tracking-wider text-foreground mb-4 text-center">
-                Send Your Message to <TypewriterGlow text="Senator Blakespear" />
+                Send Your Message to <TypewriterGlow text="Governor Newsom" />
               </h2>
+
               <SenatorContactForm />
               <div className="mt-5">
                 <OtherWaysToHelp />
