@@ -1,44 +1,52 @@
-## Goal
-Add the new POLITICO California Climate article as the **featured** article on `/in-the-news`, demote the current Capitol Weekly piece to a regular card, and visually highlight the Blakespear/SB 954 section inside the article reader.
+# Switch the campaign from thanking Senator Blakespear to urging Governor Newsom to sign SB 954
 
-## Changes (frontend only — `src/pages/InTheNews.tsx`)
+Rewrite all site language using the approved copy doc, remove the "thank your senator / assembly member" framing, and open the form to everyone in California.
 
-### 1. Add the new article object at the top of the `articles` array
-- **title:** "The climate primaries cometh"
-- **source:** "POLITICO — California Climate"
-- **date:** "May 26, 2026"
-- **author:** "Alex Nieves, Camille von Kaenel and Noah Baustin"
-- **summary:** One-sentence framing that pulls out the Blakespear angle, e.g. *"As California's primary nears, Sen. Catherine Blakespear points to the weekend evacuation near an Orange County aerospace plant as a 'clear connection' to her SB 954 push to restore environmental guardrails on advanced manufacturing."*
-- **url:** the politico.com link provided
-- **featured: true**
-- **imageUrl:** new asset (see step 3)
-- **body:** Only the sections directly relevant to Right to Know / SB 954, not the full newsletter. Specifically:
-  - A short intro paragraph framing the newsletter context
-  - The full "THERE'S NOTHING LIKE AN EMERGENCY" section about Blakespear and SB 954 (this is the highlighted block)
-  - A brief closing note that the Senate is expected to vote on SB 954 this week
-  - We will **not** reproduce the campaign/oil-money/transit/CCS sections — they're off-topic and would dilute the page. A "Read full newsletter on POLITICO" link already exists at the bottom of the modal.
+## New homepage copy (from the doc)
 
-### 2. Remove `featured: true` from the Capitol Weekly article
-It becomes a regular card below the new featured POLITICO piece. The CalMatters article stays as the third card. Order in `articles` array: POLITICO (featured) → Capitol Weekly → CalMatters.
+Headline:
+URGE GOVERNOR NEWSOM TO CEMENT HIS LEGACY AND PROTECT OUR COMMUNITY FROM TOXIC POLLUTION BY SIGNING INTO LAW SB 954
 
-### 3. Featured image
-Use a generated editorial image evoking the POLITICO California Climate masthead style (Capitol dome silhouette + California coastline, navy/gold treatment consistent with site palette). Save to `src/assets/politico-california-climate.jpg` and import it. We can't screenshot Politico directly due to licensing; a branded thematic image is the safer choice.
+Body, in order:
+- Thank you to everyone who sent an email to your legislator earlier this year urging them to support legislation to close the toxic pollution loophole.
+- *Great News!!* With your support, the California Legislature just approved Senate Bill 954 that helps close the toxic pollution loophole the legislature and governor created last year as part of a broader California Environmental Quality Act (CEQA) overhaul.
+- The toxic pollution loophole currently exempts 75+ types of heavy industry - including facilities that use and can release toxic chemicals like arsenic, PFAS, and cyanide - from vitally needed environmental review.
+- State leaders promised us a fix that maintains the goals laid out in the initial legislation but doesn't sacrifice environmental review for the most dangerous industries in California. Senate Bill 954 is that fix. It closes the toxic pollution loophole to protect public health and our air and water quality.
+- SB 954 has passed the Assembly and Senate and undergone an extensive public review process. It has strong support from environmental, environmental justice, labor, and public health organizations. It deserves to become law.
+- **Governor Newsom can cement his legacy and protect our community from toxic pollution by signing SB 954 into law. He needs to hear from us!**
+- In just 30 seconds, you can send a letter to Governor Newsom today asking him to support SB 954.
 
-### 4. Highlight the Blakespear section in the reader modal
-Extend the `NewsArticle` interface so `body` can be either a string or a `{ type: 'highlight', heading?: string, paragraphs: string[] }` block. Render highlight blocks inside a styled callout:
-- Left border in `border-primary` (gold), `bg-primary/5` background
-- Small heading "SB 954 spotlight" in `font-heading uppercase tracking-widest text-primary text-xs`
-- Paragraphs inside use normal prose styling
-- Padding `p-5 md:p-6`, rounded, `my-6`
+## Letter in the form
 
-The POLITICO article's `body` will use this to wrap the "THERE'S NOTHING LIKE AN EMERGENCY" paragraphs so they visually pop. Other articles remain unaffected (plain strings keep working).
+Replaces the current thank-you letter word for word with the doc's letter, addressed "Dear Governor Newsom," and signed with the sender's name as it does today.
 
-### 5. Sidebar
-No changes needed — it iterates `articles` and automatically picks up the new entry and featured badge.
+## Buttons and labels
 
-## Out of scope
-- No schema, no routing, no business-logic changes.
-- No changes to the Capitol Weekly or CalMatters bodies.
+- Hero and bottom buttons: "Click to Quickly Send a Letter to Governor Newsom" (three-line version on iPhone, same styling and spacing as now).
+- Form heading: "Send Your Message to Governor Newsom".
+- Field label, confirmation line, success screen, and the sent-confirmation toast all change from Senator Blakespear to Governor Newsom.
+- Bottom section heading changes from "Thank Senator Blakespear for Introducing SB 954..." to urging the Governor to sign it.
 
-## Result
-Visitors landing on `/in-the-news` see the POLITICO piece as the new featured article. Opening it shows a focused excerpt with the SB 954 / Blakespear section visually highlighted as a gold-bordered callout, and a "Read on POLITICO — California Climate" link to the full newsletter.
+## Anyone in California can send
+
+- The district city list check is removed. The city field stays as a plain optional-looking text field with no blocked message and no disabled button.
+- Nothing else about how submissions are stored changes; city keeps saving as it does today.
+
+## Emails
+
+- Notification email: retitled from "Constituent Message" to a message for the Governor's office, drops the "verified constituent of Senate District 38" and "verified address" lines, and keeps name, city, email and the letter body.
+- Confirmation email to the sender: wording updated to reference the Governor and SB 954 signing; share captions updated to match.
+
+## Other pages
+
+- Page title and social preview text: "Right to Know - Tell Gov. Newsom to Sign SB 954".
+- "Other ways to help" panel: the direct-email and phone lines change to the Governor's office; share captions reworded around signing SB 954.
+- In the News and Resources pages are left as they are (articles are historical).
+
+## One thing to confirm
+
+The Governor's office does not publish a direct email inbox - public messages go through the official contact form at govapps.gov.ca.gov/gov40mail. So the plan sends each letter to your team inbox (philippe@nuhausdm.com) and stores it as today. If you have a staffer or office address to use, send it to me and I'll add it as the primary recipient. The Senator's office address is removed either way.
+
+## Technical notes
+
+Files touched: `HeroSection.tsx`, `CtaBanner.tsx`, `Index.tsx`, `SenatorContactForm.tsx`, `OtherWaysToHelp.tsx`, `src/lib/district-map.ts` (gate removed), `index.html`, and the two email templates under `supabase/functions/_shared/transactional-email-templates/`, followed by an edge function deploy. No database changes.
