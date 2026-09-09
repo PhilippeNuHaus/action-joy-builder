@@ -57,6 +57,21 @@ const Index = () => {
               <AlliesStrip />
             </div>
             <div className="hidden lg:block caution-stripe h-3" />
+            <section className="bg-card pt-[50px] md:pt-[58px] pb-3 md:pb-4">
+              <div className="container max-w-2xl">
+                <div className="relative w-full aspect-square bg-black overflow-hidden border border-border shadow-lg">
+                  <video
+                    src={sb954Video.url}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    className="w-full h-full object-cover"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </section>
             <CeqaExplainer />
             <div className="caution-stripe h-3" />
             <ItsAlreadyHappening />
