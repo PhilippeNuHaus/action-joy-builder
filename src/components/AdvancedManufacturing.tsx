@@ -34,7 +34,7 @@ const categories = [
 ];
 
 const AdvancedManufacturing = () => (
-  <section id="advanced-manufacturing" className="py-16 scroll-mt-20">
+  <section id="advanced-manufacturing" className="pt-14 pb-16 scroll-mt-20">
     <div className="container">
       
       <h2 className="font-heading text-3xl md:text-5xl uppercase text-center mb-3">
