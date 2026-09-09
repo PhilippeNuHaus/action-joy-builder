@@ -1,11 +1,11 @@
 # Match the SB 954 site from the logos down
 
-Goal: everything below the allies logo strip on this homepage should read and look exactly like the SB 954 site (preview version). The logo strip itself stays where it is.
+Goal: the allies logo strip sits exactly where it does on the SB 954 site (directly under the hero), and everything below it reads and looks the same as SB 954.
 
 ## What changes
 
-1. **Move the campaign update copy below the logos.**
-   Right now the "Thank you to everyone / Great News!!" block sits above the logos. On SB 954 it sits directly below the logos, styled as its own section, and it ends with a gold "Send Your Letter to Governor Newsom" button on phones/tablets. This page will match that: block moves down, gains the button, and keeps the section dividers in the same order.
+1. **Logo strip moves up, campaign copy moves down.**
+   Right now the "Thank you to everyone / Great News!!" block sits between the hero and the logos. On SB 954 the logos come straight after the hero, and that copy sits below them as its own section ending with a gold "Send Your Letter to Governor Newsom" button on phones/tablets. This page will match that order exactly, including the striped dividers.
 
 2. **Loophole explainer wording.**
    - "our air, our water, our health, our coast, and our lands" becomes "our air, our water, our health, our rivers, our bay, and our lands."
