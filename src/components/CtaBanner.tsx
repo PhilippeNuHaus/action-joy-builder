@@ -34,13 +34,18 @@ const CtaBanner = () => {
           <div className="space-y-3 mb-8 text-left max-w-md mx-auto">
             <div className="flex items-start gap-3">
               <CheckCircle size={18} className="text-primary mt-0.5 shrink-0" />
-              <span className="text-muted-foreground text-lg">Close the toxic pollution loophole and restore environmental review for heavy industry.</span>
+              <span className="text-muted-foreground text-lg">Restore environmental review for "advanced manufacturing" projects.</span>
             </div>
             <div className="flex items-start gap-3">
               <CheckCircle size={18} className="text-primary mt-0.5 shrink-0" />
               <span className="text-muted-foreground text-lg">Protect water, air, and public health in our communities.</span>
             </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle size={18} className="text-primary mt-0.5 shrink-0" />
+              <span className="text-muted-foreground text-lg">Close the toxic pollution loophole once and for all.</span>
+            </div>
           </div>
+
 
           <div className="flex justify-center">
             <button

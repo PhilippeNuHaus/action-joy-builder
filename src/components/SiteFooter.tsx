@@ -7,10 +7,10 @@ const SiteFooter = () => (
       <div className="grid md:grid-cols-3 gap-8">
         <div>
           <h3 className="font-heading text-lg uppercase tracking-wider text-foreground mb-3">
-            Right to <span className="text-primary">Know</span>
+            Right to <span className="text-primary">Know</span> <span className="text-primary">– SB 954</span>
           </h3>
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            Protecting your right to know about dangerous facilities in Orange and San Diego County.
+          <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
+            Urge Governor Newsom to protect our&nbsp;community&nbsp;{"\n"}from toxic pollution by signing SB 954 into law.
           </p>
         </div>
         <div>
@@ -30,7 +30,7 @@ const SiteFooter = () => (
         </div>
       </div>
       <div className="mt-8 pt-6 border-t border-border text-center text-xs text-muted-foreground">
-        <p>© {new Date().getFullYear()} Right to Know. Paid for by Planning and Conservation League (Right to Know Campaign).</p>
+        Paid for by Planning and Conservation League (Right to Know Campaign). © {new Date().getFullYear()} Right to Know.
       </div>
     </div>
   </footer>
