@@ -4,7 +4,7 @@ import SiteFooter from "@/components/SiteFooter";
 import TypewriterGlow from "@/components/TypewriterGlow";
 import AlliesStrip from "@/components/AlliesStrip";
 import HeroSection from "@/components/HeroSection";
-import CampaignUpdate from "@/components/CampaignUpdate";
+import GovernorAppeal from "@/components/GovernorAppeal";
 import CeqaExplainer from "@/components/CeqaExplainer";
 import ItsAlreadyHappening from "@/components/ItsAlreadyHappening";
 import AdvancedManufacturing from "@/components/AdvancedManufacturing";

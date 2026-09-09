@@ -93,7 +93,7 @@ const ItsHappeningNow = () => {
           A Coalition for the <span className="text-primary">Right to Know</span>
         </h2>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-6 text-sm md:text-base">
-          120+ California organizations urging Governor Newsom to sign SB 954 into law.
+          120+ California organizations urging the Legislature to pass SB 954.
         </p>
 
         <div className="caution-stripe h-4 mb-8" />
