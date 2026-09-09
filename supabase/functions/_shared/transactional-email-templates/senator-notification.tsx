@@ -25,20 +25,17 @@ const SenatorNotificationEmail = ({
 }: SenatorNotificationProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Constituent message regarding SB 954 and CEQA protections</Preview>
+    <Preview>Letter to Governor Newsom regarding SB 954</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={accentBar} />
 
         <Heading style={h1}>
-          Constituent Message
+          Letter to Governor Newsom
         </Heading>
 
         <Text style={infoText}>
-          My name is <strong>{firstName} {lastName}</strong> and I am a verified constituent of Senate District 38.
-        </Text>
-        <Text style={verifiedAddress}>
-          Verified constituent address: {address}
+          From <strong>{firstName} {lastName}</strong>{address ? `, ${address}, California` : ''}.
         </Text>
 
         <Hr style={divider} />
@@ -55,7 +52,7 @@ const SenatorNotificationEmail = ({
         </Text>
 
         <Text style={footerText}>
-          This message was sent via {SITE_NAME} (righttoknow-blakespear.org). The sender's address has been verified as being within Senate District 38.
+          This message was sent via {SITE_NAME} (righttoknow-blakespear.org).
         </Text>
       </Container>
     </Body>
@@ -65,18 +62,18 @@ const SenatorNotificationEmail = ({
 export const template = {
   component: SenatorNotificationEmail,
   subject: (data: Record<string, any>) =>
-    `Constituent Message: ${data.firstName || ''} ${data.lastName || ''} — SB 954 / CEQA`,
-  to: 'senator.blakespear@senate.ca.gov',
-  displayName: 'Senator notification',
+    `Letter to Gov. Newsom: ${data.firstName || ''} ${data.lastName || ''} — SB 954`,
+  displayName: 'Governor letter notification',
   previewData: {
     firstName: 'Jane',
     lastName: 'Smith',
     email: 'jane@example.com',
-    address: '123 Main St',
-    zip: '92024',
-    message: 'Dear Senator Blakespear,\n\nThank you for authoring SB 954...',
+    address: 'Encinitas',
+    zip: '',
+    message: 'Dear Governor Newsom,\n\nI am writing to urge you to sign SB 954...',
   },
 } satisfies TemplateEntry
+
 
 // Styles
 const goldColor = 'hsl(45, 100%, 50%)'
