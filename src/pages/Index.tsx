@@ -36,7 +36,7 @@ const Index = () => {
         <div className="lg:grid lg:grid-cols-[1fr_420px] 2xl:grid-cols-[2fr_1fr]">
           <div className="min-w-0">
             <HeroSection />
-            <CampaignUpdate />
+            
             <div className="lg:hidden">
               <AlliesStrip />
             </div>
@@ -58,6 +58,8 @@ const Index = () => {
               <AlliesStrip />
             </div>
             <div className="hidden lg:block caution-stripe h-3" />
+            <GovernorAppeal />
+            <div className="caution-stripe h-3" />
             <section className="bg-card pt-[50px] md:pt-[58px] pb-3 md:pb-4">
               <div className="container max-w-2xl">
                 <div className="relative w-full aspect-square bg-black overflow-hidden border border-border shadow-lg">
