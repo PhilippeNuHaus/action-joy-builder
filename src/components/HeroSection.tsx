@@ -1,5 +1,5 @@
 import { ArrowRight, AlertTriangle } from "lucide-react";
-import heroImg from "@/assets/hero-aerial-coast.png";
+import heroImg from "@/assets/hero-smokestacks.png";
 
 const HeroSection = () => {
   const scrollToForm = () => {
