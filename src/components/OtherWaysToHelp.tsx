@@ -30,19 +30,22 @@ const OtherWaysToHelp = () => {
       </h3>
       <div className="space-y-3">
         <a
-          href="mailto:senator.blakespear@senate.ca.gov"
+          href="https://www.gov.ca.gov/contact/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <Mail size={16} className="text-primary shrink-0" />
-          Email the Senator directly
+          Message the Governor's office directly
         </a>
         <a
-          href="tel:+19166516038"
+          href="tel:+19164452841"
           className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <Phone size={16} className="text-primary shrink-0" />
-          Call: (916) 651-6038
+          Call: (916) 445-2841
         </a>
+
         <div className="flex items-center gap-4 pt-1">
           <span className="text-sm text-muted-foreground">Share:</span>
           <button
@@ -53,7 +56,7 @@ const OtherWaysToHelp = () => {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </button>
           <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("Protect our communities from toxic pollution! Thank Senator Blakespear for fighting to restore CEQA protections. Take action:")}&url=${encodeURIComponent(SHARE_URL)}`}
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("Protect our communities from toxic pollution! Urge Governor Newsom to sign SB 954 into law. Take action:")}&url=${encodeURIComponent(SHARE_URL)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors"
