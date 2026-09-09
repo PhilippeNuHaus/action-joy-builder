@@ -10,6 +10,8 @@ import politicoImg from "@/assets/politico-california-climate.jpg";
 import ocRegisterLogo from "@/assets/oc-register-logo.png.asset.json";
 import ocRegisterGknAerial from "@/assets/ocregister-gkn-aerial.jpg.asset.json";
 import latimesGardenGrove from "@/assets/latimes-garden-grove.png.asset.json";
+import eastbaytimesImg from "@/assets/eastbaytimes-article.jpg.asset.json";
+import laSentinelImg from "@/assets/la-sentinel-op-ed-thumb.jpg";
 
 type ArticleBlock =
   | string
@@ -29,6 +31,50 @@ interface NewsArticle {
 }
 
 const articles: NewsArticle[] = [
+  {
+    title: "Close special interest loopholes to protect the Bay Area's air and water",
+    source: "East Bay Times",
+    date: "August 18, 2026",
+    author: "Shannon Olivieri and Jennifer Clary",
+    summary:
+      "Opinion piece from California Environmental Voters and Clean Water Action on the Radius Recycling fire in West Oakland, the CEQA advanced-manufacturing loophole, and why SB 954 is needed to restore environmental review for dangerous industrial projects.",
+    url: "https://www.eastbaytimes.com/2026/08/18/opinion-close-special-interest-loopholes-to-protect-the-bay-areas-air-and-water/",
+    imageUrl: eastbaytimesImg.url,
+    body: [
+      "More than 20,000 West Oakland residents were once again forced to wonder what was in the air they were breathing when Radius Recycling caught fire in March, and not for the first time. The facility has a documented history of fires and environmental violations, yet lawmakers have made it easier to fast-track dangerous facilities.",
+      "If that same plant were proposed in any California community located in an industrial zone today, it could be exempt from thorough review. The same goes for dozens of other potentially risky, heavy industrial projects: strip mining, fertilizer production, lithium battery cell manufacturing, carbon black production, peptide pharmaceutical manufacturing and many others. All because of a toxics pollution loophole that the Legislature jammed through in a budget 'trailer' bill last year.",
+      "That law established a multitude of dangerous projects that could be exempted from the California Environmental Quality Act (CEQA), the state's gold-standard environmental law that requires thorough analysis of project impacts and a transparent public process to assess those impacts. Dangerous projects could be built without transparency, without giving communities a real say, and without mitigation to protect the health of the public and critical natural resources, like San Francisco Bay.",
+      "Regrettably, the new law defines these exemptions so broadly that almost any industrial use qualifies.",
+      "To protect Californians' health, safety, and environment, that definition must be tightened.",
+      "Senate Bill 954 would create guardrails to ensure that high-risk projects will be submitted for stringent environmental review.",
+      "Among other requirements, SB 954 would limit CEQA exemptions for manufacturing projects to those that meet certain air pollution thresholds, are located in industrial zones that are set back from disadvantaged communities and are certified by the governor as advanced manufacturing leaders.",
+      "That would conform with common-sense views of 'advanced manufacturing' that most Californians expressed in a recent poll – robotics and high technology.",
+      "SB 954 would ensure that public agencies continue to disclose and work to reduce harms to public health and the environment when they review industrial projects that use and potentially release toxic chemicals, particularly those associated with cancer and birth-defects.",
+      "Our state has thousands of sites already polluted with toxic chemicals and other pollutants, and those projects affect air quality, safe drinking water and community health for millions of Californians. Prevention is the most cost-effective way to prevent these problems and CEQA is key to prevention. Indeed, CEQA's greatest value is in addressing projects that pose the most serious risks to public health.",
+      "Naturally, every major conservation organization in the state, doctors, scientists and labor groups in the East Bay and across California support closing this loophole.",
+      "California communities must not be threatened by the unintended consequences of a bill hastily jammed through the Legislature last year. Surely, lawmakers who voted for it didn't intend to create a fast track for public health hazards. Indeed, the Legislature recognized this problem a year ago and committed to fixing it.",
+      "Now is the time to follow through on that commitment and sign SB 954 into law.",
+    ],
+  },
+  {
+    title: "Close Loopholes for Polluters to Save LA's Air, Water",
+    source: "LA Sentinel",
+    date: "August 9, 2026",
+    author: "Dr. Joseph K. Lyou",
+    summary:
+      "Op-ed from Coalition for Clean Air President and CEO Dr. Joseph K. Lyou on the toxic pollution loophole, recent industrial incidents in Boyle Heights and Garden Grove, and the need for SB 954 to close the CEQA exemption for advanced manufacturing.",
+    url: "https://lasentinel.net/close-loopholes-for-polluters-to-save-las-air-water.html",
+    imageUrl: laSentinelImg,
+    body: [
+      "A smoldering warehouse and a near disastrous release of toxic chemicals has reminded Californians of the risks of living near industrial facilities. In June, a raging fire in a huge food storage warehouse with toxic refrigerants blanketed Boyle Heights and neighboring communities for days with thick, dangerous smoke. In late May, we barely averted a catastrophe at an aerospace manufacturer in Garden Grove that forced the evacuation of 50,000 people.",
+      "These timely reminders tell us we often need more environmental protection, not less. One key law now under attack has protected California communities for more than 40 years. It requires public agencies to initiate a thorough scientific review of the potential harms of proposed industrial facilities, identify measures to reduce those harms, and inform the public of their findings.",
+      "Until last year, that law was ironclad. Then legislation passed that created a loophole – let's call it the toxic pollution loophole – that puts all California communities at risk. The loophole was embedded in a bill that established exemptions to the California Environmental Quality Act (CEQA). 'Advanced manufacturing' projects got an exemption. While that designation may sound high tech and cutting edge, it most assuredly is not.",
+      "The definition of 'advanced manufacturing' is so broad that it covers more than 75 types of heavy industry, including facilities that use and may release many toxic chemicals including arsenic and cyanide.",
+      "This loophole is so large it allows such projects to escape careful environmental review and puts California communities at unacceptable risk. It must be closed, and right away.",
+      "SB 954 would tighten the definition of what qualifies as 'advanced manufacturing.' It doesn't eliminate the exemption. It just narrows it.",
+      "When industrial projects are proposed that present clear and obvious risks to our health and safety, Californians must demand that they be subjected to scientific review, measures to reduce risks, and public disclosure of potential harms. This traditional environmental review process allows agencies to identify potential problems and prevent or at least reduce damage to our communities.",
+    ],
+  },
   {
     title:
       "Nearly 2 million Californians live within 3 miles of a plant like GKN in Garden Grove",
