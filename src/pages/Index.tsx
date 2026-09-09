@@ -11,6 +11,7 @@ import AdvancedManufacturing from "@/components/AdvancedManufacturing";
 import CtaBanner from "@/components/CtaBanner";
 import SenatorContactForm from "@/components/SenatorContactForm";
 import OtherWaysToHelp from "@/components/OtherWaysToHelp";
+import sb954Video from "@/assets/sb954-60-second-v7.mp4.asset.json";
 
 const Index = () => {
   const [pulseForm, setPulseForm] = useState(false);
