@@ -10,6 +10,8 @@ import politicoImg from "@/assets/politico-california-climate.jpg";
 import ocRegisterLogo from "@/assets/oc-register-logo.png.asset.json";
 import ocRegisterGknAerial from "@/assets/ocregister-gkn-aerial.jpg.asset.json";
 import latimesGardenGrove from "@/assets/latimes-garden-grove.png.asset.json";
+import eastbaytimesImg from "@/assets/eastbaytimes-article.jpg.asset.json";
+import laSentinelImg from "@/assets/la-sentinel-op-ed-thumb.jpg";
 
 type ArticleBlock =
   | string
