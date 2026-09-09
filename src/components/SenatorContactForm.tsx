@@ -72,7 +72,7 @@ const SenatorContactForm = () => {
 
   useEffect(() => {
     const currentMessage = form.getValues("message");
-    const baseMessage = currentMessage.replace(/(Thank you,)\s*\n?.*/s, "$1");
+    const baseMessage = currentMessage.replace(/(Sincerely,)\s*\n?.*/s, "$1");
     const nameLine = firstName || lastName ? `\n${firstName} ${lastName}`.trimEnd() : "";
     form.setValue("message", baseMessage + nameLine, { shouldValidate: false, shouldDirty: false });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,8 +85,8 @@ const SenatorContactForm = () => {
 
       let finalMessage = data.message;
       const fullName = `${data.firstName} ${data.lastName}`.trim();
-      if (fullName && finalMessage.includes("Thank you,") && !finalMessage.includes(fullName)) {
-        finalMessage = finalMessage.replace(/(Thank you,)\s*$/, `$1\n${fullName}`);
+      if (fullName && finalMessage.includes("Sincerely,") && !finalMessage.includes(fullName)) {
+        finalMessage = finalMessage.replace(/(Sincerely,)\s*$/, `$1\n${fullName}`);
       }
 
       // Atomic insert — store city in the existing address column
