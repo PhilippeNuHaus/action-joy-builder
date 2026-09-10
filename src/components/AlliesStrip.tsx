@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import cleanWaterActionLogo from "@/assets/allies/clean-water-action.png";
+import californiaEnvironmentalVotersLogo from "@/assets/allies/california-environmental-voters.png.asset.json";
 import environmentCaliforniaLogo from "@/assets/allies/environment-california.png";
 import pclLogo from "@/assets/allies/pcl.png";
 import sierraClubLogo from "@/assets/allies/sierra-club.png";
@@ -14,6 +15,7 @@ const ALLIES: Ally[] = [
   { name: "Sierra Club", logo: sierraClubLogo, logoClassName: "h-[62px] md:h-[75px] w-auto object-contain" },
   { name: "Clean Water Action", logo: cleanWaterActionLogo },
   { name: "Environment California", logo: environmentCaliforniaLogo },
+  { name: "California Environmental Voters", logo: californiaEnvironmentalVotersLogo.url },
 ];
 
 const PULSE_INTERVAL = 1200;
